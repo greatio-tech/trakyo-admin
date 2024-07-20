@@ -132,6 +132,7 @@ class DashboardScreen extends StatelessWidget {
                           SizedBox(
                             width: 251.w,
                             child: const TextFiledWidget(
+                              hintText: 'Search',
                               prefixIcon: SvgIcon(
                                 icon: 'assets/svg/search.svg',
                               ),

@@ -55,47 +55,50 @@ class TextFiledWidget extends StatelessWidget {
         headingText == '' ? const SizedBox() : const VSpace(8),
         GestureDetector(
           onTap: onTap,
-          child: TextFormField(
-            onTapOutside: (event) {
-              FocusScope.of(context).unfocus();
-            },
-            textCapitalization: textCapitalization,
-            inputFormatters: inputFormatters,
-            validator: validator,
-            maxLength: maxLength,
-            autofocus: autofocus,
-            keyboardType: keyboardType,
-            enabled: isEnable,
-            controller: controller,
-            decoration: InputDecoration(
-              isDense: true,
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              filled: true,
-              fillColor: Colors.white,
-              hintText: hintText,
-              enabledBorder: outlineInputBorder(color: Colors.grey.shade300),
-              focusedBorder: outlineInputBorder(borderWidth: 2),
-              disabledBorder:
-                  outlineInputBorder(color: AppColors.lightGreyColor),
-              hintStyle: TextStyle(
+          child: SizedBox(
+            height: 45.h,
+            child: TextFormField(
+              onTapOutside: (event) {
+                FocusScope.of(context).unfocus();
+              },
+              textCapitalization: textCapitalization,
+              inputFormatters: inputFormatters,
+              validator: validator,
+              maxLength: maxLength,
+              autofocus: autofocus,
+              keyboardType: keyboardType,
+              enabled: isEnable,
+              controller: controller,
+              decoration: InputDecoration(
+                isDense: true,
+                // contentPadding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: hintText,
+                enabledBorder: outlineInputBorder(color: Colors.grey.shade300),
+                focusedBorder: outlineInputBorder(borderWidth: 2),
+                disabledBorder:
+                    outlineInputBorder(color: AppColors.lightGreyColor),
+                hintStyle: TextStyle(
+                  fontFamily: AppConstants.fontFamily,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.hintTextColor,
+                ),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: prefixIcon,
+                ),
+              ),
+              onChanged: onChanged,
+              buildCounter: buildCounter,
+              maxLines: maxLines,
+              style: TextStyle(
                 fontFamily: AppConstants.fontFamily,
                 fontSize: 12.sp,
-                fontWeight: FontWeight.normal,
-                color: AppColors.hintTextColor,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textBlackColor,
               ),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(16),
-                child: prefixIcon,
-              ),
-            ),
-            onChanged: onChanged,
-            buildCounter: buildCounter,
-            maxLines: maxLines,
-            style: TextStyle(
-              fontFamily: AppConstants.fontFamily,
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textBlackColor,
             ),
           ),
         ),
