@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/dashboard/controller/dashbord_controller.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -10,6 +12,7 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(DashbordController());
     return Scaffold(
       body: Row(
         children: [
@@ -148,7 +151,7 @@ class DashboardScreen extends StatelessWidget {
                             child: const SvgIcon(
                               icon: 'assets/svg/bell.svg',
                             ),
-                          )
+                          ),
                         ],
                       ),
                       const VSpace(40),
@@ -190,6 +193,350 @@ class DashboardScreen extends StatelessWidget {
                           )
                         ],
                       ),
+                      const VSpace(34),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextWidget(
+                            text: 'Sales Order',
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          Container(
+                            // padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                            ),
+                            child: SizedBox(
+                              height: 32.h,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.buttons.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Obx(
+                                    () => GestureDetector(
+                                      onTap: () {
+                                        controller.currentIndex.value = index;
+                                        print(index);
+                                      },
+                                      child: Container(
+                                        width: 84.w,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              controller.currentIndex.value ==
+                                                      index
+                                                  ? AppColors.primaryColor
+                                                  : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Center(
+                                          child: TextWidget(
+                                            text: controller.buttons[index],
+                                            textColor:
+                                                controller.currentIndex.value ==
+                                                        index
+                                                    ? AppColors.textWhiteColor
+                                                    : AppColors.textGreyColor,
+                                            fontSize: 12.sp,
+                                            fontWeight:
+                                                controller.currentIndex.value ==
+                                                        index
+                                                    ? FontWeight.w500
+                                                    : FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const VSpace(17),
+                      Container(
+                        height: Get.height * .32.h,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF5F5F5),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 24.h, horizontal: 20.w),
+                                child: Row(
+                                  children: [
+                                    TextWidget(
+                                      text: 'ID',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(138),
+                                    TextWidget(
+                                      text: 'Name',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(145),
+                                    TextWidget(
+                                      text: 'Ordered date',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(95),
+                                    TextWidget(
+                                      text: 'Address',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(220),
+                                    TextWidget(
+                                      text: 'Delivery date',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(98),
+                                    TextWidget(
+                                      text: 'Status',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return Container(
+                                    height: 2,
+                                    color: const Color(0xFFF5F5F5),
+                                  );
+                                },
+                                itemCount: 5,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 24.h, horizontal: 20.w),
+                                  child: Row(
+                                    children: [
+                                      TextWidget(
+                                        text: '#00001',
+                                        fontSize: 14.sp,
+                                      ),
+                                      const HSpace(102),
+                                      SizedBox(
+                                        width: 100.w,
+                                        child: TextWidget(
+                                          text: 'Shameesdjfldsdr',
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                      const HSpace(84),
+                                      TextWidget(
+                                        text: '13 Jul 2024',
+                                        fontSize: 14.sp,
+                                      ),
+                                      const HSpace(100),
+                                      SizedBox(
+                                        width: 200.w,
+                                        child: TextWidget(
+                                          text:
+                                              'Ground Floor, No.15, Begur..ksdajfjashdfj.',
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                      const HSpace(80),
+                                      TextWidget(
+                                        text: '13 Jul 2024',
+                                        fontSize: 14.sp,
+                                      ),
+                                      const HSpace(100),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 1.h, horizontal: 20.w),
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: TextWidget(
+                                          text: 'Delivered',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          textColor: AppColors.textWhiteColor,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const VSpace(32),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextWidget(
+                            text: 'Tickets Requested',
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          Container(
+                            // padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                            ),
+                            child: SizedBox(
+                              height: 32.h,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.ticketBtList.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Obx(
+                                    () => GestureDetector(
+                                      onTap: () {
+                                        controller.ticketCurrentIndex.value =
+                                            index;
+                                        print(index);
+                                      },
+                                      child: Container(
+                                        width: 84.w,
+                                        decoration: BoxDecoration(
+                                          color: controller.ticketCurrentIndex
+                                                      .value ==
+                                                  index
+                                              ? AppColors.primaryColor
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Center(
+                                          child: TextWidget(
+                                            text:
+                                                controller.ticketBtList[index],
+                                            textColor: controller
+                                                        .ticketCurrentIndex
+                                                        .value ==
+                                                    index
+                                                ? AppColors.textWhiteColor
+                                                : AppColors.textGreyColor,
+                                            fontSize: 12.sp,
+                                            fontWeight: controller
+                                                        .ticketCurrentIndex
+                                                        .value ==
+                                                    index
+                                                ? FontWeight.w500
+                                                : FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      VSpace(17),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: EdgeInsets.all(16),
+                        height: Get.height * .17.h,
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => VSpace(5),
+                          shrinkWrap: true,
+                          itemCount: 4,
+                          itemBuilder: (context, index) => Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: Row(
+                              children: [
+                                const CircleAvatar(
+                                  radius: 20,
+                                ),
+                                const HSpace(12),
+                                SizedBox(
+                                  width: Get.width * .03.w,
+                                  child: TextWidget(
+                                    text: 'Leo',
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const HSpace(20),
+                                Container(
+                                  height: 20,
+                                  width: 2,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(.2),
+                                  ),
+                                ),
+                                const HSpace(20),
+                                const SvgIcon(
+                                  icon: 'assets/svg/Chat Dots.svg',
+                                ),
+                                const HSpace(5),
+                                SizedBox(
+                                  width: Get.width * .43.w,
+                                  child: const TextWidget(
+                                    text:
+                                        'Lorem ipsum dolor sit amet, consectetur adipiscing ipsum dolor sit amet Lorem  ipsum dolor,',
+                                  ),
+                                ),
+                                const HSpace(20),
+                                Container(
+                                  height: 20,
+                                  width: 2,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(.2),
+                                  ),
+                                ),
+                                const HSpace(20),
+                                const TextWidget(text: '09:00 AM'),
+                                const HSpace(20),
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 1.h, horizontal: 20.w),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: TextWidget(
+                                    text: 'Closed',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    textColor: AppColors.textWhiteColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
