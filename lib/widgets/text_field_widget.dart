@@ -71,7 +71,7 @@ class TextFiledWidget extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 isDense: true,
-                // contentPadding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                contentPadding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
                 filled: true,
                 fillColor: Colors.white,
                 hintText: hintText,
@@ -85,10 +85,7 @@ class TextFiledWidget extends StatelessWidget {
                   fontWeight: FontWeight.normal,
                   color: AppColors.hintTextColor,
                 ),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: prefixIcon,
-                ),
+                prefixIcon: prefixIcon,
               ),
               onChanged: onChanged,
               buildCounter: buildCounter,
