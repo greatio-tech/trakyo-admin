@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/dashboard/controller/dashborad_controller.dart';
 import 'package:trakyo_admin/screens/dashboard/widgets/dashboard_bt.dart';
+import 'package:trakyo_admin/screens/over_view/over_view_screen.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 

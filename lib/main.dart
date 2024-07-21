@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
 
 void main() {
@@ -22,10 +23,18 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColors.primaryColor,
+            background: AppColors.backgroundColor,
+          ),
           useMaterial3: true,
         ),
-        home: const DashboardScreen(),
+        title: 'Trakyo admin',
+        initialRoute: '/dashboard',
+        routes: {
+          '/dashboard': (context) => const DashboardScreen(),
+        },
+        // home: const DashboardScreen(),
       ),
     );
   }
