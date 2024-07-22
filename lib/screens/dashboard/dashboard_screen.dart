@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/dashboard/controller/dashborad_controller.dart';
 import 'package:trakyo_admin/screens/dashboard/widgets/dashboard_bt.dart';
-import 'package:trakyo_admin/screens/over_view/over_view_screen.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
@@ -70,9 +69,13 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const VSpace(32),
                   DashboardBt(
-                    icon: 'assets/svg/User Tag.svg',
+                    icon: controller.currentIndex.value == 2
+                        ? 'assets/svg/request active.svg'
+                        : 'assets/svg/User Tag.svg',
                     text: 'Request',
-                    onTap: () {},
+                    onTap: () {
+                      controller.currentIndex(2);
+                    },
                     fontWeight: controller.currentIndex.value == 2
                         ? FontWeight.bold
                         : FontWeight.normal,

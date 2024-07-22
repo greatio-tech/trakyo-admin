@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -291,7 +292,7 @@ class QrScreen extends StatelessWidget {
                                   color: const Color(0xFFF5F5F5),
                                 );
                               },
-                              itemCount: 5,
+                              itemCount: 8,
                               shrinkWrap: true,
                               itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.symmetric(
@@ -385,66 +386,6 @@ class QrScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({
-    super.key,
-    this.icon,
-    required this.text,
-    required this.color,
-    required this.textColor,
-    required this.onTap,
-    this.verticalPadding,
-    this.horizontalPadding,
-    this.height,
-    this.width,
-  });
-
-  final String? icon;
-  final String text;
-  final Color color;
-  final Color textColor;
-  final Function() onTap;
-  final double? verticalPadding;
-  final double? horizontalPadding;
-  final double? height;
-  final double? width;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: height,
-          width: width,
-          padding: EdgeInsets.symmetric(
-            vertical: verticalPadding ?? 10,
-            horizontal: horizontalPadding ?? 16,
-          ),
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              icon != null ? SvgIcon(icon: icon!) : const SizedBox(),
-              icon != null ? const HSpace(5) : const SizedBox(),
-              TextWidget(
-                text: text,
-                fontSize: 14.sp,
-                textColor: textColor,
-                fontWeight: FontWeight.w500,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
