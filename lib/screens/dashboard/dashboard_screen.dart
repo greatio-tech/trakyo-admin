@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
-import 'package:trakyo_admin/screens/dashboard/controller/dashborad_controller.dart';
+import 'package:trakyo_admin/screens/dashboard/controller/dashboard_controller.dart';
+
 import 'package:trakyo_admin/screens/dashboard/widgets/dashboard_bt.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -12,7 +13,7 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DashboradController());
+    final controller = Get.put(DashboardController());
     return Scaffold(
       body: Obx(
         () => Row(
@@ -36,76 +37,46 @@ class DashboardScreen extends StatelessWidget {
                     fontSize: 14.sp,
                   ),
                   const VSpace(16),
-                  DashboardBt(
-                    icon: controller.currentIndex.value == 0
-                        ? 'assets/svg/chart active.svg'
-                        : 'assets/svg/Chart.svg',
+                  const DashboardButton(
+                    index: 0,
+                    iconActive: 'assets/svg/chart active.svg',
+                    iconInactive: 'assets/svg/Chart.svg',
                     text: 'Over View',
-                    fontWeight: controller.currentIndex.value == 0
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                    textColor: controller.currentIndex.value == 0
-                        ? AppColors.primaryColor
-                        : AppColors.textBlackColor,
-                    onTap: () {
-                      controller.currentIndex(0);
-                    },
                   ),
                   const VSpace(32),
-                  DashboardBt(
-                    icon: controller.currentIndex.value == 1
-                        ? 'assets/svg/QR Code active.svg'
-                        : 'assets/svg/QR Code.svg',
-                    text: 'QR',
-                    fontWeight: controller.currentIndex.value == 1
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                    textColor: controller.currentIndex.value == 1
-                        ? AppColors.primaryColor
-                        : AppColors.textBlackColor,
-                    onTap: () {
-                      controller.currentIndex(1);
-                    },
+                  const DashboardButton(
+                    index: 1,
+                    iconActive: 'assets/svg/Delivery active.svg',
+                    iconInactive: 'assets/svg/Delivery.svg',
+                    text: 'Order',
                   ),
                   const VSpace(32),
-                  DashboardBt(
-                    icon: controller.currentIndex.value == 2
-                        ? 'assets/svg/request active.svg'
-                        : 'assets/svg/User Tag.svg',
+                  const DashboardButton(
+                    index: 2,
+                    iconActive: 'assets/svg/request active.svg',
+                    iconInactive: 'assets/svg/User Tag.svg',
                     text: 'Request',
-                    onTap: () {
-                      controller.currentIndex(2);
-                    },
-                    fontWeight: controller.currentIndex.value == 2
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                    textColor: controller.currentIndex.value == 2
-                        ? AppColors.primaryColor
-                        : AppColors.textBlackColor,
                   ),
                   const VSpace(32),
-                  DashboardBt(
-                    icon: 'assets/svg/Bag Check.svg',
+                  const DashboardButton(
+                    index: 3,
+                    iconActive: 'assets/svg/sales active.svg',
+                    iconInactive: 'assets/svg/Bag Check.svg',
                     text: 'Sales',
-                    fontWeight: controller.currentIndex.value == 3
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                    textColor: controller.currentIndex.value == 3
-                        ? AppColors.primaryColor
-                        : AppColors.textBlackColor,
-                    onTap: () {},
                   ),
                   const VSpace(32),
-                  DashboardBt(
-                    icon: 'assets/svg/User.svg',
+                  const DashboardButton(
+                    index: 4,
+                    iconActive: 'assets/svg/QR Code active.svg',
+                    iconInactive: 'assets/svg/QR Code.svg',
+                    text: 'QR',
+                  ),
+                  const VSpace(32),
+                  const DashboardButton(
+                    index: 5,
+                    iconActive: 'assets/svg/User active.svg',
+                    iconInactive: 'assets/svg/User.svg',
                     text: 'User',
-                    fontWeight: controller.currentIndex.value == 4
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                    textColor: controller.currentIndex.value == 4
-                        ? AppColors.primaryColor
-                        : AppColors.textBlackColor,
-                    onTap: () {},
                   ),
                   const VSpace(32),
                   TextWidget(

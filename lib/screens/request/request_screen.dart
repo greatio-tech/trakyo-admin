@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
-import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -100,13 +97,13 @@ class RequestScreen extends StatelessWidget {
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(142),
+                                  const HSpace(145),
                                   TextWidget(
                                     text: 'Description',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(370),
+                                  const HSpace(390),
                                   TextWidget(
                                     text: 'Date raised',
                                     fontSize: 14.sp,
@@ -119,7 +116,7 @@ class RequestScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                   ),
                                   SizedBox(
-                                    width: 40.w,
+                                    width: 30.w,
                                   )
                                 ],
                               ),

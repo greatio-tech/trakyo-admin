@@ -9,8 +9,8 @@ import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class QrScreen extends StatelessWidget {
-  const QrScreen({super.key});
+class SalesScreen extends StatelessWidget {
+  const SalesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class QrScreen extends StatelessWidget {
                           textColor: AppColors.textGreyColor,
                         ),
                         TextWidget(
-                          text: 'QR',
+                          text: 'Sales',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                         ),
@@ -66,17 +66,73 @@ class QrScreen extends StatelessWidget {
                     ),
                     const VSpace(40),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        // Container(
-                        //   width: 200.w,
-                        //   height: 40.h,
-                        //   decoration: BoxDecoration(
-                        //     color: Colors.white,
-                        //     borderRadius: BorderRadius.circular(10),
-                        //   ),
-                        // ),
-                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          width: 215.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextWidget(
+                                text: 'Total Revenu',
+                                fontSize: 14.sp,
+                                textColor: AppColors.textGreyColor,
+                              ),
+                              const VSpace(10),
+                              TextWidget(
+                                text: '₹40,689',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const HSpace(32),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          width: 215.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextWidget(
+                                text: 'Total QR sold',
+                                fontSize: 14.sp,
+                                textColor: AppColors.textGreyColor,
+                              ),
+                              const VSpace(10),
+                              CustomRichText(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                                textSpans: [
+                                  const TextSpan(
+                                    text: '200',
+                                  ),
+                                  TextSpan(
+                                    text: ' Pcs',
+                                    style: TextStyle(
+                                      fontFamily: AppConstants.fontFamily,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
                         ButtonWidget(
                           icon: 'assets/svg/Export.svg',
                           text: 'Export data',
@@ -85,138 +141,6 @@ class QrScreen extends StatelessWidget {
                           onTap: () {},
                         ),
                         const HSpace(16),
-                        ButtonWidget(
-                          icon: 'assets/svg/add-rectangle.svg',
-                          text: 'Add new QR',
-                          color: AppColors.primaryColor,
-                          textColor: AppColors.textWhiteColor,
-                          onTap: () {
-                            SideSheet.right(
-                              width: 400.w,
-                              body: Container(
-                                padding: const EdgeInsets.all(32),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        MouseRegion(
-                                          cursor: SystemMouseCursors.click,
-                                          child: GestureDetector(
-                                            onTap: () => Get.back(),
-                                            child: const SvgIcon(
-                                              icon: 'assets/svg/Arrow Left.svg',
-                                            ),
-                                          ),
-                                        ),
-                                        const HSpace(10),
-                                        TextWidget(
-                                          text: 'Add new QR',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500,
-                                        )
-                                      ],
-                                    ),
-                                    const VSpace(24),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              TextWidget(
-                                                text: 'User',
-                                                fontSize: 12.sp,
-                                              ),
-                                              const VSpace(8),
-                                              const TextFiledWidget(),
-                                            ],
-                                          ),
-                                        ),
-                                        const HSpace(10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              TextWidget(
-                                                text: 'Select quantity',
-                                                fontSize: 12.sp,
-                                              ),
-                                              const VSpace(8),
-                                              Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 3.h,
-                                                    horizontal: 5.w),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          Colors.grey.shade300),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    const SvgIcon(
-                                                      icon:
-                                                          'assets/svg/Minus Square.svg',
-                                                    ),
-                                                    TextWidget(
-                                                      text: '01',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 14.sp,
-                                                    ),
-                                                    const SvgIcon(
-                                                      icon:
-                                                          'assets/svg/plus square.svg',
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    const VSpace(40),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        ButtonWidget(
-                                          verticalPadding: 5.h,
-                                          width: 120.w,
-                                          text: 'Cancel',
-                                          color: AppColors.errorColor
-                                              .withOpacity(.2),
-                                          textColor: AppColors.errorColor,
-                                          onTap: () {},
-                                        ),
-                                        const HSpace(16),
-                                        ButtonWidget(
-                                          verticalPadding: 5.h,
-                                          width: 120.w,
-                                          text: 'Add',
-                                          color: AppColors.primaryColor,
-                                          textColor: AppColors.textWhiteColor,
-                                          onTap: () {},
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                              context: context,
-                            );
-                          },
-                        ),
                       ],
                     ),
                     const VSpace(16),
@@ -246,31 +170,37 @@ class QrScreen extends StatelessWidget {
                                   ),
                                   const HSpace(5),
                                   TextWidget(
-                                    text: 'QR ID',
+                                    text: 'Order ID',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(138),
+                                  const HSpace(80),
                                   TextWidget(
                                     text: 'User',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(145),
+                                  const HSpace(100),
                                   TextWidget(
-                                    text: 'Vehicle',
+                                    text: 'Quantity',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(95),
+                                  const HSpace(55),
                                   TextWidget(
-                                    text: 'Owner Number',
+                                    text: 'Delivered Date',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                   const HSpace(90),
                                   TextWidget(
-                                    text: 'Emergency Number',
+                                    text: 'Delivered Address',
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  const HSpace(110),
+                                  TextWidget(
+                                    text: 'Payment mode',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -668,29 +598,39 @@ class QrScreen extends StatelessWidget {
                                         text: '#00001',
                                         fontSize: 14.sp,
                                       ),
-                                      const HSpace(102),
+                                      const HSpace(80),
                                       SizedBox(
                                         width: 100.w,
                                         child: TextWidget(
-                                          text: 'Shameesdjfldsdr',
+                                          text: 'Jon Doe jone Doe',
                                           fontSize: 14.sp,
                                         ),
                                       ),
-                                      const HSpace(84),
+                                      const HSpace(40),
                                       TextWidget(
-                                        text: 'KL 01 A 3232',
+                                        text: '01 pcs',
                                         fontSize: 14.sp,
                                       ),
                                       const HSpace(70),
                                       TextWidget(
-                                        text: '+91-89089 08901',
+                                        text: '22 Jul 2024',
                                         fontSize: 14.sp,
                                       ),
                                       const HSpace(80),
+                                      SizedBox(
+                                        width: 200.w,
+                                        child: TextWidget(
+                                          text:
+                                              'Lorem ipsum dolor sit ame lajsdfjsfddjasdilkjs',
+                                          fontSize: 14.sp,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      const HSpace(60),
+
                                       TextWidget(
-                                        text: '+91-89089 08901',
+                                        text: 'Net banking',
                                         fontSize: 14.sp,
-                                        maxLines: 2,
                                       ),
                                       const Spacer(),
                                       // const HSpace(100),

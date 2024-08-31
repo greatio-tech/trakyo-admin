@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 

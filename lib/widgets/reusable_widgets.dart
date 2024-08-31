@@ -92,9 +92,12 @@ class CustomRichText extends StatelessWidget {
   final List<TextSpan> textSpans;
   final TextAlign textAlign;
   final TextDirection textDirection;
+  final double? fontSize;
   // final double textScaleFactor;
   final int maxLines;
   final TextOverflow overflow;
+  final FontWeight? fontWeight;
+  final Color? fontColor;
 
   const CustomRichText({
     super.key,
@@ -103,6 +106,9 @@ class CustomRichText extends StatelessWidget {
     this.textDirection = TextDirection.ltr,
     this.maxLines = 1,
     this.overflow = TextOverflow.clip,
+    this.fontSize = 14,
+    this.fontWeight = FontWeight.normal,
+    this.fontColor = AppColors.textBlackColor,
   });
 
   @override
@@ -110,7 +116,11 @@ class CustomRichText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         children: textSpans,
-        style: customTextStyle(),
+        style: customTextStyle(
+          fontSize: fontSize!,
+          fontWeight: fontWeight!,
+          textColor: fontColor,
+        ),
       ),
       textAlign: textAlign,
       textDirection: textDirection,

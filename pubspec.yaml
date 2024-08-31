@@ -44,6 +44,7 @@ dependencies:
   cached_network_image: ^3.3.1
   shared_preferences: ^2.2.3
   side_sheet: ^1.0.4
+  url_strategy: ^0.2.0
 
 dev_dependencies:
   flutter_test:

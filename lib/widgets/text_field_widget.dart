@@ -71,7 +71,7 @@ class TextFiledWidget extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 isDense: true,
-                contentPadding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                contentPadding: const EdgeInsets.fromLTRB(15, 15, 10, 15),
                 filled: true,
                 fillColor: Colors.white,
                 hintText: hintText,

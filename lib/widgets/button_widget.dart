@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -15,6 +16,7 @@ class ButtonWidget extends StatelessWidget {
     this.horizontalPadding,
     this.height,
     this.width,
+    this.border = false,
   });
 
   final String? icon;
@@ -26,6 +28,7 @@ class ButtonWidget extends StatelessWidget {
   final double? horizontalPadding;
   final double? height;
   final double? width;
+  final bool? border;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,10 @@ class ButtonWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(
+              color: textColor,
+              style: border == true ? BorderStyle.solid : BorderStyle.none,
+            ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
