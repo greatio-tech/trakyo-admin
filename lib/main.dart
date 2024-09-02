@@ -34,9 +34,12 @@ class MyApp extends StatelessWidget {
         ),
         title: 'Trakyo admin',
         initialRoute: '/dashboard',
-        routes: {
-          '/dashboard': (context) => const DashboardScreen(),
-        },
+        // routes: {
+        //   '/dashboard': (context) => const DashboardScreen(),
+        // },
+        getPages: [
+          GetPage(name: '/dashboard', page: () => const DashboardScreen()),
+        ],
         // home: const DashboardScreen(),
       ),
     );
