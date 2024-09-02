@@ -5,7 +5,7 @@ import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
 import 'package:url_strategy/url_strategy.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   runApp(const MyApp());
@@ -33,12 +33,12 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         title: 'Trakyo admin',
-        initialRoute: '/dashboard',
+        // initialRoute: '/',
         // routes: {
         //   '/dashboard': (context) => const DashboardScreen(),
         // },
         getPages: [
-          GetPage(name: '/dashboard', page: () => const DashboardScreen()),
+          GetPage(name: '/', page: () => const DashboardScreen()),
         ],
         // home: const DashboardScreen(),
       ),
