@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -17,7 +16,7 @@ class QrDesign extends StatelessWidget {
           child: Material(
             borderRadius: BorderRadius.circular(20),
             elevation: 10,
-            child: Container(
+            child: SizedBox(
               width: 450,
               height: 780,
               child: Column(
@@ -121,7 +120,7 @@ class QrDesign extends StatelessWidget {
                                   fontSize: 14,
                                   color: AppColors.textWhiteColor,
                                 )),
-                            const TextSpan(
+                            TextSpan(
                               text: 'Trakyo scan',
                               style: TextStyle(
                                 fontFamily: AppConstants.fontFamily,

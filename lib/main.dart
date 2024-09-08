@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
 import 'package:trakyo_admin/screens/login/login_screen.dart';
-import 'package:trakyo_admin/screens/qr_design.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {

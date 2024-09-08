@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/sales/widgets/sales_details_widget.dart';
@@ -230,7 +228,7 @@ class SalesScreen extends StatelessWidget {
                                 onTap: () {
                                   SideSheet.right(
                                     width: 400.w,
-                                    body: SalesDetailsWidget(),
+                                    body: const SalesDetailsWidget(),
                                     context: context,
                                   );
                                 },

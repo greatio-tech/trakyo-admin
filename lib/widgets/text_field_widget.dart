@@ -22,6 +22,9 @@ class TextFiledWidget extends StatelessWidget {
     this.validator,
     this.inputFormatters,
     this.onChanged,
+    this.readOnly = false,
+    this.height = 56,
+    this.disableHeight = false,
     this.textCapitalization = TextCapitalization.none,
   });
 
@@ -32,6 +35,7 @@ class TextFiledWidget extends StatelessWidget {
   final Widget? prefixIcon;
   final int? maxLines;
   final TextInputType? keyboardType;
+  final bool readOnly;
   final Function()? onTap;
   final Function(String)? onChanged;
   final bool autofocus;
@@ -40,6 +44,8 @@ class TextFiledWidget extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextCapitalization textCapitalization;
   final String? Function(String?)? validator;
+  final double height;
+  final bool disableHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +62,7 @@ class TextFiledWidget extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: SizedBox(
+            height: disableHeight ? null : height,
             child: TextFormField(
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
@@ -66,12 +73,13 @@ class TextFiledWidget extends StatelessWidget {
               maxLength: maxLength,
               autofocus: autofocus,
               keyboardType: keyboardType,
+              readOnly: readOnly,
               enabled: isEnable,
               controller: controller,
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 filled: true,
                 fillColor: Colors.white,
                 hintText: hintText,

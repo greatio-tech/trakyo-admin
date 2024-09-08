@@ -12,6 +12,7 @@ class TextWidget extends StatelessWidget {
     this.maxLines,
     this.textAlign,
     this.textHeight,
+    this.textStyle,
   });
 
   final String text;
@@ -22,6 +23,7 @@ class TextWidget extends StatelessWidget {
   final int? maxLines;
   final TextAlign? textAlign;
   final double? textHeight;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,14 @@ class TextWidget extends StatelessWidget {
       maxLines: maxLines,
       textAlign: textAlign,
       overflow: overflow,
-      style: TextStyle(
-        color: textColor ?? AppColors.textBlackColor,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        fontFamily: AppConstants.fontFamily,
-        height: textHeight,
-      ),
+      style: textStyle ??
+          TextStyle(
+            color: textColor ?? AppColors.textBlackColor,
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            fontFamily: AppConstants.fontFamily,
+            height: textHeight,
+          ),
     );
   }
 }
