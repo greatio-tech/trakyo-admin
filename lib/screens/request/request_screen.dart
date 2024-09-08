@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/request/widgets/request_slider_sheet.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -130,74 +132,84 @@ class RequestScreen extends StatelessWidget {
                               },
                               itemCount: 8,
                               shrinkWrap: true,
-                              itemBuilder: (context, index) => Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 24.h, horizontal: 20.w),
-                                child: Row(
-                                  children: [
-                                    Checkbox(
-                                      activeColor: AppColors.primaryColor,
-                                      value: true,
-                                      onChanged: (value) {},
-                                    ),
-                                    const HSpace(32),
-                                    TextWidget(
-                                      text: 'User $index',
-                                      fontSize: 14.sp,
-                                    ),
-                                    const HSpace(90),
-                                    SizedBox(
-                                      width: 100.w,
-                                      child: TextWidget(
-                                        text: 'QR $index',
+                              itemBuilder: (context, index) => GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                  onTap: (){
+                                    SideSheet.right(
+                                      width: 400.w,
+                                      context: context,
+                                      body: const RequestSliderSheet()
+                                    );
+                                  },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 24.h, horizontal: 20.w),
+                                  child: Row(
+                                    children: [
+                                      Checkbox(
+                                        activeColor: AppColors.primaryColor,
+                                        value: true,
+                                        onChanged: (value) {},
+                                      ),
+                                      const HSpace(32),
+                                      TextWidget(
+                                        text: 'User $index',
                                         fontSize: 14.sp,
                                       ),
-                                    ),
-
-                                    const HSpace(80),
-                                    Expanded(
-                                      flex: 4,
-                                      child: TextWidget(
-                                        text:
-                                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                                      const HSpace(90),
+                                      SizedBox(
+                                        width: 100.w,
+                                        child: TextWidget(
+                                          text: 'QR $index',
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                  
+                                      const HSpace(80),
+                                      Expanded(
+                                        flex: 4,
+                                        child: TextWidget(
+                                          text:
+                                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                      const HSpace(150),
+                                      TextWidget(
+                                        text: '+91-89089 08901',
                                         fontSize: 14.sp,
+                                        maxLines: 2,
                                       ),
-                                    ),
-                                    const HSpace(150),
-                                    TextWidget(
-                                      text: '+91-89089 08901',
-                                      fontSize: 14.sp,
-                                      maxLines: 2,
-                                    ),
-                                    const Spacer(),
-                                    // const HSpace(100),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 1.h,
-                                        horizontal: 15.w,
+                                      const Spacer(),
+                                      // const HSpace(100),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 1.h,
+                                          horizontal: 15.w,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        child: TextWidget(
+                                          text: 'Delivered',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          textColor: AppColors.textWhiteColor,
+                                        ),
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: TextWidget(
-                                        text: 'Delivered',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        textColor: AppColors.textWhiteColor,
-                                      ),
-                                    ),
-                                    // const HSpace(10),
-                                    // MouseRegion(
-                                    //   cursor: SystemMouseCursors.click,
-                                    //   child: GestureDetector(
-                                    //     onTap: () {},
-                                    //     child: const SvgIcon(
-                                    //       icon: 'assets/svg/print.svg',
-                                    //     ),
-                                    //   ),
-                                    // )
-                                  ],
+                                      // const HSpace(10),
+                                      // MouseRegion(
+                                      //   cursor: SystemMouseCursors.click,
+                                      //   child: GestureDetector(
+                                      //     onTap: () {},
+                                      //     child: const SvgIcon(
+                                      //       icon: 'assets/svg/print.svg',
+                                      //     ),
+                                      //   ),
+                                      // )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
