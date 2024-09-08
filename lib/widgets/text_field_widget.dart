@@ -56,7 +56,6 @@ class TextFiledWidget extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: SizedBox(
-            height: 45.h,
             child: TextFormField(
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
@@ -71,7 +70,8 @@ class TextFiledWidget extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 isDense: true,
-                contentPadding: const EdgeInsets.fromLTRB(15, 15, 10, 15),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 filled: true,
                 fillColor: Colors.white,
                 hintText: hintText,
