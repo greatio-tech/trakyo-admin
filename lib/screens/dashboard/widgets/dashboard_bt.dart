@@ -49,12 +49,12 @@ class DashboardButton extends StatelessWidget {
   final String text;
 
   const DashboardButton({
-    Key? key,
+    super.key,
     required this.index,
     required this.iconActive,
     required this.iconInactive,
     required this.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
