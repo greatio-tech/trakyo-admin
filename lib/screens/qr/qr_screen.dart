@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/qr/widgets/qr_details_widget.dart';
+import 'package:trakyo_admin/screens/qr_design.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/status_chip_widget.dart';
@@ -353,7 +354,17 @@ class QrScreen extends StatelessWidget {
                                       MouseRegion(
                                         cursor: SystemMouseCursors.click,
                                         child: GestureDetector(
-                                          onTap: () {},
+                                          onTap: () async {
+                                            await PdfCreator.createPdf();
+                                            ScaffoldMessenger.of(Get.context!)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                  "PDF Generated and Downloaded!",
+                                                ),
+                                              ),
+                                            );
+                                          },
                                           child: const SvgIcon(
                                             icon: 'assets/svg/print.svg',
                                           ),

@@ -1,145 +1,181 @@
-import 'package:flutter/material.dart';
-import 'package:trakyo_admin/core/constant.dart';
-import 'package:trakyo_admin/widgets/reusable_widgets.dart';
-import 'package:trakyo_admin/widgets/text_widget.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart';
+import 'package:universal_html/html.dart' as html;
 
-class QrDesign extends StatelessWidget {
-  const QrDesign({super.key, required this.qrUrl});
-  final String qrUrl;
+Future<Uint8List> fetchNetworkImage(String imageUrl) async {
+  try {
+    var response = await Dio().get(
+      imageUrl,
+      options: Options(responseType: ResponseType.bytes),
+    );
+    return Uint8List.fromList(response.data);
+  } catch (e) {
+    throw Exception('Failed to load image: $e');
+  }
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+Future<Uint8List> loadAsset(String path) async {
+  final ByteData data = await rootBundle.load(path);
+  return data.buffer.asUint8List();
+}
+
+Future<Page> pdfPage() async {
+  final Uint8List imageData = await fetchNetworkImage(
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/800px-QR_code_for_mobile_English_Wikipedia.svg.png');
+  final Uint8List logoData = await loadAsset('assets/png/logo.png');
+  return Page(
+    build: (context) {
+      return Padding(
         padding: const EdgeInsets.all(60),
         child: Center(
-          child: Material(
-            borderRadius: BorderRadius.circular(20),
-            elevation: 10,
-            child: SizedBox(
-              width: 450,
-              height: 780,
-              child: Column(
-                children: [
-                  const VSpace(60),
-                  const SvgIcon(
-                    icon: 'assets/svg/trakyo logo.svg',
-                    width: 140,
-                  ),
-                  const VSpace(10),
-                  const TextWidget(
-                    text: 'SCAN ME!',
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(width: .1),
+            ),
+            width: 450,
+            height: 780,
+            child: Column(
+              children: [
+                SizedBox(height: 40),
+                Image(MemoryImage(logoData), width: 140),
+                Text(
+                  'SCAN ME!',
+                  style: TextStyle(
                     fontSize: 60,
                     fontWeight: FontWeight.bold,
                   ),
-                  const TextWidget(
-                    text: 'Scan ◦ Connect ◦ Notify',
+                ),
+                Text(
+                  'Scan - Connect - Notify',
+                  style: TextStyle(
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
                   ),
-                  const VSpace(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 30),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const TextWidget(
-                          text: 'ANDROID',
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 30),
+                      decoration: BoxDecoration(
+                        color: PdfColor.fromHex("0461FE"),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'ANDROID',
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          textColor: AppColors.textWhiteColor,
+                          color: PdfColor.fromHex('FFFFFF'),
                         ),
                       ),
-                      const HSpace(5),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 50),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const TextWidget(
-                          text: 'IOS',
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          textColor: AppColors.textWhiteColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const VSpace(20),
-                  const TextWidget(
-                    text: 'www.trakyo.com',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.all(40),
-                    width: 450,
-                    // height: 520.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Column(
-                      children: [
-                        const TextWidget(
-                          text: 'Scan this to contact owner',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          textColor: AppColors.textWhiteColor,
+                    SizedBox(width: 5),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 50),
+                      decoration: BoxDecoration(
+                        color: PdfColor.fromHex("0461FE"),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'IOS',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColor.fromHex('FFFFFF'),
                         ),
-                        const VSpace(20),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Image(
-                              image: NetworkImage(
-                                qrUrl,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'www.trakyo.com',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  padding: const EdgeInsets.all(40),
+                  width: 450,
+                  decoration: BoxDecoration(
+                    color: PdfColor.fromHex("0461FE"),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Scan this to contact owner',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: PdfColor.fromHex('FFFFFF'),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: PdfColor.fromHex('FFFFFF'),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Image(MemoryImage(imageData), width: 180),
+                      ),
+                      SizedBox(height: 20),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Powered by ',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: PdfColor.fromHex('FFFFFF'),
                               ),
                             ),
-                          ),
-                        ),
-                        const VSpace(20),
-                        const CustomRichText(
-                          textSpans: [
-                            TextSpan(
-                                text: "Powered by ",
-                                style: TextStyle(
-                                  fontFamily: AppConstants.fontFamily,
-                                  fontSize: 14,
-                                  color: AppColors.textWhiteColor,
-                                )),
                             TextSpan(
                               text: 'Trakyo scan',
                               style: TextStyle(
-                                fontFamily: AppConstants.fontFamily,
                                 fontSize: 14,
-                                color: AppColors.textWhiteColor,
+                                color: PdfColor.fromHex('FFFFFF'),
                                 fontWeight: FontWeight.bold,
                               ),
-                            ),
+                            )
                           ],
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ),
-    );
+      );
+    },
+  );
+}
+
+class PdfCreator {
+  static Future<void> createPdf() async {
+    final pdf = Document();
+    pdf.addPage(await pdfPage());
+    final Uint8List pdfBytes = await pdf.save();
+    savePdfWeb(pdfBytes, "qr.pdf");
+  }
+
+  static void savePdfWeb(Uint8List pdfBytes, String fileName) {
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.AnchorElement(href: url)
+      ..setAttribute("download", fileName)
+      ..click();
+    html.Url.revokeObjectUrl(url);
   }
 }

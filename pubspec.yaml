@@ -46,6 +46,10 @@ dependencies:
   side_sheet: ^1.0.4
   url_strategy: ^0.2.0
   dropdown_button2: ^2.3.9
+  pdf: ^3.11.1
+  path_provider: ^2.1.4
+  open_file: ^3.5.3
+  universal_html: ^2.0.9
 
 dev_dependencies:
   flutter_test:
