@@ -21,10 +21,12 @@ Future<Uint8List> loadAsset(String path) async {
   return data.buffer.asUint8List();
 }
 
-Future<Page> pdfPage() async {
-  final Uint8List imageData = await fetchNetworkImage(
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/800px-QR_code_for_mobile_English_Wikipedia.svg.png');
+Future<Page> pdfPage(url, id) async {
+  final Uint8List imageData = await fetchNetworkImage(url);
   final Uint8List logoData = await loadAsset('assets/png/logo.png');
+  final Uint8List android = await loadAsset('assets/png/android.png');
+  final Uint8List ios = await loadAsset('assets/png/ios.png');
+
   return Page(
     build: (context) {
       return Padding(
@@ -61,35 +63,50 @@ Future<Page> pdfPage() async {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 30),
+                          vertical: 5, horizontal: 20),
                       decoration: BoxDecoration(
                         color: PdfColor.fromHex("0461FE"),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
-                        'ANDROID',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: PdfColor.fromHex('FFFFFF'),
-                        ),
+                      child: Row(
+                        children: [
+                          Image(MemoryImage(android), width: 12),
+                          SizedBox(width: 5),
+                          Text(
+                            'ANDROID',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: PdfColor.fromHex('FFFFFF'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(width: 5),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 50),
+                          vertical: 5, horizontal: 40),
                       decoration: BoxDecoration(
                         color: PdfColor.fromHex("0461FE"),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
-                        'IOS',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: PdfColor.fromHex('FFFFFF'),
-                        ),
+                      child: Row(
+                        children: [
+                          Transform.translate(
+                            offset: const PdfPoint(0, 1),
+                            child: Image(MemoryImage(ios), width: 12),
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'IOS',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: PdfColor.fromHex('FFFFFF'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -126,7 +143,23 @@ Future<Page> pdfPage() async {
                           color: PdfColor.fromHex('FFFFFF'),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Image(MemoryImage(imageData), width: 180),
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Image(MemoryImage(imageData), width: 180),
+                            Positioned(
+                              right: 15,
+                              bottom: 5,
+                              child: Text(
+                                id,
+                                style: TextStyle(
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 20),
                       RichText(
@@ -149,7 +182,7 @@ Future<Page> pdfPage() async {
                             )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -163,9 +196,9 @@ Future<Page> pdfPage() async {
 }
 
 class PdfCreator {
-  static Future<void> createPdf() async {
+  static Future<void> createPdf(url, id) async {
     final pdf = Document();
-    pdf.addPage(await pdfPage());
+    pdf.addPage(await pdfPage(url, id));
     final Uint8List pdfBytes = await pdf.save();
     savePdfWeb(pdfBytes, "qr.pdf");
   }

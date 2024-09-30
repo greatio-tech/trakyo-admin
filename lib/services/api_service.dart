@@ -5,6 +5,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as get_x;
+import 'package:trakyo_admin/routes.dart';
+import 'package:trakyo_admin/services/api_endpoints.dart';
 import 'package:trakyo_admin/services/local_storage_service.dart';
 import 'api_exception.dart';
 
@@ -14,15 +16,15 @@ typedef JsonParser<T> = T Function(JSON json);
 typedef ListJsonParser<T> = List<T> Function(List json);
 
 class ApiServices {
-  static const baseUrl = "http://192.168.1.14:6000/api/";
+  static const baseUrl = "http://192.168.0.190:6001/api/";
   static String? token;
 
   Dio dio = Dio();
   ApiServices(
       {bool makeLog = true, bool token = true, bool prettyLog = false}) {
     dio.options.baseUrl = baseUrl;
-    // dio.options.connectTimeout = const Duration(microseconds: 50 * 1000);
-    // dio.options.receiveTimeout = const Duration(microseconds: 50 * 1000);
+    dio.options.connectTimeout = const Duration(seconds: 30);
+    dio.options.receiveTimeout = const Duration(seconds: 30);
     if (token) {
       dio.interceptors.add(getAppInterceptor());
     }
@@ -195,19 +197,19 @@ class ApiServices {
             return;
           }
           Dio mDio = Dio();
-          mDio.options.headers['Authorization'] = 'Bearer $currToken}';
+          mDio.options.headers['Authorization'] = 'Bearer $currToken';
           log(currToken);
           final refreshToken = await LocalStorage().getString('refreshToken');
           print(refreshToken.toString());
           await mDio.post(
-            baseUrl + '', //!! need to add refresh token url
+            baseUrl + ApiEndpoints.refreshToken,
             data: {
               'refreshToken': refreshToken,
             },
           ).then((response) async {
             final token = response.data['accessToken'];
             final refreshToken = response.data['refreshToken'];
-
+            await LocalStorage().removeItem('refreshToken');
             await LocalStorage().setString('refreshToken', refreshToken);
 
             log(response.toString(), name: 'REFRESH TOKEN RESPONSE');
@@ -229,7 +231,7 @@ class ApiServices {
             }
           }).onError((error, stackTrace) {
             log('error on RefreshToken $error');
-            // get_x.Get.offNamed(Routes.onboarding);// !! need to add login route
+            get_x.Get.offNamed(Routes.login);
           });
         } else {
           handler.next(e);

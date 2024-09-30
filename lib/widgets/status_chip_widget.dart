@@ -34,6 +34,7 @@ class StatusChipWidget extends StatelessWidget {
 Color getStatusColor(String status) {
   switch (status.toLowerCase()) {
     case "paid":
+    case "linked":
     case "delivered":
     case "closed":
     case "resolved":
@@ -43,6 +44,7 @@ Color getStatusColor(String status) {
       return Colors.orange;
     case "cancelled":
     case "opened":
+    case "not linked":
     case "deactivated":
       return Colors.red;
     case "Mark Shipped":

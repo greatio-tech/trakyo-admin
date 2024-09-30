@@ -82,12 +82,12 @@ class RequestScreen extends StatelessWidget {
                                   vertical: 24.h, horizontal: 20.w),
                               child: Row(
                                 children: [
-                                  Checkbox(
-                                    activeColor: AppColors.primaryColor,
-                                    value: true,
-                                    onChanged: (value) {},
-                                  ),
-                                  const HSpace(32),
+                                  // Checkbox(
+                                  //   activeColor: AppColors.primaryColor,
+                                  //   value: true,
+                                  //   onChanged: (value) {},
+                                  // ),
+                                  // const HSpace(32),
                                   TextWidget(
                                     text: 'User',
                                     fontSize: 14.sp,
@@ -105,13 +105,15 @@ class RequestScreen extends StatelessWidget {
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(390),
+                                  // const HSpace(385),
+                                  const Spacer(),
                                   TextWidget(
                                     text: 'Date raised',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const Spacer(),
+                                  const HSpace(110),
+                                  // const Spacer(),
                                   TextWidget(
                                     text: 'Status',
                                     fontSize: 14.sp,
@@ -134,24 +136,23 @@ class RequestScreen extends StatelessWidget {
                               shrinkWrap: true,
                               itemBuilder: (context, index) => GestureDetector(
                                 behavior: HitTestBehavior.translucent,
-                                  onTap: (){
-                                    SideSheet.right(
+                                onTap: () {
+                                  SideSheet.right(
                                       width: 400.w,
                                       context: context,
-                                      body: const RequestSliderSheet()
-                                    );
-                                  },
+                                      body: const RequestSliderSheet());
+                                },
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 24.h, horizontal: 20.w),
                                   child: Row(
                                     children: [
-                                      Checkbox(
-                                        activeColor: AppColors.primaryColor,
-                                        value: true,
-                                        onChanged: (value) {},
-                                      ),
-                                      const HSpace(32),
+                                      // Checkbox(
+                                      //   activeColor: AppColors.primaryColor,
+                                      //   value: true,
+                                      //   onChanged: (value) {},
+                                      // ),
+                                      // const HSpace(32),
                                       TextWidget(
                                         text: 'User $index',
                                         fontSize: 14.sp,
@@ -164,21 +165,25 @@ class RequestScreen extends StatelessWidget {
                                           fontSize: 14.sp,
                                         ),
                                       ),
-                                  
+
                                       const HSpace(80),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 7,
                                         child: TextWidget(
                                           text:
-                                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.asjfjasiodfjioasjdfoijsiddfkaksdflajsdfkajsldfjalsdfjlksjdflskdjflasjdfjaisojdfasjdfiojasdfjiaosjdfoiajsdiofjaoisdjfioajsdfoijaosdifjaiosfjf',
+                                          maxLines: 2,
                                           fontSize: 14.sp,
                                         ),
                                       ),
-                                      const HSpace(150),
-                                      TextWidget(
-                                        text: '+91-89089 08901',
-                                        fontSize: 14.sp,
-                                        maxLines: 2,
+                                      const HSpace(80),
+                                      SizedBox(
+                                        width: 120.w,
+                                        child: TextWidget(
+                                          text: '+91-89089 08901',
+                                          fontSize: 14.sp,
+                                          maxLines: 2,
+                                        ),
                                       ),
                                       const Spacer(),
                                       // const HSpace(100),
@@ -189,7 +194,8 @@ class RequestScreen extends StatelessWidget {
                                         ),
                                         decoration: BoxDecoration(
                                           color: Colors.green,
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
                                         child: TextWidget(
                                           text: 'Delivered',

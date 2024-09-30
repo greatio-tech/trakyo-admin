@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/login/controller/login_controller.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetWidget<LoginController> {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.put(LoginController());
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Center(
@@ -48,25 +50,30 @@ class LoginScreen extends StatelessWidget {
                           textColor: AppColors.textGreyColor,
                         ),
                         const VSpace(24),
-                        const TextFiledWidget(
+                        TextFiledWidget(
+                          controller: controller.emailController,
                           headingText: 'Mail',
                           hintText: 'Enter your Mail',
                         ),
                         const VSpace(16),
-                        const TextFiledWidget(
+                        TextFiledWidget(
+                          controller: controller.passwordController,
                           headingText: 'Password',
                           hintText: 'Enter your password',
                         ),
                         const VSpace(32),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: ButtonWidget(
-                            text: 'Login',
-                            color: AppColors.primaryColor,
-                            textColor: AppColors.textWhiteColor,
-                            onTap: () {
-                              Get.offAllNamed('/dashboard');
-                            },
+                          child: Obx(
+                            () => ButtonWidget(
+                              isLoading: controller.loginLoading.value,
+                              text: 'Login',
+                              color: AppColors.primaryColor,
+                              textColor: AppColors.textWhiteColor,
+                              onTap: () {
+                                controller.userRegistration();
+                              },
+                            ),
                           ),
                         ),
                       ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
 import 'package:trakyo_admin/screens/qr/widgets/qr_details_widget.dart';
 import 'package:trakyo_admin/screens/qr_design.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
@@ -12,390 +12,464 @@ import 'package:trakyo_admin/widgets/status_chip_widget.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class QrScreen extends StatelessWidget {
+class QrScreen extends GetWidget<QrController> {
   const QrScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: [
-          Container(
-            color: AppColors.backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: SizedBox(
-                width: double.infinity.w,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        TextWidget(
-                          text: 'Dashboard / ',
-                          fontSize: 14.sp,
-                          textColor: AppColors.textGreyColor,
-                        ),
-                        TextWidget(
-                          text: 'QR',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          width: 251.w,
-                          child: const TextFiledWidget(
-                            hintText: 'Search',
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: SvgIcon(
-                                icon: 'assets/svg/search.svg',
-                              ),
-                            ),
+    return Obx(
+      () => Expanded(
+        child: ListView(
+          children: [
+            Container(
+              color: AppColors.backgroundColor,
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: SizedBox(
+                  width: double.infinity.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          TextWidget(
+                            text: 'Dashboard / ',
+                            fontSize: 14.sp,
+                            textColor: AppColors.textGreyColor,
                           ),
-                        ),
-                        const HSpace(16),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
+                          TextWidget(
+                            text: 'QR',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
                           ),
-                          child: const SvgIcon(
-                            icon: 'assets/svg/bell.svg',
-                          ),
-                        ),
-                      ],
-                    ),
-                    const VSpace(40),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        // Container(
-                        //   width: 200.w,
-                        //   height: 40.h,
-                        //   decoration: BoxDecoration(
-                        //     color: Colors.white,
-                        //     borderRadius: BorderRadius.circular(10),
-                        //   ),
-                        // ),
-                        const Spacer(),
-                        ButtonWidget(
-                          icon: 'assets/svg/Export.svg',
-                          text: 'Export data',
-                          color: AppColors.primaryColor.withOpacity(0.2),
-                          textColor: AppColors.primaryColor,
-                          onTap: () {},
-                        ),
-                        const HSpace(16),
-                        ButtonWidget(
-                          icon: 'assets/svg/add-rectangle.svg',
-                          text: 'Add new QR',
-                          color: AppColors.primaryColor,
-                          textColor: AppColors.textWhiteColor,
-                          onTap: () {
-                            SideSheet.right(
-                              width: 400.w,
-                              body: Container(
-                                padding: const EdgeInsets.all(32),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        MouseRegion(
-                                          cursor: SystemMouseCursors.click,
-                                          child: GestureDetector(
-                                            onTap: () => Get.back(),
-                                            child: const SvgIcon(
-                                              icon: 'assets/svg/Arrow Left.svg',
-                                            ),
-                                          ),
-                                        ),
-                                        const HSpace(10),
-                                        TextWidget(
-                                          text: 'Add new QR',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500,
-                                        )
-                                      ],
-                                    ),
-                                    const VSpace(24),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              TextWidget(
-                                                text: 'User',
-                                                fontSize: 12.sp,
-                                              ),
-                                              const VSpace(8),
-                                              const TextFiledWidget(),
-                                            ],
-                                          ),
-                                        ),
-                                        const HSpace(10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              TextWidget(
-                                                text: 'Select quantity',
-                                                fontSize: 12.sp,
-                                              ),
-                                              const VSpace(8),
-                                              Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 3.h,
-                                                    horizontal: 5.w),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          Colors.grey.shade300),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    const SvgIcon(
-                                                      icon:
-                                                          'assets/svg/Minus Square.svg',
-                                                    ),
-                                                    TextWidget(
-                                                      text: '01',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 14.sp,
-                                                    ),
-                                                    const SvgIcon(
-                                                      icon:
-                                                          'assets/svg/plus square.svg',
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    const VSpace(40),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        ButtonWidget(
-                                          verticalPadding: 5.h,
-                                          width: 120.w,
-                                          text: 'Cancel',
-                                          color: AppColors.errorColor
-                                              .withOpacity(.2),
-                                          textColor: AppColors.errorColor,
-                                          onTap: () {},
-                                        ),
-                                        const HSpace(16),
-                                        ButtonWidget(
-                                          verticalPadding: 5.h,
-                                          width: 120.w,
-                                          text: 'Add',
-                                          color: AppColors.primaryColor,
-                                          textColor: AppColors.textWhiteColor,
-                                          onTap: () {},
-                                        )
-                                      ],
-                                    )
-                                  ],
+                          const Spacer(),
+                          SizedBox(
+                            width: 251.w,
+                            child: const TextFiledWidget(
+                              hintText: 'Search',
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: SvgIcon(
+                                  icon: 'assets/svg/search.svg',
                                 ),
                               ),
-                              context: context,
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    const VSpace(16),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF5F5F5),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 24.h, horizontal: 20.w),
-                              child: Row(
-                                children: [
-                                  Checkbox(
-                                    activeColor: AppColors.primaryColor,
-                                    value: true,
-                                    onChanged: (value) {},
-                                  ),
-                                  const HSpace(5),
-                                  TextWidget(
-                                    text: 'QR ID',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  const HSpace(138),
-                                  TextWidget(
-                                    text: 'User',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  const HSpace(145),
-                                  TextWidget(
-                                    text: 'Vehicle',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  const HSpace(95),
-                                  TextWidget(
-                                    text: 'Owner Number',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  const HSpace(90),
-                                  TextWidget(
-                                    text: 'Emergency Number',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  const Spacer(),
-                                  TextWidget(
-                                    text: 'Status',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  SizedBox(
-                                    width: 60.w,
-                                  )
-                                ],
-                              ),
                             ),
-                            ListView.separated(
-                              separatorBuilder: (context, index) {
-                                return Container(
-                                  height: 2,
-                                  color: const Color(0xFFF5F5F5),
-                                );
-                              },
-                              itemCount: 8,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => GestureDetector(
-                                onTap: () {
-                                  SideSheet.right(
-                                    width: 400.w,
-                                    body: const QrDetailsWidget(),
-                                    context: context,
-                                  );
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 24.h, horizontal: 20.w),
-                                  child: Row(
+                          ),
+                          const HSpace(16),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const SvgIcon(
+                              icon: 'assets/svg/bell.svg',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const VSpace(40),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          // Container(
+                          //   width: 200.w,
+                          //   height: 40.h,
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(10),
+                          //   ),
+                          // ),
+                          const Spacer(),
+                          // ButtonWidget(
+                          //   icon: 'assets/svg/Export.svg',
+                          //   text: 'Export data',
+                          //   color: AppColors.primaryColor.withOpacity(0.2),
+                          //   textColor: AppColors.primaryColor,
+                          //   onTap: () {},
+                          // ),
+                          const HSpace(16),
+                          ButtonWidget(
+                            icon: 'assets/svg/add-rectangle.svg',
+                            text: 'Add new QR',
+                            color: AppColors.primaryColor,
+                            textColor: AppColors.textWhiteColor,
+                            onTap: () {
+                              SideSheet.right(
+                                width: 400.w,
+                                body: Container(
+                                  padding: const EdgeInsets.all(32),
+                                  child: Column(
                                     children: [
-                                      Checkbox(
-                                        activeColor: AppColors.primaryColor,
-                                        value: true,
-                                        onChanged: (value) {},
-                                      ),
-                                      const HSpace(5),
-                                      TextWidget(
-                                        text: '#00001',
-                                        fontSize: 14.sp,
-                                      ),
-                                      const HSpace(102),
-                                      SizedBox(
-                                        width: 100.w,
-                                        child: TextWidget(
-                                          text: 'Shameesdjfldsdr',
-                                          fontSize: 14.sp,
-                                        ),
-                                      ),
-                                      const HSpace(84),
-                                      TextWidget(
-                                        text: 'KL 01 A 3232',
-                                        fontSize: 14.sp,
-                                      ),
-                                      const HSpace(70),
-                                      TextWidget(
-                                        text: '+91-89089 08901',
-                                        fontSize: 14.sp,
-                                      ),
-                                      const HSpace(80),
-                                      TextWidget(
-                                        text: '+91-89089 08901',
-                                        fontSize: 14.sp,
-                                        maxLines: 2,
-                                      ),
-                                      const Spacer(),
-                                      // const HSpace(100),
-                                      const StatusChipWidget(
-                                        status: 'Delivered',
-                                      ),
-                                      const HSpace(10),
-                                      MouseRegion(
-                                        cursor: SystemMouseCursors.click,
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            await PdfCreator.createPdf();
-                                            ScaffoldMessenger.of(Get.context!)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                  "PDF Generated and Downloaded!",
-                                                ),
+                                      Row(
+                                        children: [
+                                          MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: GestureDetector(
+                                              onTap: () => Get.back(),
+                                              child: const SvgIcon(
+                                                icon:
+                                                    'assets/svg/Arrow Left.svg',
                                               ),
-                                            );
-                                          },
-                                          child: const SvgIcon(
-                                            icon: 'assets/svg/print.svg',
+                                            ),
                                           ),
-                                        ),
+                                          const HSpace(10),
+                                          TextWidget(
+                                            text: 'Add new QR',
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500,
+                                          )
+                                        ],
+                                      ),
+                                      const VSpace(24),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                TextWidget(
+                                                  text: 'User',
+                                                  fontSize: 12.sp,
+                                                ),
+                                                const VSpace(8),
+                                                const TextFiledWidget(),
+                                              ],
+                                            ),
+                                          ),
+                                          const HSpace(10),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                TextWidget(
+                                                  text: 'Select quantity',
+                                                  fontSize: 12.sp,
+                                                ),
+                                                const VSpace(8),
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 3.h,
+                                                      horizontal: 5.w),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors
+                                                            .grey.shade300),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const SvgIcon(
+                                                        icon:
+                                                            'assets/svg/Minus Square.svg',
+                                                      ),
+                                                      TextWidget(
+                                                        text: '01',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14.sp,
+                                                      ),
+                                                      const SvgIcon(
+                                                        icon:
+                                                            'assets/svg/plus square.svg',
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const VSpace(40),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          ButtonWidget(
+                                            verticalPadding: 5.h,
+                                            width: 120.w,
+                                            text: 'Cancel',
+                                            color: AppColors.errorColor
+                                                .withOpacity(.2),
+                                            textColor: AppColors.errorColor,
+                                            onTap: () {},
+                                          ),
+                                          const HSpace(16),
+                                          ButtonWidget(
+                                            verticalPadding: 5.h,
+                                            width: 120.w,
+                                            text: 'Add',
+                                            color: AppColors.primaryColor,
+                                            textColor: AppColors.textWhiteColor,
+                                            onTap: () {},
+                                          )
+                                        ],
                                       )
                                     ],
                                   ),
                                 ),
+                                context: context,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const VSpace(16),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF5F5F5),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 24.h, horizontal: 20.w),
+                                child: Row(
+                                  children: [
+                                    // Checkbox(
+                                    //   activeColor: AppColors.primaryColor,
+                                    //   value: true,
+                                    //   onChanged: (value) {},
+                                    // ),
+                                    // const HSpace(5),
+                                    TextWidget(
+                                      text: 'QR ID',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(90),
+                                    TextWidget(
+                                      text: 'User',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(170),
+                                    TextWidget(
+                                      text: 'Vehicle',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(125),
+                                    TextWidget(
+                                      text: 'Owner Number',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const Spacer(),
+                                    //
+                                    TextWidget(
+                                      text: 'Emergency Number',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    const HSpace(100),
+                                    TextWidget(
+                                      text: 'Status',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+
+                                    SizedBox(
+                                      width: 50.w,
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return Container(
+                                    height: 2,
+                                    color: const Color(0xFFF5F5F5),
+                                  );
+                                },
+                                itemCount: controller.qrList.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) =>
+                                    GestureDetector(
+                                  onTap: () {
+                                    SideSheet.right(
+                                      width: 400.w,
+                                      body: const QrDetailsWidget(),
+                                      context: context,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 24.h, horizontal: 20.w),
+                                    child: Row(
+                                      children: [
+                                        // Checkbox(
+                                        //   activeColor: AppColors.primaryColor,
+                                        //   value: true,
+                                        //   onChanged: (value) {},
+                                        // ),
+                                        // const HSpace(5),
+                                        SizedBox(
+                                          width: 50.w,
+                                          child: TextWidget(
+                                            text: controller.qrList[index].id
+                                                .substring(controller
+                                                        .qrList[index]
+                                                        .id
+                                                        .length -
+                                                    5)
+                                                .toUpperCase(),
+                                            fontSize: 14.sp,
+                                          ),
+                                        ),
+                                        const HSpace(75),
+                                        SizedBox(
+                                          width: 120.w,
+                                          child: TextWidget(
+                                            text: controller.getUserNameById(
+                                                controller.qrList[index].owner),
+                                            fontSize: 14.sp,
+                                          ),
+                                        ),
+                                        const HSpace(84),
+                                        SizedBox(
+                                          width: 100.w,
+                                          child: TextWidget(
+                                            text: controller
+                                                    .qrList[index]
+                                                    .vehicleDetails
+                                                    ?.licensePlate
+                                                    .toString() ??
+                                                '',
+                                            fontSize: 14.sp,
+                                          ),
+                                        ),
+                                        const HSpace(70),
+                                        SizedBox(
+                                          width: 120.w,
+                                          child: TextWidget(
+                                            text: controller.getUserNumberById(
+                                              controller.qrList[index].owner,
+                                            ),
+                                            fontSize: 14.sp,
+                                          ),
+                                        ),
+                                        // const HSpace(80),
+                                        const Spacer(),
+                                        SizedBox(
+                                          width: 120.w,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              TextWidget(
+                                                text: controller
+                                                        .qrList[index]
+                                                        .emergencyContacts
+                                                        .isNotEmpty
+                                                    ? controller
+                                                        .qrList[index]
+                                                        .emergencyContacts[0]
+                                                        .phoneNumber
+                                                    : '',
+                                                fontSize: 14.sp,
+                                                maxLines: 2,
+                                              ),
+                                              controller
+                                                          .qrList[index]
+                                                          .emergencyContacts
+                                                          .length >
+                                                      1
+                                                  ? TextWidget(
+                                                      text: controller
+                                                          .qrList[index]
+                                                          .emergencyContacts[1]
+                                                          .phoneNumber,
+                                                      fontSize: 14.sp,
+                                                      maxLines: 2,
+                                                    )
+                                                  : const SizedBox(),
+                                            ],
+                                          ),
+                                        ),
+                                        // const Spacer(),
+                                        const HSpace(110),
+                                        StatusChipWidget(
+                                          status: 'linked',
+                                        ),
+                                        const HSpace(10),
+                                        MouseRegion(
+                                          cursor: SystemMouseCursors.click,
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              await PdfCreator.createPdf(
+                                                controller
+                                                    .qrList[index].qrCodeData,
+                                                controller.qrList[index].id
+                                                    .substring(controller
+                                                            .qrList[index]
+                                                            .id
+                                                            .length -
+                                                        5)
+                                                    .toUpperCase(),
+                                              );
+                                              ScaffoldMessenger.of(Get.context!)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                    "PDF Generated and Downloaded!",
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: const SvgIcon(
+                                              icon: 'assets/svg/print.svg',
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const VSpace(40),
-                    Row(
-                      children: [
-                        TextWidget(
-                          text: "Show of 1 to 11 of 43 rows",
-                          fontSize: 14.sp,
-                          textColor: AppColors.textGreyColor,
-                        ),
-                        Container()
-                      ],
-                    )
-                  ],
+                      const VSpace(40),
+                      Row(
+                        children: [
+                          TextWidget(
+                            text: "Show of 1 to 11 of 43 rows",
+                            fontSize: 14.sp,
+                            textColor: AppColors.textGreyColor,
+                          ),
+                          Container()
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

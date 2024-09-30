@@ -17,6 +17,7 @@ class ButtonWidget extends StatelessWidget {
     this.height,
     this.width,
     this.border = false,
+    this.isLoading,
   });
 
   final String? icon;
@@ -29,13 +30,14 @@ class ButtonWidget extends StatelessWidget {
   final double? height;
   final double? width;
   final bool? border;
+  final bool? isLoading;
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: onTap,
+        onTap: isLoading == true ? () {} : onTap,
         child: Container(
           height: height,
           width: width,
@@ -56,12 +58,14 @@ class ButtonWidget extends StatelessWidget {
             children: [
               icon != null ? SvgIcon(icon: icon!) : const SizedBox(),
               icon != null ? const HSpace(5) : const SizedBox(),
-              TextWidget(
-                text: text,
-                fontSize: 14.sp,
-                textColor: textColor,
-                // fontWeight: FontWeight.w500,
-              ),
+              isLoading == true
+                  ? const LoadingIndicator()
+                  : TextWidget(
+                      text: text,
+                      fontSize: 14.sp,
+                      textColor: textColor,
+                      // fontWeight: FontWeight.w500,
+                    ),
             ],
           ),
         ),

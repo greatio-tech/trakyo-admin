@@ -58,22 +58,22 @@ class DashboardScreen extends StatelessWidget {
                     text: 'Request',
                   ),
                   const VSpace(32),
+                  // const DashboardButton(
+                  //   index: 3,
+                  //   iconActive: 'assets/svg/sales active.svg',
+                  //   iconInactive: 'assets/svg/Bag Check.svg',
+                  //   text: 'Sales',
+                  // ),
+                  // const VSpace(32),
                   const DashboardButton(
                     index: 3,
-                    iconActive: 'assets/svg/sales active.svg',
-                    iconInactive: 'assets/svg/Bag Check.svg',
-                    text: 'Sales',
-                  ),
-                  const VSpace(32),
-                  const DashboardButton(
-                    index: 4,
                     iconActive: 'assets/svg/QR Code active.svg',
                     iconInactive: 'assets/svg/QR Code.svg',
                     text: 'QR',
                   ),
                   const VSpace(32),
                   const DashboardButton(
-                    index: 5,
+                    index: 4,
                     iconActive: 'assets/svg/User active.svg',
                     iconInactive: 'assets/svg/User.svg',
                     text: 'User',
@@ -91,15 +91,17 @@ class DashboardScreen extends StatelessWidget {
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(8)),
+                          color: AppColors.primaryColor.withOpacity(.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Image.asset('assets/png/profile.png'),
                       ),
                       const HSpace(10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextWidget(
-                            text: 'Leo',
+                            text: 'Tracker',
                             fontWeight: FontWeight.bold,
                             fontSize: 14.sp,
                           ),

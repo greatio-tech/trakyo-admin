@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/sales/widgets/sales_details_widget.dart';
-import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
@@ -129,19 +128,19 @@ class SalesScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ButtonWidget(
-                          icon: 'assets/svg/Export.svg',
-                          text: 'Export data',
-                          color: AppColors.primaryColor.withOpacity(0.2),
-                          textColor: AppColors.primaryColor,
-                          onTap: () {},
-                        ),
-                        const HSpace(16),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     ButtonWidget(
+                    //       icon: 'assets/svg/Export.svg',
+                    //       text: 'Export data',
+                    //       color: AppColors.primaryColor.withOpacity(0.2),
+                    //       textColor: AppColors.primaryColor,
+                    //       onTap: () {},
+                    //     ),
+                    //     const HSpace(16),
+                    //   ],
+                    // ),
                     const VSpace(16),
                     Container(
                       width: double.infinity,
@@ -162,18 +161,18 @@ class SalesScreen extends StatelessWidget {
                                   vertical: 24.h, horizontal: 20.w),
                               child: Row(
                                 children: [
-                                  Checkbox(
-                                    activeColor: AppColors.primaryColor,
-                                    value: true,
-                                    onChanged: (value) {},
-                                  ),
-                                  const HSpace(5),
+                                  // Checkbox(
+                                  //   activeColor: AppColors.primaryColor,
+                                  //   value: true,
+                                  //   onChanged: (value) {},
+                                  // ),
+                                  // const HSpace(5),
                                   TextWidget(
                                     text: 'Order ID',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(80),
+                                  const HSpace(50),
                                   TextWidget(
                                     text: 'User',
                                     fontSize: 14.sp,
@@ -191,13 +190,13 @@ class SalesScreen extends StatelessWidget {
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(90),
+                                  const HSpace(60),
                                   TextWidget(
                                     text: 'Delivered Address',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(110),
+                                  const HSpace(165),
                                   TextWidget(
                                     text: 'Payment mode',
                                     fontSize: 14.sp,
@@ -237,17 +236,17 @@ class SalesScreen extends StatelessWidget {
                                       vertical: 24.h, horizontal: 20.w),
                                   child: Row(
                                     children: [
-                                      Checkbox(
-                                        activeColor: AppColors.primaryColor,
-                                        value: true,
-                                        onChanged: (value) {},
-                                      ),
-                                      const HSpace(5),
+                                      // Checkbox(
+                                      //   activeColor: AppColors.primaryColor,
+                                      //   value: true,
+                                      //   onChanged: (value) {},
+                                      // ),
+                                      // const HSpace(5),
                                       TextWidget(
                                         text: '#00001',
                                         fontSize: 14.sp,
                                       ),
-                                      const HSpace(80),
+                                      const HSpace(50),
                                       SizedBox(
                                         width: 100.w,
                                         child: TextWidget(
@@ -256,30 +255,38 @@ class SalesScreen extends StatelessWidget {
                                         ),
                                       ),
                                       const HSpace(40),
-                                      TextWidget(
-                                        text: '01 pcs',
-                                        fontSize: 14.sp,
-                                      ),
-                                      const HSpace(70),
-                                      TextWidget(
-                                        text: '22 Jul 2024',
-                                        fontSize: 14.sp,
-                                      ),
-                                      const HSpace(80),
                                       SizedBox(
-                                        width: 200.w,
+                                        width: 50.w,
                                         child: TextWidget(
-                                          text:
-                                              'Lorem ipsum dolor sit ame lajsdfjsfddjasdilkjs',
+                                          text: '01 pcs',
                                           fontSize: 14.sp,
-                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      const HSpace(50),
+                                      SizedBox(
+                                        width: 100.w,
+                                        child: TextWidget(
+                                          text: '22 Jul 2024',
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                      const HSpace(60),
+                                      SizedBox(
+                                        width: 220.w,
+                                        child: TextWidget(
+                                          text: 'Lorem ipsum dolor sit ame ',
+                                          fontSize: 14.sp,
+                                          maxLines: 2,
                                         ),
                                       ),
                                       const HSpace(60),
 
-                                      TextWidget(
-                                        text: 'Net banking',
-                                        fontSize: 14.sp,
+                                      SizedBox(
+                                        width: 100.w,
+                                        child: TextWidget(
+                                          text: 'Net banking',
+                                          fontSize: 14.sp,
+                                        ),
                                       ),
                                       const Spacer(),
                                       // const HSpace(100),

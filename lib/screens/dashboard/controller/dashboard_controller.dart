@@ -4,7 +4,6 @@ import 'package:trakyo_admin/screens/order/order_screen.dart';
 import 'package:trakyo_admin/screens/over_view/over_view_screen.dart';
 import 'package:trakyo_admin/screens/qr/qr_screen.dart';
 import 'package:trakyo_admin/screens/request/request_screen.dart';
-import 'package:trakyo_admin/screens/sales/sales_screen.dart';
 import 'package:trakyo_admin/screens/user/user_screen.dart';
 import 'package:trakyo_admin/services/local_storage_service.dart';
 
@@ -16,7 +15,7 @@ class DashboardController extends GetxController {
     const OverViewScreen(),
     const OrderScreen(),
     const RequestScreen(),
-    const SalesScreen(),
+    // const SalesScreen(),
     const QrScreen(),
     const UserScreen(),
   ];

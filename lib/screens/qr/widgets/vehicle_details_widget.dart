@@ -122,7 +122,7 @@ class VehicleDetailsWidget extends StatelessWidget {
                                   ),
                                 ),
                                 const Spacer(),
-                                SvgIcon(
+                                const SvgIcon(
                                     icon:
                                         // item == controller.vehicleType.value
                                         //     ?

@@ -2,18 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/order/controller/order_controller.dart';
+import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
+import 'package:trakyo_admin/widgets/status_chip_widget.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
 class OrderDetailsWidget extends StatelessWidget {
   const OrderDetailsWidget({
     super.key,
+    required this.index,
   });
+
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    String formattedAddress =
+        "${OrderController.to.orderList[index].address.fullName}, ${OrderController.to.orderList[index].address.phoneNumber}, ${OrderController.to.orderList[index].address.buldingNumber}, ${OrderController.to.orderList[index].address.city}, ${OrderController.to.orderList[index].address.state}, ${OrderController.to.orderList[index].address.pincode}";
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(32),
@@ -40,62 +48,90 @@ class OrderDetailsWidget extends StatelessWidget {
               ],
             ),
             const VSpace(24),
-            const TitleAndSubTitle(
+            TitleAndSubTitle(
               title: 'Order ID',
-              text: '#123456',
+              text: OrderController.to.orderList[index].id
+                  .substring(OrderController.to.orderList[index].id.length - 5)
+                  .toUpperCase(),
             ),
             const VSpace(24),
-            const TitleAndSubTitle(
+            TitleAndSubTitle(
               title: 'Quantity',
-              text: '02 pcs',
+              text:
+                  OrderController.to.orderList[index].qrCodes.length.toString(),
             ),
             const VSpace(24),
-            const TitleAndSubTitle(
-              title: 'QR ID',
-              text: '#123456, #123456',
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextWidget(
+                  text: "QR ID",
+                  fontSize: 12.sp,
+                ),
+                const VSpace(8),
+                SizedBox(
+                  height: 20,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => TextWidget(
+                      text: ',  ',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount:
+                        OrderController.to.orderList[index].qrCodes.length,
+                    itemBuilder: (context, idx) {
+                      return TextWidget(
+                        text: OrderController.to.orderList[index].qrCodes[idx]
+                            .substring(OrderController
+                                    .to.orderList[index].qrCodes[idx].length -
+                                5)
+                            .toUpperCase(),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        maxLines: 5,
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
+            // const TitleAndSubTitle(
+            //   title: 'QR ID',
+            //   text: '#123456, #123456',
+            // ),
             const VSpace(24),
-            const TitleAndSubTitle(
+            TitleAndSubTitle(
               title: 'User',
-              text: 'Shameer',
+              text: QrController.to
+                  .getUserNameById(OrderController.to.orderList[index].user),
             ),
             const VSpace(24),
-            const TitleAndSubTitle(
+            TitleAndSubTitle(
               title: 'Mobile Number',
-              text: '90878 87356',
+              text: QrController.to.getUserNumberById(
+                OrderController.to.orderList[index].user,
+              ),
             ),
             const VSpace(24),
             const TitleAndSubTitle(
               title: 'Payment Mode',
-              text: 'COD',
+              text: 'Net Banking',
             ),
             const VSpace(24),
             TextWidget(
-              text: 'Payment Status',
+              text: 'Status',
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            Container(
-              padding: EdgeInsets.symmetric(
-                vertical: 1.h,
-                horizontal: 15.w,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.yellow,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextWidget(
-                text: 'Pending',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.textWhiteColor,
-              ),
+            StatusChipWidget(
+              status: OrderController.to.orderList[index].deliveryStatus,
             ),
             const VSpace(24),
-            const TitleAndSubTitle(
+            TitleAndSubTitle(
               title: 'Delivery Address',
-              text:
-                  'ShameerNo.15 Ground Floor, Begur Road,Hongasandhara, Bommanahalli,Bengaluru, Karnataka 560068',
+              text: formattedAddress,
             ),
             const VSpace(32),
             TextWidget(
