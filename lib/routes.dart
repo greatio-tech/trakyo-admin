@@ -1,8 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/screens/_bindings/dashboard_binding.dart';
 import 'package:trakyo_admin/screens/_bindings/login_binding.dart';
 import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
+import 'package:trakyo_admin/screens/login/controller/login_controller.dart';
 import 'package:trakyo_admin/screens/login/login_screen.dart';
+
+import 'services/local_storage_service.dart';
 
 class Routes {
   Routes._();
@@ -13,13 +17,29 @@ class Routes {
 class AppPages {
   static final List<GetPage> pages = [
     GetPage(
-        name: Routes.login,
-        page: () => const LoginScreen(),
-        binding: LoginBindings()),
+      name: Routes.login,
+      page: () => const LoginScreen(),
+      binding: LoginBindings(),
+    ),
     GetPage(
       name: Routes.dashboard,
       page: () => const DashboardScreen(),
       binding: DashboardBindings(),
+      middlewares: [
+        RouteMiddleware(),
+      ],
     ),
   ];
+}
+
+class RouteMiddleware extends GetMiddleware {
+  @override
+  RouteSettings? redirect(String? route) {
+    Get.put(LoginController());
+    if (!LoginController.to.isAuthenticated.value) {
+      return const RouteSettings(name: Routes.login);
+    } else {
+      return null;
+    }
+  }
 }

@@ -16,7 +16,7 @@ typedef JsonParser<T> = T Function(JSON json);
 typedef ListJsonParser<T> = List<T> Function(List json);
 
 class ApiServices {
-  static const baseUrl = "http://192.168.0.190:6001/api/";
+  static const baseUrl = "http://192.168.1.4:6001/api/";
   static String? token;
 
   Dio dio = Dio();

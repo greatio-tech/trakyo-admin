@@ -14,6 +14,24 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool loginLoading = false.obs;
+  RxBool isAuthenticated = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    checkLoginStatus();
+  }
+
+  checkLoginStatus() async {
+    bool isLogin = await LocalStorage().isLogin();
+    print("LoginCheck:-------- $isLogin");
+
+    if (isLogin) {
+      isAuthenticated(true);
+    } else {
+      isAuthenticated(false);
+    }
+  }
 
   Future<DioResponse> loginService() async {
     return ApiServices().postMethod(
