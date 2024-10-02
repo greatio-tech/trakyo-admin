@@ -6,4 +6,6 @@ class ApiEndpoints {
   static String users = 'admin/users';
   static String qr = 'admin/qrcodes';
   static String order = 'admin/sales-orders';
+  static String getRequests = 'support/tickets';
+  static String closeRequest = 'support/ticket/close';
 }
