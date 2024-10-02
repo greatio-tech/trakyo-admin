@@ -6,8 +6,6 @@ import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
 import 'package:trakyo_admin/screens/login/controller/login_controller.dart';
 import 'package:trakyo_admin/screens/login/login_screen.dart';
 
-import 'services/local_storage_service.dart';
-
 class Routes {
   Routes._();
   static const login = '/login';
@@ -25,21 +23,20 @@ class AppPages {
       name: Routes.dashboard,
       page: () => const DashboardScreen(),
       binding: DashboardBindings(),
-      middlewares: [
-        RouteMiddleware(),
-      ],
+      // middlewares: [
+      //   RouteMiddleware(),
+      // ],
     ),
   ];
 }
 
-class RouteMiddleware extends GetMiddleware {
-  @override
-  RouteSettings? redirect(String? route) {
-    Get.put(LoginController());
-    if (!LoginController.to.isAuthenticated.value) {
-      return const RouteSettings(name: Routes.login);
-    } else {
-      return null;
-    }
-  }
-}
+// class RouteMiddleware extends GetMiddleware {
+//   @override
+//   RouteSettings? redirect(String? route) {
+//     return LoginController.to.isAuthenticated.value
+//         ? null // Allow access to the route
+//         : const RouteSettings(
+//             name: Routes.login,
+//           ); // Redirect to login if not authenticated
+//   }
+// }

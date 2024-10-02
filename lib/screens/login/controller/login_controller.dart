@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trakyo_admin/routes.dart';
 import 'package:trakyo_admin/services/api_endpoints.dart';
 import 'package:trakyo_admin/services/api_exception.dart';
 import 'package:trakyo_admin/services/api_service.dart';
@@ -28,6 +29,7 @@ class LoginController extends GetxController {
 
     if (isLogin) {
       isAuthenticated(true);
+      Get.offAllNamed(Routes.dashboard);
     } else {
       isAuthenticated(false);
     }
@@ -48,10 +50,9 @@ class LoginController extends GetxController {
     loginService().then((value) {
       if (value.statusCode == 201 || value.statusCode == 200) {
         LocalStorage().setLogin();
-        // LocalStorage().setString('userId', GlobalService.to.userData.value!.id);
         final String token = value.data['token'];
         LocalStorage().saveToken(token);
-        Get.offAllNamed('/dashboard');
+        Get.offAllNamed(Routes.dashboard);
       } else {
         log(ApiException(value.data['message']).toString());
       }
