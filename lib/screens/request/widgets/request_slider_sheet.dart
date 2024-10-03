@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
-import 'package:trakyo_admin/screens/request/widgets/user_details_slider_sheet.dart';
+import 'package:trakyo_admin/screens/request/controller/request_controller.dart';
+import 'package:trakyo_admin/screens/user/controller/users_controller.dart';
+import 'package:trakyo_admin/utils/common_functions.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class RequestSliderSheet extends StatelessWidget {
+class RequestSliderSheet extends GetWidget<RequestController> {
+  final int currentIndex;
   const RequestSliderSheet({
     super.key,
+    required this.currentIndex,
   });
 
   @override
@@ -51,10 +54,10 @@ class RequestSliderSheet extends StatelessWidget {
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => SideSheet.right(
-                    width: 400.w,
-                    context: context,
-                    body: const UserDetailsSliderSheet()),
+                onTap: () {
+                  UsersController.to.goToUserSlideSheet(
+                      controller.requestList[currentIndex].user!.id, context);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -79,13 +82,21 @@ class RequestSliderSheet extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextWidget(
-                            text: 'Shameer',
+                            text: controller.requestList[currentIndex].user !=
+                                    null
+                                ? controller
+                                    .requestList[currentIndex].user!.name
+                                : "null",
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.textBlackColor,
                           ),
                           TextWidget(
-                            text: '+919999998778',
+                            text: controller.requestList[currentIndex].user !=
+                                    null
+                                ? controller
+                                    .requestList[currentIndex].user!.phoneNumber
+                                : "null",
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
                             textColor: AppColors.textGreyColor,
@@ -109,7 +120,8 @@ class RequestSliderSheet extends StatelessWidget {
             ),
             const VSpace(8),
             TextFiledWidget(
-              controller: TextEditingController(text: "QR scan"),
+              controller: TextEditingController(
+                  text: controller.requestList[currentIndex].topic.name),
               readOnly: true,
             ),
             const VSpace(16),
@@ -121,8 +133,7 @@ class RequestSliderSheet extends StatelessWidget {
             const VSpace(8),
             TextFiledWidget(
               controller: TextEditingController(
-                  text:
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna"),
+                  text: controller.requestList[currentIndex].description),
               readOnly: true,
               disableHeight: true,
               maxLines: 10,
@@ -137,60 +148,83 @@ class RequestSliderSheet extends StatelessWidget {
             ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 6,
-                          offset: const Offset(0, 2),
+                  return MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        CommonFunctions.launchUrl(controller
+                            .requestList[currentIndex].attachments[index]);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 13.w, vertical: 12.h),
-                    child: Row(
-                      children: [
-                        const SvgIcon(icon: "assets/svg/attachment.svg"),
-                        const HSpace(8),
-                        TextWidget(
-                          text: "IMG6789.png",
-                          fontSize: 14.sp,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 13.w, vertical: 12.h),
+                        child: Row(
+                          children: [
+                            const SvgIcon(icon: "assets/svg/attachment.svg"),
+                            const HSpace(8),
+                            Flexible(
+                              child: TextWidget(
+                                text: controller.requestList[currentIndex]
+                                    .attachments[index]
+                                    .split("/")
+                                    .last,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   );
                 },
                 separatorBuilder: (context, index) => const VSpace(16),
-                itemCount: 2),
+                itemCount:
+                    controller.requestList[currentIndex].attachments.length),
             const VSpace(40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ButtonWidget(
-                  text: "Message user",
-                  height: 40.h,
-                  width: 152.w,
-                  horizontalPadding: 0,
-                  verticalPadding: 3,
-                  color: AppColors.primaryColor.withOpacity(0.2),
-                  textColor: AppColors.primaryColor,
-                  onTap: () {},
-                ),
-                const HSpace(16),
-                ButtonWidget(
-                  text: "Resolved",
-                  height: 40.h,
-                  width: 152.w,
-                  color: AppColors.primaryColor,
-                  textColor: AppColors.textWhiteColor,
-                  horizontalPadding: 0,
-                  verticalPadding: 3,
-                  onTap: () {},
-                ),
-              ],
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ButtonWidget(
+                    text: "Message user",
+                    height: 40.h,
+                    width: 152.w,
+                    horizontalPadding: 0,
+                    verticalPadding: 3,
+                    color: AppColors.primaryColor.withOpacity(0.2),
+                    textColor: AppColors.primaryColor,
+                    onTap: () {},
+                  ),
+                  const HSpace(16),
+                  if (controller.requestList[currentIndex].status.value ==
+                      "open")
+                    ButtonWidget(
+                      text: "Resolved",
+                      height: 40.h,
+                      width: 152.w,
+                      color: AppColors.primaryColor,
+                      textColor: AppColors.textWhiteColor,
+                      horizontalPadding: 0,
+                      verticalPadding: 3,
+                      isLoading: controller.closeRequestLoading.value,
+                      onTap: () {
+                        controller.closeRequest(
+                            controller.requestList[currentIndex].id);
+                      },
+                    ),
+                ],
+              ),
             )
           ],
         ),

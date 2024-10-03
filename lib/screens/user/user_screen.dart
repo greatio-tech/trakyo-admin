@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
-import 'package:trakyo_admin/screens/request/widgets/user_details_slider_sheet.dart';
 import 'package:trakyo_admin/screens/user/controller/users_controller.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
@@ -159,11 +157,10 @@ class UserScreen extends GetWidget<UsersController> {
                                     GestureDetector(
                                   onTap: () {
                                     controller.setUserData(index);
-                                    SideSheet.right(
-                                      width: 400.w,
-                                      body: const UserDetailsSliderSheet(),
-                                      context: context,
-                                    );
+
+                                    controller.goToUserSlideSheet(
+                                        controller.usersList[index].id,
+                                        context);
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
