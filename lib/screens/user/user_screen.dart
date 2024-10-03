@@ -248,17 +248,17 @@ class UserScreen extends GetWidget<UsersController> {
                           ),
                         ),
                       ),
-                      const VSpace(40),
-                      Row(
-                        children: [
-                          TextWidget(
-                            text: "Show of 1 to 11 of 43 rows",
-                            fontSize: 14.sp,
-                            textColor: AppColors.textGreyColor,
-                          ),
-                          Container()
-                        ],
-                      )
+                      // const VSpace(40),
+                      // Row(
+                      //   children: [
+                      //     TextWidget(
+                      //       text: "Show of 1 to 11 of 43 rows",
+                      //       fontSize: 14.sp,
+                      //       textColor: AppColors.textGreyColor,
+                      //     ),
+                      //     Container()
+                      //   ],
+                      // )
                     ],
                   ),
                 ),

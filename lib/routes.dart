@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:trakyo_admin/screens/_bindings/dashboard_binding.dart';
 import 'package:trakyo_admin/screens/_bindings/login_binding.dart';
 import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
-import 'package:trakyo_admin/screens/login/controller/login_controller.dart';
 import 'package:trakyo_admin/screens/login/login_screen.dart';
 
 class Routes {

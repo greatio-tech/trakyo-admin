@@ -53,17 +53,17 @@ class RequestScreen extends GetWidget<RequestController> {
                               ),
                             ),
                           ),
-                          const HSpace(16),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: const SvgIcon(
-                              icon: 'assets/svg/bell.svg',
-                            ),
-                          ),
+                          // const HSpace(16),
+                          // Container(
+                          //   padding: const EdgeInsets.all(8),
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(6),
+                          //   ),
+                          //   child: const SvgIcon(
+                          //     icon: 'assets/svg/bell.svg',
+                          //   ),
+                          // ),
                         ],
                       ),
                       const VSpace(40),

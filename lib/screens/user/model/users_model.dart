@@ -4,11 +4,12 @@ List<UsersModel> usersModelFromJson(List list) =>
 class UsersModel {
   final String id;
   final String phoneNumber;
-  final String refreshToken;
+  final String profilePicture;
+  final String? refreshToken;
   final DateTime createdAt;
   final DateTime updatedAt;
   final int v;
-  final DateTime dob;
+  final DateTime? dob;
   final String email;
   final String name;
   final List<QrCode> qrCodes;
@@ -17,41 +18,41 @@ class UsersModel {
   UsersModel({
     required this.id,
     required this.phoneNumber,
-    required this.refreshToken,
+    required this.profilePicture,
+    this.refreshToken,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    required this.dob,
+    this.dob,
     required this.email,
     required this.name,
     required this.qrCodes,
     required this.vehicles,
   });
 
-  factory UsersModel.fromJson(Map<String, dynamic> json) {
-    // Use the null-aware operator and provide defaults where necessary
-    return UsersModel(
-      id: json["_id"] ?? '',
-      phoneNumber: json["phoneNumber"] ?? '',
-      refreshToken: json["refreshToken"] ?? '',
-      createdAt: json["createdAt"] != null
-          ? DateTime.parse(json["createdAt"])
-          : DateTime.now(),
-      updatedAt: json["updatedAt"] != null
-          ? DateTime.parse(json["updatedAt"])
-          : DateTime.now(),
-      v: json["__v"] ?? 0,
-      dob: json["dob"] != null ? DateTime.parse(json["dob"]) : DateTime.now(),
-      email: json["email"] ?? '',
-      name: json["name"] ?? '',
-      qrCodes: json["qrCodes"] != null
-          ? List<QrCode>.from(json["qrCodes"].map((x) => QrCode.fromJson(x)))
-          : [],
-      vehicles: json["vehicles"] != null
-          ? List<Vehicle>.from(json["vehicles"].map((x) => Vehicle.fromJson(x)))
-          : [],
-    );
-  }
+  factory UsersModel.fromJson(Map<String, dynamic> json) => UsersModel(
+        id: json["_id"] ?? '',
+        phoneNumber: json["phoneNumber"] ?? '',
+        profilePicture: json["profilePicture"] ?? '',
+        refreshToken: json["refreshToken"],
+        createdAt: json["createdAt"] != null
+            ? DateTime.parse(json["createdAt"])
+            : DateTime.now(),
+        updatedAt: json["updatedAt"] != null
+            ? DateTime.parse(json["updatedAt"])
+            : DateTime.now(),
+        v: json["__v"] ?? 0,
+        dob: json["dob"] != null ? DateTime.parse(json["dob"]) : null,
+        email: json["email"] ?? '',
+        name: json["name"] ?? '',
+        qrCodes: json["qrCodes"] != null
+            ? List<QrCode>.from(json["qrCodes"].map((x) => QrCode.fromJson(x)))
+            : [],
+        vehicles: json["vehicles"] != null
+            ? List<Vehicle>.from(
+                json["vehicles"].map((x) => Vehicle.fromJson(x)))
+            : [],
+      );
 }
 
 class QrCode {
@@ -60,11 +61,11 @@ class QrCode {
   final String baseUrl;
   final String owner;
   final String qrCodeData;
+  final List<dynamic> images;
   final List<EmergencyContact> emergencyContacts;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final int v;
-  final VehicleDetails vehicleDetails;
+  final VehicleDetailsClass? vehicleDetails;
 
   QrCode({
     required this.id,
@@ -72,41 +73,36 @@ class QrCode {
     required this.baseUrl,
     required this.owner,
     required this.qrCodeData,
+    required this.images,
     required this.emergencyContacts,
     required this.createdAt,
     required this.updatedAt,
-    required this.v,
-    required this.vehicleDetails,
+    this.vehicleDetails,
   });
 
-  factory QrCode.fromJson(Map<String, dynamic> json) {
-    return QrCode(
-      id: json["_id"] ?? '',
-      code: json["code"] ?? '',
-      baseUrl: json["baseUrl"] ?? '',
-      owner: json["owner"] ?? '',
-      qrCodeData: json["qrCodeData"] ?? '',
-      emergencyContacts: json["emergencyContacts"] != null
-          ? List<EmergencyContact>.from(json["emergencyContacts"]
-              .map((x) => EmergencyContact.fromJson(x)))
-          : [],
-      createdAt: json["createdAt"] != null
-          ? DateTime.parse(json["createdAt"])
-          : DateTime.now(),
-      updatedAt: json["updatedAt"] != null
-          ? DateTime.parse(json["updatedAt"])
-          : DateTime.now(),
-      v: json["__v"] ?? 0,
-      vehicleDetails: json["vehicleDetails"] != null
-          ? VehicleDetails.fromJson(json["vehicleDetails"])
-          : VehicleDetails(
-              make: '',
-              model: '',
-              year: 0,
-              licensePlate: '',
-              vehicleType: VehicleType.OTHERS),
-    );
-  }
+  factory QrCode.fromJson(Map<String, dynamic> json) => QrCode(
+        id: json["_id"] ?? '',
+        code: json["code"] ?? '',
+        baseUrl: json["baseUrl"] ?? '',
+        owner: json["owner"] ?? '',
+        qrCodeData: json["qrCodeData"] ?? '',
+        images: json["images"] != null
+            ? List<dynamic>.from(json["images"].map((x) => x))
+            : [],
+        emergencyContacts: json["emergencyContacts"] != null
+            ? List<EmergencyContact>.from(json["emergencyContacts"]
+                .map((x) => EmergencyContact.fromJson(x)))
+            : [],
+        createdAt: json["createdAt"] != null
+            ? DateTime.parse(json["createdAt"])
+            : DateTime.now(),
+        updatedAt: json["updatedAt"] != null
+            ? DateTime.parse(json["updatedAt"])
+            : DateTime.now(),
+        vehicleDetails: json["vehicleDetails"] is Map<String, dynamic>
+            ? VehicleDetailsClass.fromJson(json["vehicleDetails"])
+            : null,
+      );
 }
 
 class EmergencyContact {
@@ -125,14 +121,14 @@ class EmergencyContact {
       );
 }
 
-class VehicleDetails {
+class VehicleDetailsClass {
   final String make;
   final String model;
   final int year;
   final String licensePlate;
-  final VehicleType vehicleType;
+  final String vehicleType;
 
-  VehicleDetails({
+  VehicleDetailsClass({
     required this.make,
     required this.model,
     required this.year,
@@ -140,37 +136,28 @@ class VehicleDetails {
     required this.vehicleType,
   });
 
-  factory VehicleDetails.fromJson(Map<String, dynamic> json) => VehicleDetails(
+  factory VehicleDetailsClass.fromJson(Map<String, dynamic> json) =>
+      VehicleDetailsClass(
         make: json["make"] ?? '',
         model: json["model"] ?? '',
         year: json["year"] ?? 0,
         licensePlate: json["licensePlate"] ?? '',
-        vehicleType:
-            vehicleTypeValues.map[json["vehicleType"]] ?? VehicleType.OTHERS,
+        vehicleType: json["vehicleType"] ?? '',
       );
 }
-
-enum VehicleType { OTHERS, THE_2_WHEELER, THE_3_WHEELER, THE_4_WHEELER }
-
-final vehicleTypeValues = EnumValues({
-  "Others": VehicleType.OTHERS,
-  "2 Wheeler": VehicleType.THE_2_WHEELER,
-  "3 Wheeler": VehicleType.THE_3_WHEELER,
-  "4 Wheeler": VehicleType.THE_4_WHEELER,
-});
 
 class Vehicle {
   final String id;
   final String owner;
   final String ownerName;
-  final VehicleType vehicleType;
+  final String vehicleType;
   final String ownerMobileNumber;
   final String make;
   final String model;
   final int year;
   final String licensePlate;
   final bool vehicleLink;
-  final dynamic qrCode;
+  final QrCode? qrCode;
   final DateTime createdAt;
   final DateTime updatedAt;
   final int v;
@@ -186,7 +173,7 @@ class Vehicle {
     required this.year,
     required this.licensePlate,
     required this.vehicleLink,
-    required this.qrCode,
+    this.qrCode,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
@@ -196,15 +183,16 @@ class Vehicle {
         id: json["_id"] ?? '',
         owner: json["owner"] ?? '',
         ownerName: json["ownerName"] ?? '',
-        vehicleType:
-            vehicleTypeValues.map[json["vehicleType"]] ?? VehicleType.OTHERS,
+        vehicleType: json["vehicleType"] ?? '',
         ownerMobileNumber: json["ownerMobileNumber"] ?? '',
         make: json["make"] ?? '',
         model: json["model"] ?? '',
         year: json["year"] ?? 0,
         licensePlate: json["licensePlate"] ?? '',
         vehicleLink: json["vehicleLink"] ?? false,
-        qrCode: json["qrCode"] ?? '',
+        qrCode: json["qrCode"] is Map<String, dynamic>
+            ? QrCode.fromJson(json["qrCode"])
+            : null,
         createdAt: json["createdAt"] != null
             ? DateTime.parse(json["createdAt"])
             : DateTime.now(),
@@ -213,16 +201,4 @@ class Vehicle {
             : DateTime.now(),
         v: json["__v"] ?? 0,
       );
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

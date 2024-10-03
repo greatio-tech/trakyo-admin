@@ -16,7 +16,10 @@ typedef JsonParser<T> = T Function(JSON json);
 typedef ListJsonParser<T> = List<T> Function(List json);
 
 class ApiServices {
-  static const baseUrl = "http://192.168.1.4:6001/api/";
+  static const baseUrl =
+
+      // "https://api.trakyo.com/api/";
+      "http://192.168.1.4:6001/api/";
   static String? token;
 
   Dio dio = Dio();
@@ -200,7 +203,6 @@ class ApiServices {
           mDio.options.headers['Authorization'] = 'Bearer $currToken';
           log(currToken);
           final refreshToken = await LocalStorage().getString('refreshToken');
-          print(refreshToken.toString());
           await mDio.post(
             baseUrl + ApiEndpoints.refreshToken,
             data: {

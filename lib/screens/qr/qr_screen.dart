@@ -5,7 +5,6 @@ import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
 import 'package:trakyo_admin/screens/qr/widgets/qr_details_widget.dart';
-import 'package:trakyo_admin/screens/qr_design.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/status_chip_widget.dart';
@@ -308,7 +307,7 @@ class QrScreen extends GetWidget<QrController> {
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w700,
                                     ),
-                                    const HSpace(100),
+                                    const HSpace(120),
                                     TextWidget(
                                       text: 'Status',
                                       fontSize: 14.sp,
@@ -316,7 +315,7 @@ class QrScreen extends GetWidget<QrController> {
                                     ),
 
                                     SizedBox(
-                                      width: 50.w,
+                                      width: 70.w,
                                     )
                                   ],
                                 ),
@@ -432,7 +431,13 @@ class QrScreen extends GetWidget<QrController> {
                                         // const Spacer(),
                                         const HSpace(110),
                                         StatusChipWidget(
-                                          status: 'linked',
+                                          status: controller
+                                                      .qrList[index]
+                                                      .vehicleDetails
+                                                      .licensePlate ==
+                                                  ''
+                                              ? "not linked"
+                                              : 'linked',
                                         ),
                                         const HSpace(10),
                                         MouseRegion(
@@ -473,17 +478,17 @@ class QrScreen extends GetWidget<QrController> {
                           ),
                         ),
                       ),
-                      const VSpace(40),
-                      Row(
-                        children: [
-                          TextWidget(
-                            text: "Show of 1 to 11 of 43 rows",
-                            fontSize: 14.sp,
-                            textColor: AppColors.textGreyColor,
-                          ),
-                          Container()
-                        ],
-                      )
+                      // const VSpace(40),
+                      // Row(
+                      //   children: [
+                      //     TextWidget(
+                      //       text: "Show of 1 to 11 of 43 rows",
+                      //       fontSize: 14.sp,
+                      //       textColor: AppColors.textGreyColor,
+                      //     ),
+                      //     Container()
+                      //   ],
+                      // )
                     ],
                   ),
                 ),

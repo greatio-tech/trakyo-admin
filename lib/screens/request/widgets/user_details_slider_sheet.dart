@@ -109,8 +109,8 @@ class UserDetailsSliderSheet extends GetWidget<UsersController> {
                 const VSpace(8),
                 TextFiledWidget(
                   controller: TextEditingController(
-                      text: DateFormat('dd-MM-yyyy')
-                          .format(controller.userData.value!.dob)),
+                      text: DateFormat('dd-MM-yyyy').format(
+                          controller.userData.value?.dob ?? DateTime.now())),
                   readOnly: true,
                   height: 56.h,
                 ),
@@ -129,9 +129,10 @@ class UserDetailsSliderSheet extends GetWidget<UsersController> {
                     itemBuilder: (context, index) {
                       return PrefTile.more(
                           title: controller.userData.value!.qrCodes[index]
-                                  .vehicleDetails.make +
-                              controller.userData.value!.qrCodes[index]
-                                  .vehicleDetails.model,
+                                  .vehicleDetails?.make ??
+                              ''.toString() +
+                                  controller.userData.value!.qrCodes[index]
+                                      .vehicleDetails!.model,
                           subtitle:
                               controller.userData.value!.qrCodes[index].id,
                           leading: const SvgIcon(

@@ -10,7 +10,6 @@ import 'package:trakyo_admin/services/api_endpoints.dart';
 import 'package:trakyo_admin/services/api_exception.dart';
 import 'package:trakyo_admin/services/api_service.dart';
 import 'package:trakyo_admin/utils/utils.dart';
-import 'package:intl/intl.dart';
 
 class UsersController extends GetxController {
   static UsersController get to => Get.find();

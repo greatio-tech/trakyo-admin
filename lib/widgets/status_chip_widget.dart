@@ -22,7 +22,7 @@ class StatusChipWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextWidget(
-        text: status,
+        text: status.toUpperCase(),
         fontSize: 12.sp,
         fontWeight: FontWeight.w500,
         textColor: AppColors.textWhiteColor,

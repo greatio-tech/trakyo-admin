@@ -30,7 +30,7 @@ class OrderController extends GetxController {
     getOrderLoading(true);
     orderService().then((value) {
       if (value.statusCode == 201 || value.statusCode == 200) {
-        orderList(OrderModelFromJson(value.data).toList());
+        orderList(orderModelFromJson(value.data).toList());
       } else {
         log(ApiException(value.data['message']).toString());
       }

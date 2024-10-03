@@ -175,7 +175,9 @@ class VehicleDetailsWidget extends GetWidget<QrController> {
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            TextFiledWidget(),
+            TextFiledWidget(
+              controller: controller.ownerNameController,
+            ),
             const VSpace(24),
             TextWidget(
               text: 'Owner Mobile number *',
@@ -198,6 +200,7 @@ class VehicleDetailsWidget extends GetWidget<QrController> {
                 const HSpace(8),
                 Expanded(
                   child: TextFiledWidget(
+                    controller: controller.ownerNumberController,
                     keyboardType: TextInputType.number,
                     onChanged: (p0) {
                       if (p0.length == 10) {

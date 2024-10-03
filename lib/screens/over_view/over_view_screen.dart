@@ -6,8 +6,10 @@ import 'package:trakyo_admin/screens/order/controller/order_controller.dart';
 import 'package:trakyo_admin/screens/over_view/controller/overview_controller.dart';
 import 'package:trakyo_admin/screens/over_view/widgets/cards.dart';
 import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
+import 'package:trakyo_admin/screens/request/controller/request_controller.dart';
 import 'package:trakyo_admin/screens/user/controller/users_controller.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
+import 'package:trakyo_admin/widgets/status_chip_widget.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
@@ -117,61 +119,61 @@ class OverViewScreen extends GetWidget<OverviewController> {
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w500,
                         ),
-                        Container(
-                          // padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                          ),
-                          child: SizedBox(
-                            height: 32.h,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.buttons.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Obx(
-                                  () => MouseRegion(
-                                    cursor: SystemMouseCursors.click,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        controller.currentIndex.value = index;
-                                      },
-                                      child: Container(
-                                        width: 84.w,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              controller.currentIndex.value ==
-                                                      index
-                                                  ? AppColors.primaryColor
-                                                  : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Center(
-                                          child: TextWidget(
-                                            text: controller.buttons[index],
-                                            textColor:
-                                                controller.currentIndex.value ==
-                                                        index
-                                                    ? AppColors.textWhiteColor
-                                                    : AppColors.textGreyColor,
-                                            fontSize: 12.sp,
-                                            fontWeight:
-                                                controller.currentIndex.value ==
-                                                        index
-                                                    ? FontWeight.w500
-                                                    : FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   // padding: const EdgeInsets.all(5),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(20),
+                        //     color: Colors.white,
+                        //   ),
+                        //   child: SizedBox(
+                        //     height: 32.h,
+                        //     child: ListView.builder(
+                        //       scrollDirection: Axis.horizontal,
+                        //       itemCount: controller.buttons.length,
+                        //       shrinkWrap: true,
+                        //       itemBuilder: (context, index) {
+                        //         return Obx(
+                        //           () => MouseRegion(
+                        //             cursor: SystemMouseCursors.click,
+                        //             child: GestureDetector(
+                        //               onTap: () {
+                        //                 controller.currentIndex.value = index;
+                        //               },
+                        //               child: Container(
+                        //                 width: 84.w,
+                        //                 decoration: BoxDecoration(
+                        //                   color:
+                        //                       controller.currentIndex.value ==
+                        //                               index
+                        //                           ? AppColors.primaryColor
+                        //                           : Colors.white,
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(20),
+                        //                 ),
+                        //                 child: Center(
+                        //                   child: TextWidget(
+                        //                     text: controller.buttons[index],
+                        //                     textColor:
+                        //                         controller.currentIndex.value ==
+                        //                                 index
+                        //                             ? AppColors.textWhiteColor
+                        //                             : AppColors.textGreyColor,
+                        //                     fontSize: 12.sp,
+                        //                     fontWeight:
+                        //                         controller.currentIndex.value ==
+                        //                                 index
+                        //                             ? FontWeight.w500
+                        //                             : FontWeight.normal,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         );
+                        //       },
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     const VSpace(17),
@@ -199,7 +201,7 @@ class OverViewScreen extends GetWidget<OverviewController> {
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(138),
+                                  const HSpace(130),
                                   TextWidget(
                                     text: 'Name',
                                     fontSize: 14.sp,
@@ -217,12 +219,12 @@ class OverViewScreen extends GetWidget<OverviewController> {
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  const HSpace(220),
-                                  TextWidget(
-                                    text: 'Delivery date',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  // const HSpace(220),
+                                  // TextWidget(
+                                  //   text: 'Delivery date',
+                                  //   fontSize: 14.sp,
+                                  //   fontWeight: FontWeight.w700,
+                                  // ),
                                   const Spacer(),
                                   TextWidget(
                                     text: 'Status',
@@ -242,7 +244,9 @@ class OverViewScreen extends GetWidget<OverviewController> {
                                   color: const Color(0xFFF5F5F5),
                                 );
                               },
-                              itemCount: 5,
+                              itemCount: OrderController.to.orderList.length > 5
+                                  ? 5
+                                  : OrderController.to.orderList.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.symmetric(
@@ -250,54 +254,51 @@ class OverViewScreen extends GetWidget<OverviewController> {
                                 child: Row(
                                   children: [
                                     TextWidget(
-                                      text: '#00001',
+                                      text: OrderController
+                                          .to.orderList[index].id
+                                          .substring(OrderController.to
+                                                  .orderList[index].id.length -
+                                              5)
+                                          .toUpperCase(),
                                       fontSize: 14.sp,
                                     ),
                                     const HSpace(102),
                                     SizedBox(
                                       width: 100.w,
                                       child: TextWidget(
-                                        text: 'Shameesdjfldsdr',
+                                        text: OrderController
+                                            .to.orderList[index].user.name,
                                         fontSize: 14.sp,
                                       ),
                                     ),
                                     const HSpace(84),
                                     TextWidget(
-                                      text: '13 Jul 2024',
+                                      text: OrderController
+                                          .to.orderList[index].createdAt
+                                          .toString()
+                                          .substring(0, 10),
                                       fontSize: 14.sp,
                                     ),
                                     const HSpace(100),
                                     SizedBox(
-                                      width: 200.w,
+                                      width: 400.w,
                                       child: TextWidget(
-                                        text:
-                                            'Ground Floor, No.15, Begur..ksdajfjashdfj.',
+                                        text: OrderController.to
+                                            .orderList[index].addressId.address,
                                         fontSize: 14.sp,
                                       ),
                                     ),
                                     const HSpace(80),
-                                    TextWidget(
-                                      text: '13 Jul 2024',
-                                      fontSize: 14.sp,
-                                    ),
+                                    // TextWidget(
+                                    //   text: '13 Jul 2024',
+                                    //   fontSize: 14.sp,
+                                    // ),
                                     const Spacer(),
                                     // const HSpace(100),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 1.h,
-                                        horizontal: 15.w,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: TextWidget(
-                                        text: 'Delivered',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        textColor: AppColors.textWhiteColor,
-                                      ),
-                                    )
+                                    StatusChipWidget(
+                                      status: OrderController
+                                          .to.orderList[index].deliveryStatus,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -315,65 +316,65 @@ class OverViewScreen extends GetWidget<OverviewController> {
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w500,
                         ),
-                        Container(
-                          // padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                          ),
-                          child: SizedBox(
-                            height: 32.h,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.ticketBtList.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Obx(
-                                  () => MouseRegion(
-                                    cursor: SystemMouseCursors.click,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        controller.ticketCurrentIndex.value =
-                                            index;
-                                      },
-                                      child: Container(
-                                        width: 84.w,
-                                        decoration: BoxDecoration(
-                                          color: controller.ticketCurrentIndex
-                                                      .value ==
-                                                  index
-                                              ? AppColors.primaryColor
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Center(
-                                          child: TextWidget(
-                                            text:
-                                                controller.ticketBtList[index],
-                                            textColor: controller
-                                                        .ticketCurrentIndex
-                                                        .value ==
-                                                    index
-                                                ? AppColors.textWhiteColor
-                                                : AppColors.textGreyColor,
-                                            fontSize: 12.sp,
-                                            fontWeight: controller
-                                                        .ticketCurrentIndex
-                                                        .value ==
-                                                    index
-                                                ? FontWeight.w500
-                                                : FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   // padding: const EdgeInsets.all(5),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(20),
+                        //     color: Colors.white,
+                        //   ),
+                        //   child: SizedBox(
+                        //     height: 32.h,
+                        //     child: ListView.builder(
+                        //       scrollDirection: Axis.horizontal,
+                        //       itemCount: controller.ticketBtList.length,
+                        //       shrinkWrap: true,
+                        //       itemBuilder: (context, index) {
+                        //         return Obx(
+                        //           () => MouseRegion(
+                        //             cursor: SystemMouseCursors.click,
+                        //             child: GestureDetector(
+                        //               onTap: () {
+                        //                 controller.ticketCurrentIndex.value =
+                        //                     index;
+                        //               },
+                        //               child: Container(
+                        //                 width: 84.w,
+                        //                 decoration: BoxDecoration(
+                        //                   color: controller.ticketCurrentIndex
+                        //                               .value ==
+                        //                           index
+                        //                       ? AppColors.primaryColor
+                        //                       : Colors.white,
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(20),
+                        //                 ),
+                        //                 child: Center(
+                        //                   child: TextWidget(
+                        //                     text:
+                        //                         controller.ticketBtList[index],
+                        //                     textColor: controller
+                        //                                 .ticketCurrentIndex
+                        //                                 .value ==
+                        //                             index
+                        //                         ? AppColors.textWhiteColor
+                        //                         : AppColors.textGreyColor,
+                        //                     fontSize: 12.sp,
+                        //                     fontWeight: controller
+                        //                                 .ticketCurrentIndex
+                        //                                 .value ==
+                        //                             index
+                        //                         ? FontWeight.w500
+                        //                         : FontWeight.normal,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         );
+                        //       },
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     const VSpace(17),
@@ -387,7 +388,9 @@ class OverViewScreen extends GetWidget<OverviewController> {
                       child: ListView.separated(
                         separatorBuilder: (context, index) => const VSpace(5),
                         shrinkWrap: true,
-                        itemCount: 4,
+                        itemCount: RequestController.to.requestList.length > 5
+                            ? 5
+                            : RequestController.to.requestList.length,
                         itemBuilder: (context, index) => Container(
                           decoration: BoxDecoration(
                             color: const Color(0xFFF5F5F5),
@@ -399,14 +402,16 @@ class OverViewScreen extends GetWidget<OverviewController> {
                           ),
                           child: Row(
                             children: [
-                              const CircleAvatar(
-                                radius: 20,
-                              ),
-                              const HSpace(12),
+                              // const CircleAvatar(
+                              //   radius: 20,
+                              // ),
+                              // const HSpace(12),
                               SizedBox(
-                                width: Get.width * .03.w,
+                                width: Get.width * .05.w,
                                 child: TextWidget(
-                                  text: 'Leo',
+                                  text: RequestController
+                                          .to.requestList[index].user?.name ??
+                                      '',
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -424,10 +429,11 @@ class OverViewScreen extends GetWidget<OverviewController> {
                                 icon: 'assets/svg/Chat Dots.svg',
                               ),
                               const HSpace(5),
-                              const Flexible(
+                              SizedBox(
+                                width: 600.w,
                                 child: TextWidget(
-                                  text:
-                                      'Lorem ipsum dolor sit amet, consectetur adipiscing ipsum dolor sit amet Lorem  ipsum dolor,',
+                                  text: RequestController
+                                      .to.requestList[index].description,
                                 ),
                               ),
                               const Spacer(),
@@ -438,23 +444,37 @@ class OverViewScreen extends GetWidget<OverviewController> {
                                   color: Colors.black.withOpacity(.2),
                                 ),
                               ),
+                              // const HSpace(20),
+                              // TextWidget(
+                              //   text: RequestController
+                              //       .to.requestList[index].createdAt.hour
+                              //       .toString(),
+                              // ),
                               const HSpace(20),
-                              const TextWidget(text: '09:00 AM'),
-                              const HSpace(20),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 1.h, horizontal: 15.w),
-                                decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(20),
+                              SizedBox(
+                                width: 80.w,
+                                child: Center(
+                                  child: StatusChipWidget(
+                                    status: RequestController
+                                        .to.requestList[index].status.value,
+                                  ),
                                 ),
-                                child: TextWidget(
-                                  text: 'Closed',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  textColor: AppColors.textWhiteColor,
-                                ),
-                              ),
+                              )
+
+                              // Container(
+                              //   padding: EdgeInsets.symmetric(
+                              //       vertical: 1.h, horizontal: 15.w),
+                              //   decoration: BoxDecoration(
+                              //     color: Colors.green,
+                              //     borderRadius: BorderRadius.circular(20),
+                              //   ),
+                              //   child: TextWidget(
+                              //     text: 'Closed',
+                              //     fontSize: 12.sp,
+                              //     fontWeight: FontWeight.w500,
+                              //     textColor: AppColors.textWhiteColor,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

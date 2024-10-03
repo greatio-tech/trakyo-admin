@@ -78,8 +78,8 @@ class QrController extends GetxController {
     vehicleMakeController.text = qrList[index].vehicleDetails.make;
     vehicleMakeController.text = qrList[index].vehicleDetails.make;
     vehicleModelController.text = qrList[index].vehicleDetails.model;
-    // ownerNameController.text = qrList[index].vehicleDetails.;
-    // ownerNumberController.text = qrList[index].vehicleDetails.;
+    ownerNameController.text = qrList[index].vehicleDetails.ownerName;
+    ownerNumberController.text = qrList[index].vehicleDetails.ownerMobileNumber;
   }
 
   RxList<QrCodeModel> qrListData = <QrCodeModel>[].obs;
@@ -102,16 +102,14 @@ class QrController extends GetxController {
   }
 
   Future<void> createMultiplePdfs(List<QrCodeModel> qrList) async {
-    print('Creating PDFs for ${qrList.length} QR codes'); // Debugging statement
     for (var qr in qrList) {
       final url = qr.qrCode;
       final id = qr.id!.substring(qr.id!.length - 5).toUpperCase();
 
       try {
-        print('Generating PDF for ID: $id'); // Debugging statement
         await createPdf(url, id);
       } catch (e) {
-        print('Error generating PDF for ID $id: $e');
+        log('Error generating PDF for ID $id: $e');
       }
     }
   }
@@ -154,7 +152,6 @@ class QrController extends GetxController {
         .then((value) async {
           await createMultiplePdfs(qrListData);
         });
-    ;
   }
 
   Future<DioResponse> usersService() async {

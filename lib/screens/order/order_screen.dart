@@ -5,7 +5,6 @@ import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/order/Widgets/order_details_widget.dart';
 import 'package:trakyo_admin/screens/order/controller/order_controller.dart';
-import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/status_chip_widget.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
@@ -272,17 +271,17 @@ class OrderScreen extends GetWidget<OrderController> {
                                 ),
                               ),
                             ),
-                            const VSpace(40),
-                            Row(
-                              children: [
-                                TextWidget(
-                                  text: "Show of 1 to 11 of 43 rows",
-                                  fontSize: 14.sp,
-                                  textColor: AppColors.textGreyColor,
-                                ),
-                                Container()
-                              ],
-                            )
+                            // const VSpace(40),
+                            // Row(
+                            //   children: [
+                            //     TextWidget(
+                            //       text: "Show of 1 to 11 of 43 rows",
+                            //       fontSize: 14.sp,
+                            //       textColor: AppColors.textGreyColor,
+                            //     ),
+                            //     Container()
+                            //   ],
+                            // )
                           ],
                         ),
                       ),

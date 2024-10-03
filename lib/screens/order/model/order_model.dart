@@ -1,4 +1,4 @@
-List<OrdersModel> OrderModelFromJson(List list) =>
+List<OrdersModel> orderModelFromJson(List list) =>
     List<OrdersModel>.from(list.map((x) => OrdersModel.fromJson(x)));
 
 class OrdersModel {

@@ -17,11 +17,11 @@ class LoginController extends GetxController {
   RxBool loginLoading = false.obs;
   RxBool isAuthenticated = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // checkLoginStatus();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   // checkLoginStatus();
+  // }
 
   // checkLoginStatus() async {
   //   bool isLogin = await LocalStorage().isLogin();
