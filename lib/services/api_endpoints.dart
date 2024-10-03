@@ -8,4 +8,5 @@ class ApiEndpoints {
   static String order = 'admin/sales-orders';
   static String getRequests = 'support/tickets';
   static String closeRequest = 'support/ticket/close';
+  static String getUserByUserId = 'admin/user/';
 }

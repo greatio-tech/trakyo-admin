@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/request/controller/request_controller.dart';
-import 'package:trakyo_admin/screens/request/widgets/user_details_slider_sheet.dart';
+import 'package:trakyo_admin/screens/user/controller/users_controller.dart';
 import 'package:trakyo_admin/utils/common_functions.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
@@ -55,10 +54,10 @@ class RequestSliderSheet extends GetWidget<RequestController> {
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => SideSheet.right(
-                    width: 400.w,
-                    context: context,
-                    body: const UserDetailsSliderSheet()),
+                onTap: () {
+                  UsersController.to.goToUserSlideSheet(
+                      controller.requestList[currentIndex].user!.id, context);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
