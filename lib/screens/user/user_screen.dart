@@ -156,8 +156,6 @@ class UserScreen extends GetWidget<UsersController> {
                                 itemBuilder: (context, index) =>
                                     GestureDetector(
                                   onTap: () {
-                                    controller.setUserData(index);
-
                                     controller.goToUserSlideSheet(
                                         controller.usersList[index].id,
                                         context);
