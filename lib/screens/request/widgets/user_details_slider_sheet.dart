@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/user/controller/users_controller.dart';
 import 'package:trakyo_admin/widgets/pref_tile.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class UserDetailsSliderSheet extends StatelessWidget {
+class UserDetailsSliderSheet extends GetWidget<UsersController> {
   const UserDetailsSliderSheet({
     super.key,
   });
@@ -59,7 +60,7 @@ class UserDetailsSliderSheet extends StatelessWidget {
             ),
             const VSpace(8),
             TextFiledWidget(
-              controller: TextEditingController(text: "Shameer"),
+              controller: controller.nameController,
               readOnly: true,
               height: 56.h,
             ),
@@ -71,7 +72,7 @@ class UserDetailsSliderSheet extends StatelessWidget {
             ),
             const VSpace(8),
             TextFiledWidget(
-              controller: TextEditingController(text: "+91 7865954657"),
+              controller: controller.numberController,
               readOnly: true,
               height: 56.h,
             ),
@@ -83,7 +84,7 @@ class UserDetailsSliderSheet extends StatelessWidget {
             ),
             const VSpace(8),
             TextFiledWidget(
-              controller: TextEditingController(text: "abc@gmail.com"),
+              controller: controller.mailController,
               readOnly: true,
               height: 56.h,
             ),
@@ -95,8 +96,8 @@ class UserDetailsSliderSheet extends StatelessWidget {
             ),
             const VSpace(8),
             TextFiledWidget(
-              controller: TextEditingController(text: "02/02/2002"),
               readOnly: true,
+              controller: controller.dobController,
               height: 56.h,
             ),
             const VSpace(32),
@@ -106,22 +107,32 @@ class UserDetailsSliderSheet extends StatelessWidget {
               fontSize: 18.sp,
             ),
             const VSpace(24),
-            PrefTile.more(
-                title: "Shameer Swift",
-                subtitle: "1277BGH8817",
-                leading: const SvgIcon(icon: "assets/svg/qr_code_round.svg"),
-                titleStyle: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.textGreyColor,
-                ),
-                minHeight: true,
-                subTitleStyle: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textBlackColor,
-                ),
-                onTap: () {}),
+            controller.qrList.isEmpty
+                ? Center(
+                    child: TextWidget(text: "No QR"),
+                  )
+                : ListView.builder(
+                    itemCount: controller.qrList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => PrefTile.more(
+                      title: controller.qrList[index].code,
+                      // subtitle: controller.qrList[index].code,
+                      leading:
+                          const SvgIcon(icon: "assets/svg/qr_code_round.svg"),
+                      // titleStyle: TextStyle(
+                      //   fontSize: 12.sp,
+                      //   fontWeight: FontWeight.w400,
+                      //   color: AppColors.textGreyColor,
+                      // ),
+                      minHeight: true,
+                      subTitleStyle: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textBlackColor,
+                      ),
+                      onTap: () {},
+                    ),
+                  ),
             const VSpace(32),
             TextWidget(
               text: "User Vehicle",
@@ -129,27 +140,33 @@ class UserDetailsSliderSheet extends StatelessWidget {
               fontSize: 18.sp,
             ),
             const VSpace(24),
-            ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return PrefTile.more(
-                      title: "Maruti suzuki Swift",
-                      subtitle: "KL 01 U 3332",
-                      titleStyle: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textGreyColor,
-                      ),
-                      subTitleStyle: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textBlackColor,
-                      ),
-                      minHeight: true,
-                      onTap: () {});
-                },
-                separatorBuilder: (context, index) => const VSpace(16),
-                itemCount: 2)
+            controller.vehicleList.isEmpty
+                ? Center(
+                    child: TextWidget(text: "No Vehicle"),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return PrefTile.more(
+                        title: controller.vehicleList[index].make,
+                        subtitle: controller.vehicleList[index].licensePlate,
+                        titleStyle: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textGreyColor,
+                        ),
+                        subTitleStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textBlackColor,
+                        ),
+                        minHeight: true,
+                        onTap: () {},
+                      );
+                    },
+                    separatorBuilder: (context, index) => const VSpace(16),
+                    itemCount: controller.vehicleList.length,
+                  )
           ],
         ),
       ),

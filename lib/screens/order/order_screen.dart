@@ -56,17 +56,17 @@ class OrderScreen extends GetWidget<OrderController> {
                                     ),
                                   ),
                                 ),
-                                const HSpace(16),
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: const SvgIcon(
-                                    icon: 'assets/svg/bell.svg',
-                                  ),
-                                ),
+                                // const HSpace(16),
+                                // Container(
+                                //   padding: const EdgeInsets.all(8),
+                                //   decoration: BoxDecoration(
+                                //     color: Colors.white,
+                                //     borderRadius: BorderRadius.circular(6),
+                                //   ),
+                                //   child: const SvgIcon(
+                                //     icon: 'assets/svg/bell.svg',
+                                //   ),
+                                // ),
                               ],
                             ),
                             const VSpace(40),
@@ -153,7 +153,7 @@ class OrderScreen extends GetWidget<OrderController> {
                                       shrinkWrap: true,
                                       itemBuilder: (context, index) {
                                         String formattedAddress =
-                                            "${controller.orderList[index].address.fullName}, ${controller.orderList[index].address.phoneNumber}, ${controller.orderList[index].address.buldingNumber}, ${controller.orderList[index].address.city}, ${controller.orderList[index].address.state}, ${controller.orderList[index].address.pincode}";
+                                            "${controller.orderList[index].addressId.fullName}, ${controller.orderList[index].addressId.phoneNumber}, ${controller.orderList[index].addressId.buldingNumber}, ${controller.orderList[index].addressId.city}, ${controller.orderList[index].addressId.state}, ${controller.orderList[index].addressId.pincode}";
                                         return GestureDetector(
                                           onTap: () {
                                             SideSheet.right(
@@ -196,12 +196,10 @@ class OrderScreen extends GetWidget<OrderController> {
                                                 SizedBox(
                                                   width: 100.w,
                                                   child: TextWidget(
-                                                    text: QrController.to
-                                                        .getUserNameById(
-                                                            controller
-                                                                .orderList[
-                                                                    index]
-                                                                .user),
+                                                    text: controller
+                                                        .orderList[index]
+                                                        .user
+                                                        .name,
                                                     fontSize: 14.sp,
                                                   ),
                                                 ),

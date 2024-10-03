@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
 import 'package:trakyo_admin/screens/qr/widgets/vehicle_details_widget.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class QrDetailsWidget extends StatelessWidget {
+class QrDetailsWidget extends GetWidget<QrController> {
   const QrDetailsWidget({
     super.key,
   });
@@ -48,14 +49,20 @@ class QrDetailsWidget extends StatelessWidget {
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            const TextFiledWidget(),
+            TextFiledWidget(
+              isEnable: false,
+              controller: controller.qrIdController,
+            ),
             const VSpace(24),
             TextWidget(
               text: 'Owner',
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            const TextFiledWidget(),
+            TextFiledWidget(
+              isEnable: false,
+              controller: controller.nameController,
+            ),
             const VSpace(24),
             TextWidget(
               text: 'Owner Number',
@@ -78,16 +85,17 @@ class QrDetailsWidget extends StatelessWidget {
                 const HSpace(8),
                 Expanded(
                   child: TextFiledWidget(
-                    hintText: 'Enter your mobile number',
+                    isEnable: false,
                     keyboardType: TextInputType.number,
-                    onChanged: (p0) {
-                      if (p0.length == 10) {
-                        FocusScope.of(Get.context!).unfocus();
-                      }
-                    },
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10),
-                    ],
+                    controller: controller.numberController,
+                    // onChanged: (p0) {
+                    //   if (p0.length == 10) {
+                    //     FocusScope.of(Get.context!).unfocus();
+                    //   }
+                    // },
+                    // inputFormatters: [
+                    //   LengthLimitingTextInputFormatter(10),
+                    // ],
                   ),
                 ),
               ],
@@ -145,6 +153,7 @@ class QrDetailsWidget extends StatelessWidget {
                 const HSpace(8),
                 Expanded(
                   child: TextFiledWidget(
+                    controller: controller.emergencyNo1Controller,
                     keyboardType: TextInputType.number,
                     onChanged: (p0) {
                       if (p0.length == 10) {
@@ -180,6 +189,7 @@ class QrDetailsWidget extends StatelessWidget {
                 const HSpace(8),
                 Expanded(
                   child: TextFiledWidget(
+                    controller: controller.emergencyNo2Controller,
                     keyboardType: TextInputType.number,
                     onChanged: (p0) {
                       if (p0.length == 10) {
@@ -230,7 +240,6 @@ class QrDetailsWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: ListTile(
                 onTap: () {
-
                   SideSheet.right(
                     width: 400.w,
                     body: const VehicleDetailsWidget(),
@@ -247,12 +256,12 @@ class QrDetailsWidget extends StatelessWidget {
                 trailing:
                     const SvgIcon(icon: 'assets/svg/Round Alt Arrow Right.svg'),
                 title: TextWidget(
-                  text: 'Maruti suzuki Swift',
+                  text: controller.vehicleDetails.value?.make ?? "",
                   fontSize: 12.sp,
                   textColor: AppColors.textGreyColor,
                 ),
                 subtitle: TextWidget(
-                  text: 'KL 01 U 3332',
+                  text: controller.vehicleDetails.value?.licensePlate ?? "",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                 ),

@@ -52,17 +52,17 @@ class UserScreen extends GetWidget<UsersController> {
                               ),
                             ),
                           ),
-                          const HSpace(16),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: const SvgIcon(
-                              icon: 'assets/svg/bell.svg',
-                            ),
-                          ),
+                          // const HSpace(16),
+                          // Container(
+                          //   padding: const EdgeInsets.all(8),
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(6),
+                          //   ),
+                          //   child: const SvgIcon(
+                          //     icon: 'assets/svg/bell.svg',
+                          //   ),
+                          // ),
                         ],
                       ),
                       const VSpace(40),
@@ -158,6 +158,7 @@ class UserScreen extends GetWidget<UsersController> {
                                 itemBuilder: (context, index) =>
                                     GestureDetector(
                                   onTap: () {
+                                    controller.setUserData(index);
                                     SideSheet.right(
                                       width: 400.w,
                                       body: const UserDetailsSliderSheet(),

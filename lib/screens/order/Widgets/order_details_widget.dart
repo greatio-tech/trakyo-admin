@@ -21,7 +21,7 @@ class OrderDetailsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String formattedAddress =
-        "${OrderController.to.orderList[index].address.fullName}, ${OrderController.to.orderList[index].address.phoneNumber}, ${OrderController.to.orderList[index].address.buldingNumber}, ${OrderController.to.orderList[index].address.city}, ${OrderController.to.orderList[index].address.state}, ${OrderController.to.orderList[index].address.pincode}";
+        "${OrderController.to.orderList[index].addressId.fullName}, ${OrderController.to.orderList[index].addressId.phoneNumber}, ${OrderController.to.orderList[index].addressId.buldingNumber}, ${OrderController.to.orderList[index].addressId.city}, ${OrderController.to.orderList[index].addressId.state}, ${OrderController.to.orderList[index].addressId.pincode}";
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(32),
@@ -103,16 +103,12 @@ class OrderDetailsWidget extends StatelessWidget {
             // ),
             const VSpace(24),
             TitleAndSubTitle(
-              title: 'User',
-              text: QrController.to
-                  .getUserNameById(OrderController.to.orderList[index].user),
-            ),
+                title: 'User',
+                text: OrderController.to.orderList[index].user.name),
             const VSpace(24),
             TitleAndSubTitle(
               title: 'Mobile Number',
-              text: QrController.to.getUserNumberById(
-                OrderController.to.orderList[index].user,
-              ),
+              text: OrderController.to.orderList[index].user.phoneNumber,
             ),
             const VSpace(24),
             const TitleAndSubTitle(

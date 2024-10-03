@@ -20,20 +20,20 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    checkLoginStatus();
+    // checkLoginStatus();
   }
 
-  checkLoginStatus() async {
-    bool isLogin = await LocalStorage().isLogin();
-    print("LoginCheck:-------- $isLogin");
+  // checkLoginStatus() async {
+  //   bool isLogin = await LocalStorage().isLogin();
+  //   print("LoginCheck:-------- $isLogin");
 
-    if (isLogin) {
-      isAuthenticated(true);
-      Get.offAllNamed(Routes.dashboard);
-    } else {
-      isAuthenticated(false);
-    }
-  }
+  //   if (isLogin) {
+  //     isAuthenticated(true);
+  //     Get.offAllNamed(Routes.dashboard);
+  //   } else {
+  //     isAuthenticated(false);
+  //   }
+  // }
 
   Future<DioResponse> loginService() async {
     return ApiServices().postMethod(

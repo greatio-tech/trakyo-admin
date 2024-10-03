@@ -8,7 +8,7 @@ import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put(LoginController());
+  // Get.put(LoginController());
   setPathUrlStrategy();
   runApp(const MyApp());
 }

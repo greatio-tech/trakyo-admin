@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/order/controller/order_controller.dart';
 import 'package:trakyo_admin/screens/over_view/controller/overview_controller.dart';
 import 'package:trakyo_admin/screens/over_view/widgets/cards.dart';
 import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
@@ -53,17 +54,17 @@ class OverViewScreen extends GetWidget<OverviewController> {
                             ),
                           ),
                         ),
-                        const HSpace(16),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const SvgIcon(
-                            icon: 'assets/svg/bell.svg',
-                          ),
-                        ),
+                        // const HSpace(16),
+                        // Container(
+                        //   padding: const EdgeInsets.all(8),
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     borderRadius: BorderRadius.circular(6),
+                        //   ),
+                        //   child: const SvgIcon(
+                        //     icon: 'assets/svg/bell.svg',
+                        //   ),
+                        // ),
                       ],
                     ),
                     const VSpace(40),
@@ -96,12 +97,13 @@ class OverViewScreen extends GetWidget<OverviewController> {
                           richText2: ' QR',
                         ),
                         const HSpace(32),
-                        const Expanded(
+                        Expanded(
                           child: Cards(
                             icon: 'assets/svg/bag blue.svg',
                             text: 'New QR sales',
-                            richText1: '40,689 ',
-                            richText2: 'Activated QR',
+                            richText1:
+                                OrderController.to.orderList.length.toString(),
+                            richText2: ' Orders',
                           ),
                         )
                       ],

@@ -4,27 +4,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class VehicleDetailsWidget extends StatelessWidget {
+class VehicleDetailsWidget extends GetWidget<QrController> {
   const VehicleDetailsWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final RxList<String> vehicleTypes = [
-      "4 Wheeler",
-      "3 Wheeler",
-      "2 Wheeler",
-      "Others",
-    ].obs;
-
-    RxBool vehicleTypeInvalid = false.obs;
-
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(32),
@@ -56,21 +48,27 @@ class VehicleDetailsWidget extends StatelessWidget {
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            const TextFiledWidget(),
+            TextFiledWidget(
+              controller: controller.vehicleRegNumberController,
+            ),
             const VSpace(24),
             TextWidget(
               text: 'Vehicle Make',
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            const TextFiledWidget(),
+            TextFiledWidget(
+              controller: controller.vehicleMakeController,
+            ),
             const VSpace(24),
             TextWidget(
               text: 'Vehicle Model',
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            const TextFiledWidget(),
+            TextFiledWidget(
+              controller: controller.vehicleModelController,
+            ),
             const VSpace(24),
             TextWidget(
               text: 'Vehicle Type',
@@ -80,7 +78,7 @@ class VehicleDetailsWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(0),
               decoration: BoxDecoration(
-                border: vehicleTypeInvalid.value
+                border: controller.vehicleTypeInvalid.value
                     ? const BorderDirectional(
                         bottom: BorderSide(
                           color: Colors.red,
@@ -110,7 +108,7 @@ class VehicleDetailsWidget extends StatelessWidget {
                     ),
                   ),
 
-                  items: vehicleTypes
+                  items: controller.vehicleTypes
                       .map((item) => DropdownMenuItem(
                             value: item,
                             child: Row(
@@ -177,7 +175,7 @@ class VehicleDetailsWidget extends StatelessWidget {
               fontSize: 12.sp,
             ),
             const VSpace(8),
-            const TextFiledWidget(),
+            TextFiledWidget(),
             const VSpace(24),
             TextWidget(
               text: 'Owner Mobile number *',

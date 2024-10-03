@@ -55,17 +55,17 @@ class QrScreen extends GetWidget<QrController> {
                               ),
                             ),
                           ),
-                          const HSpace(16),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: const SvgIcon(
-                              icon: 'assets/svg/bell.svg',
-                            ),
-                          ),
+                          // const HSpace(16),
+                          // Container(
+                          //   padding: const EdgeInsets.all(8),
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(6),
+                          //   ),
+                          //   child: const SvgIcon(
+                          //     icon: 'assets/svg/bell.svg',
+                          //   ),
+                          // ),
                         ],
                       ),
                       const VSpace(40),
@@ -124,24 +124,25 @@ class QrScreen extends GetWidget<QrController> {
                                       const VSpace(24),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.start,
                                         children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                TextWidget(
-                                                  text: 'User',
-                                                  fontSize: 12.sp,
-                                                ),
-                                                const VSpace(8),
-                                                const TextFiledWidget(),
-                                              ],
-                                            ),
-                                          ),
-                                          const HSpace(10),
-                                          Expanded(
+                                          // Expanded(
+                                          //   child: Column(
+                                          //     crossAxisAlignment:
+                                          //         CrossAxisAlignment.start,
+                                          //     children: [
+                                          //       TextWidget(
+                                          //         text: 'User',
+                                          //         fontSize: 12.sp,
+                                          //       ),
+                                          //       const VSpace(8),
+                                          //       const TextFiledWidget(),
+                                          //     ],
+                                          //   ),
+                                          // ),
+                                          // const HSpace(10),
+                                          SizedBox(
+                                            width: 180.w,
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -171,19 +172,39 @@ class QrScreen extends GetWidget<QrController> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      const SvgIcon(
-                                                        icon:
-                                                            'assets/svg/Minus Square.svg',
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          if (controller.qrCount
+                                                                  .value >
+                                                              1) {
+                                                            controller.qrCount
+                                                                .value--;
+                                                          }
+                                                        },
+                                                        child: const SvgIcon(
+                                                          icon:
+                                                              'assets/svg/Minus Square.svg',
+                                                        ),
                                                       ),
-                                                      TextWidget(
-                                                        text: '01',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 14.sp,
+                                                      Obx(
+                                                        () => TextWidget(
+                                                          text: controller
+                                                              .qrCount.value
+                                                              .toString(),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 14.sp,
+                                                        ),
                                                       ),
-                                                      const SvgIcon(
-                                                        icon:
-                                                            'assets/svg/plus square.svg',
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          controller
+                                                              .qrCount.value++;
+                                                        },
+                                                        child: const SvgIcon(
+                                                          icon:
+                                                              'assets/svg/plus square.svg',
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -205,7 +226,9 @@ class QrScreen extends GetWidget<QrController> {
                                             color: AppColors.errorColor
                                                 .withOpacity(.2),
                                             textColor: AppColors.errorColor,
-                                            onTap: () {},
+                                            onTap: () {
+                                              Get.back();
+                                            },
                                           ),
                                           const HSpace(16),
                                           ButtonWidget(
@@ -214,7 +237,9 @@ class QrScreen extends GetWidget<QrController> {
                                             text: 'Add',
                                             color: AppColors.primaryColor,
                                             textColor: AppColors.textWhiteColor,
-                                            onTap: () {},
+                                            onTap: () {
+                                              controller.generateQr();
+                                            },
                                           )
                                         ],
                                       )
@@ -308,6 +333,7 @@ class QrScreen extends GetWidget<QrController> {
                                 itemBuilder: (context, index) =>
                                     GestureDetector(
                                   onTap: () {
+                                    controller.setQrDetails(index);
                                     SideSheet.right(
                                       width: 400.w,
                                       body: const QrDetailsWidget(),
@@ -342,8 +368,8 @@ class QrScreen extends GetWidget<QrController> {
                                         SizedBox(
                                           width: 120.w,
                                           child: TextWidget(
-                                            text: controller.getUserNameById(
-                                                controller.qrList[index].owner),
+                                            text: controller
+                                                .qrList[index].owner.name,
                                             fontSize: 14.sp,
                                           ),
                                         ),
@@ -351,12 +377,8 @@ class QrScreen extends GetWidget<QrController> {
                                         SizedBox(
                                           width: 100.w,
                                           child: TextWidget(
-                                            text: controller
-                                                    .qrList[index]
-                                                    .vehicleDetails
-                                                    ?.licensePlate
-                                                    .toString() ??
-                                                '',
+                                            text: controller.qrList[index]
+                                                .vehicleDetails.licensePlate,
                                             fontSize: 14.sp,
                                           ),
                                         ),
@@ -364,9 +386,8 @@ class QrScreen extends GetWidget<QrController> {
                                         SizedBox(
                                           width: 120.w,
                                           child: TextWidget(
-                                            text: controller.getUserNumberById(
-                                              controller.qrList[index].owner,
-                                            ),
+                                            text: controller.qrList[index].owner
+                                                .phoneNumber,
                                             fontSize: 14.sp,
                                           ),
                                         ),
@@ -418,13 +439,13 @@ class QrScreen extends GetWidget<QrController> {
                                           cursor: SystemMouseCursors.click,
                                           child: GestureDetector(
                                             onTap: () async {
-                                              await PdfCreator.createPdf(
+                                              await QrController.to.createPdf(
                                                 controller
                                                     .qrList[index].qrCodeData,
-                                                controller.qrList[index].id
+                                                controller.qrList[index].code
                                                     .substring(controller
                                                             .qrList[index]
-                                                            .id
+                                                            .code
                                                             .length -
                                                         5)
                                                     .toUpperCase(),
