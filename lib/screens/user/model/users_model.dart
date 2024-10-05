@@ -65,7 +65,8 @@ class QrCode {
   final List<EmergencyContact> emergencyContacts;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final VehicleDetailsClass? vehicleDetails;
+  final String? vehicleDetails;
+  // final VehicleDetailsClass? vehicleDetails;
 
   QrCode({
     required this.id,
@@ -81,27 +82,28 @@ class QrCode {
   });
 
   factory QrCode.fromJson(Map<String, dynamic> json) => QrCode(
-        id: json["_id"] ?? '',
-        code: json["code"] ?? '',
-        baseUrl: json["baseUrl"] ?? '',
-        owner: json["owner"] ?? '',
-        qrCodeData: json["qrCodeData"] ?? '',
-        images: json["images"] != null
-            ? List<dynamic>.from(json["images"].map((x) => x))
-            : [],
-        emergencyContacts: json["emergencyContacts"] != null
-            ? List<EmergencyContact>.from(json["emergencyContacts"]
-                .map((x) => EmergencyContact.fromJson(x)))
-            : [],
-        createdAt: json["createdAt"] != null
-            ? DateTime.parse(json["createdAt"])
-            : DateTime.now(),
-        updatedAt: json["updatedAt"] != null
-            ? DateTime.parse(json["updatedAt"])
-            : DateTime.now(),
-        vehicleDetails: json["vehicleDetails"] is Map<String, dynamic>
-            ? VehicleDetailsClass.fromJson(json["vehicleDetails"])
-            : null,
+      id: json["_id"] ?? '',
+      code: json["code"] ?? '',
+      baseUrl: json["baseUrl"] ?? '',
+      owner: json["owner"] ?? '',
+      qrCodeData: json["qrCodeData"] ?? '',
+      images: json["images"] != null
+          ? List<dynamic>.from(json["images"].map((x) => x))
+          : [],
+      emergencyContacts: json["emergencyContacts"] != null
+          ? List<EmergencyContact>.from(json["emergencyContacts"]
+              .map((x) => EmergencyContact.fromJson(x)))
+          : [],
+      createdAt: json["createdAt"] != null
+          ? DateTime.parse(json["createdAt"])
+          : DateTime.now(),
+      updatedAt: json["updatedAt"] != null
+          ? DateTime.parse(json["updatedAt"])
+          : DateTime.now(),
+      vehicleDetails: json["vehicleDetails"] ?? ""
+      //  is Map<String, dynamic>
+      //     ? VehicleDetailsClass.fromJson(json["vehicleDetails"])
+      //     : null,
       );
 }
 
@@ -121,30 +123,30 @@ class EmergencyContact {
       );
 }
 
-class VehicleDetailsClass {
-  final String make;
-  final String model;
-  final int year;
-  final String licensePlate;
-  final String vehicleType;
+// class VehicleDetailsClass {
+//   final String make;
+//   final String model;
+//   final int year;
+//   final String licensePlate;
+//   final String vehicleType;
 
-  VehicleDetailsClass({
-    required this.make,
-    required this.model,
-    required this.year,
-    required this.licensePlate,
-    required this.vehicleType,
-  });
+//   VehicleDetailsClass({
+//     required this.make,
+//     required this.model,
+//     required this.year,
+//     required this.licensePlate,
+//     required this.vehicleType,
+//   });
 
-  factory VehicleDetailsClass.fromJson(Map<String, dynamic> json) =>
-      VehicleDetailsClass(
-        make: json["make"] ?? '',
-        model: json["model"] ?? '',
-        year: json["year"] ?? 0,
-        licensePlate: json["licensePlate"] ?? '',
-        vehicleType: json["vehicleType"] ?? '',
-      );
-}
+//   factory VehicleDetailsClass.fromJson(Map<String, dynamic> json) =>
+//       VehicleDetailsClass(
+//         make: json["make"] ?? '',
+//         model: json["model"] ?? '',
+//         year: json["year"] ?? 0,
+//         licensePlate: json["licensePlate"] ?? '',
+//         vehicleType: json["vehicleType"] ?? '',
+//       );
+// }
 
 class Vehicle {
   final String id;
@@ -190,7 +192,7 @@ class Vehicle {
         year: json["year"] ?? 0,
         licensePlate: json["licensePlate"] ?? '',
         vehicleLink: json["vehicleLink"] ?? false,
-        qrCode: json["qrCode"] is Map<String, dynamic>
+        qrCode: json["qrCode"] != null && json["qrCode"] is Map<String, dynamic>
             ? QrCode.fromJson(json["qrCode"])
             : null,
         createdAt: json["createdAt"] != null

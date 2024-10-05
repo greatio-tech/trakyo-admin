@@ -75,4 +75,15 @@ class UsersController extends GetxController {
       context: context,
     );
   }
+
+  String? vehicleNameById(String vehicleId) {
+    for (var user in usersList) {
+      for (var vehicle in user.vehicles) {
+        if (vehicle.id == vehicleId) {
+          return '${vehicle.make} ${vehicle.model}';
+        }
+      }
+    }
+    return null;
+  }
 }

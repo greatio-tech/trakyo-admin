@@ -128,11 +128,20 @@ class UserDetailsSliderSheet extends GetWidget<UsersController> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return PrefTile.more(
+                          // title: controller.userData.value!.qrCodes[index]
+                          //             .vehicleDetails ==
+                          //         null
+                          //     ? "Not Linked"
+                          //     : (controller.userData.value!.qrCodes[index]
+                          //             .vehicleDetails!.make +
+                          //         controller.userData.value!.qrCodes[index]
+                          //             .vehicleDetails!.model),
                           title: controller.userData.value!.qrCodes[index]
-                                  .vehicleDetails?.make ??
-                              ''.toString() +
-                                  controller.userData.value!.qrCodes[index]
-                                      .vehicleDetails!.model,
+                                      .vehicleDetails ==
+                                  null
+                              ? "Not Linked"
+                              : controller.vehicleNameById(controller.userData
+                                  .value!.qrCodes[index].vehicleDetails!)!,
                           subtitle:
                               controller.userData.value!.qrCodes[index].id,
                           leading: const SvgIcon(
@@ -166,9 +175,8 @@ class UserDetailsSliderSheet extends GetWidget<UsersController> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return PrefTile.more(
-                          title: controller
-                                  .userData.value!.vehicles[index].make +
-                              controller.userData.value!.vehicles[index].model,
+                          title:
+                              "${controller.userData.value!.vehicles[index].make} ${controller.userData.value!.vehicles[index].model}",
                           subtitle: controller
                               .userData.value!.vehicles[index].licensePlate,
                           titleStyle: TextStyle(
