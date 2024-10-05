@@ -204,7 +204,14 @@ class RequestSliderSheet extends GetWidget<RequestController> {
                     verticalPadding: 3,
                     color: AppColors.primaryColor.withOpacity(0.2),
                     textColor: AppColors.primaryColor,
-                    onTap: () {},
+                    onTap: () {
+                      String subject = "Trakyo message";
+                      String body =
+                          "This message is sent from Trakyo admin panel";
+
+                      CommonFunctions.launchUrl(
+                          'https://mail.google.com/mail/?view=cm&fs=1&to=${controller.requestList[currentIndex].user!.email}&su=$subject&body=$body');
+                    },
                   ),
                   const HSpace(16),
                   if (controller.requestList[currentIndex].status.value ==
