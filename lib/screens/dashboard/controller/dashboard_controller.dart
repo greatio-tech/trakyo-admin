@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:trakyo_admin/screens/order/order_screen.dart';
 import 'package:trakyo_admin/screens/over_view/over_view_screen.dart';
@@ -18,6 +17,7 @@ class DashboardController extends GetxController {
     // const SalesScreen(),
     const QrScreen(),
     const UserScreen(),
+    // const ProductsScreen(),
   ];
 
   Future<void> _loadCurrentIndex() async {

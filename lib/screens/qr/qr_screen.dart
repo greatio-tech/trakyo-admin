@@ -332,12 +332,16 @@ class QrScreen extends GetWidget<QrController> {
                                 itemBuilder: (context, index) =>
                                     GestureDetector(
                                   onTap: () {
-                                    controller.setQrDetails(index);
-                                    SideSheet.right(
-                                      width: 400.w,
-                                      body: const QrDetailsWidget(),
-                                      context: context,
-                                    );
+                                    if (controller.qrList[index].vehicleDetails
+                                            .licensePlate !=
+                                        '') {
+                                      controller.setQrDetails(index);
+                                      SideSheet.right(
+                                        width: 400.w,
+                                        body: const QrDetailsWidget(),
+                                        context: context,
+                                      );
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(

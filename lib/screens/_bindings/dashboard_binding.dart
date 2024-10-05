@@ -13,5 +13,6 @@ class DashboardBindings extends Bindings {
     Get.put(QrController());
     Get.put(UsersController());
     Get.put(RequestController());
+    // Get.put(ProductsController());
   }
 }

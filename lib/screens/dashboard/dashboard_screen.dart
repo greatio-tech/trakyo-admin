@@ -79,6 +79,13 @@ class DashboardScreen extends StatelessWidget {
                     text: 'User',
                   ),
                   const VSpace(32),
+                  // const DashboardButton(
+                  //   index: 5,
+                  //   iconActive: 'assets/svg/User active.svg',
+                  //   iconInactive: 'assets/svg/User.svg',
+                  //   text: 'Products',
+                  // ),
+                  // const VSpace(32),
                   TextWidget(
                     text: 'Profile',
                     textColor: AppColors.textGreyColor,

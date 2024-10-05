@@ -279,16 +279,16 @@ class QrDetailsWidget extends GetWidget<QrController> {
                   textColor: AppColors.errorColor,
                   onTap: () {},
                 ),
-                const HSpace(16),
-                ButtonWidget(
-                  border: true,
-                  verticalPadding: 5.h,
-                  width: 120.w,
-                  text: 'Deactivate',
-                  color: Colors.white,
-                  textColor: AppColors.errorColor,
-                  onTap: () {},
-                )
+                // const HSpace(16),
+                // ButtonWidget(
+                //   border: true,
+                //   verticalPadding: 5.h,
+                //   width: 120.w,
+                //   text: 'Deactivate',
+                //   color: Colors.white,
+                //   textColor: AppColors.errorColor,
+                //   onTap: () {},
+                // )
               ],
             ),
           ],

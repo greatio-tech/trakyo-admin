@@ -11,4 +11,6 @@ class ApiEndpoints {
   static String getRequests = 'support/tickets';
   static String closeRequest = 'support/ticket/close';
   static String getUserByUserId = 'admin/user/';
+  static String getProducts = 'products';
+  static String updateProduct = 'products/edit/';
 }
