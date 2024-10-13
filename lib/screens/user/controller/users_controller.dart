@@ -22,6 +22,16 @@ class UsersController extends GetxController {
 
   RxList<UsersModel> usersList = <UsersModel>[].obs;
 
+  RxBool isUserNameEditable = false.obs;
+  RxBool userNameEditLoading = false.obs;
+  RxBool userEmailEditLoading = false.obs;
+  RxBool isEmailEditable = false.obs;
+  RxBool isDobEditable = false.obs;
+  RxBool userDOBLoading = false.obs;
+
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
   RxBool getUsersLoading = false.obs;
   Future<DioResponse> usersService() async {
     return ApiServices().getMethod(
@@ -52,11 +62,13 @@ class UsersController extends GetxController {
   RxBool getUserByUserIdLoading = false.obs;
   Rxn<UsersModel> userData = Rxn();
 
-  Future getUserByUserId(String userId) async {
-    getUserByUserIdLoading(true);
+  Future getUserByUserId(String userId, {bool? restrictLoading = false}) async {
+    if (restrictLoading == false) getUserByUserIdLoading(true);
     ApiServices().getMethod(ApiEndpoints.getUserByUserId + userId).then(
       (value) {
         userData(UsersModel.fromJson(value.data));
+        fullNameController.text = userData.value!.name;
+        emailController.text = userData.value!.email;
       },
     ).onError(
       (error, stackTrace) {
@@ -69,6 +81,9 @@ class UsersController extends GetxController {
 
   void goToUserSlideSheet(String userId, BuildContext context) {
     getUserByUserId(userId);
+    isDobEditable(false);
+    isEmailEditable(false);
+    isUserNameEditable(false);
     SideSheet.right(
       width: 400.w,
       body: const UserDetailsSliderSheet(),
@@ -85,5 +100,77 @@ class UsersController extends GetxController {
       }
     }
     return null;
+  }
+
+  Future<void> editUserName() async {
+    userNameEditLoading(true);
+    await editUserInfo(
+            userId: userData.value!.id, name: fullNameController.text.trim())
+        .then(
+      (value) {
+        Utils.showSuccess("User name updated successfully");
+        getUserByUserId(userData.value!.id, restrictLoading: true);
+        isUserNameEditable(false);
+      },
+    ).onError((error, stackTrace) {
+      log(error.toString());
+    }).whenComplete(
+      () => userNameEditLoading(false),
+    );
+  }
+
+  Future<void> editEmail() async {
+    if (emailController.text.isEmpty) {
+      Utils.showError("Email cannot be empty");
+      return;
+    }
+    userEmailEditLoading(true);
+    await editUserInfo(
+            userId: userData.value!.id, email: emailController.text.trim())
+        .then(
+      (value) {
+        Utils.showSuccess("Email updated successfully");
+        getUserByUserId(userData.value!.id, restrictLoading: true);
+        isUserNameEditable(false);
+      },
+    ).onError((error, stackTrace) {
+      log(error.toString());
+    }).whenComplete(
+      () => userEmailEditLoading(false),
+    );
+  }
+
+  Future<void> editDOB(
+    DateTime dob,
+  ) async {
+    userDOBLoading(true);
+    await editUserInfo(userId: userData.value!.id, dob: dob).then(
+      (value) {
+        Utils.showSuccess("DOB updated successfully");
+        getUserByUserId(userData.value!.id, restrictLoading: true);
+        isDobEditable(false);
+      },
+    ).onError((error, stackTrace) {
+      log(error.toString());
+    }).whenComplete(
+      () => userDOBLoading(false),
+    );
+  }
+
+  Future<void> editUserInfo(
+      {required String userId,
+      String? name,
+      String? email,
+      DateTime? dob}) async {
+    await ApiServices().putMethod(
+      "${ApiEndpoints.editUser}/$userId",
+      data: {
+        "name": name ?? userData.value!.name,
+        "email": email ?? userData.value!.email,
+        "dob": dob.toString().trim().isNotEmpty
+            ? dob.toString()
+            : userData.value!.dob.toString(),
+      },
+    );
   }
 }
