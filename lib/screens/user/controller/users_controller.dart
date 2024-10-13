@@ -103,6 +103,10 @@ class UsersController extends GetxController {
   }
 
   Future<void> editUserName() async {
+    if (fullNameController.text.trim().isEmpty) {
+      Utils.showError("Full name cannot be empty");
+      return;
+    }
     userNameEditLoading(true);
     await editUserInfo(
             userId: userData.value!.id, name: fullNameController.text.trim())
@@ -122,6 +126,10 @@ class UsersController extends GetxController {
   Future<void> editEmail() async {
     if (emailController.text.isEmpty) {
       Utils.showError("Email cannot be empty");
+      return;
+    }
+    if (!emailController.text.isEmail) {
+      Utils.showError("Email is not valid");
       return;
     }
     userEmailEditLoading(true);
@@ -167,9 +175,10 @@ class UsersController extends GetxController {
       data: {
         "name": name ?? userData.value!.name,
         "email": email ?? userData.value!.email,
-        "dob": dob.toString().trim().isNotEmpty
-            ? dob.toString()
-            : userData.value!.dob.toString(),
+        "dob": dob != null ? dob.toString() : userData.value!.dob.toString(),
+        // "dob": dob.toString().trim().isNotEmpty
+        //     ? dob.toString()
+        //     : userData.value!.dob.toString(),
       },
     );
   }
