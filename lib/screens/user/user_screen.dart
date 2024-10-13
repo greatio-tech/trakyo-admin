@@ -231,11 +231,16 @@ class UserScreen extends GetWidget<UsersController> {
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                           ),
-                                          child: TextWidget(
-                                            text: 'Message',
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500,
-                                            textColor: AppColors.primaryColor,
+                                          child: GestureDetector(
+                                            onTap: () => controller.sendMail(
+                                                email: controller
+                                                    .usersList[index].email),
+                                            child: TextWidget(
+                                              text: 'Message',
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w500,
+                                              textColor: AppColors.primaryColor,
+                                            ),
                                           ),
                                         ),
                                         const HSpace(20),

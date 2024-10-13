@@ -9,6 +9,7 @@ import 'package:trakyo_admin/screens/user/model/users_model.dart';
 import 'package:trakyo_admin/services/api_endpoints.dart';
 import 'package:trakyo_admin/services/api_exception.dart';
 import 'package:trakyo_admin/services/api_service.dart';
+import 'package:trakyo_admin/utils/common_functions.dart';
 import 'package:trakyo_admin/utils/utils.dart';
 
 class UsersController extends GetxController {
@@ -181,5 +182,13 @@ class UsersController extends GetxController {
         //     : userData.value!.dob.toString(),
       },
     );
+  }
+
+  void sendMail({required String email}) {
+    String subject = "Trakyo message";
+    String body = "This message is sent from Trakyo admin panel";
+
+    CommonFunctions.launchUrl(
+        'https://mail.google.com/mail/?view=cm&fs=1&to=$email&su=$subject&body=$body');
   }
 }
