@@ -13,4 +13,6 @@ class ApiEndpoints {
   static String getUserByUserId = 'admin/user/';
   static String getProducts = 'products';
   static String updateProduct = 'products/edit/';
+
+  static String unlinkQr = 'admin/unlink';
 }

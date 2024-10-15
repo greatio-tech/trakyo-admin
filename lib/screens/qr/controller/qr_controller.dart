@@ -181,21 +181,30 @@ class QrController extends GetxController {
     );
   }
 
-  String getUserNumberById(String userId) {
-    for (var user in UsersController.to.usersList) {
-      if (user.id == userId) {
-        return user.phoneNumber;
-      }
-    }
-    return '';
+  Future<DioResponse> unlinkQrService(qrId) async {
+    return ApiServices().patchMethod(
+      ApiEndpoints.unlinkQr,
+      data: {
+        "qr_id": qrId,
+      },
+    );
   }
 
-  String getUserNameById(String userId) {
-    for (var user in UsersController.to.usersList) {
-      if (user.id == userId) {
-        return user.name;
+  Future unlinkQr(String qrId) async {
+    unlinkQrService(qrId).then((value) {
+      if (value.statusCode == 201 || value.statusCode == 200) {
+        log(value.data.toString());
+        qrGet();
+      } else {
+        log(ApiException(value.data['message']).toString());
       }
-    }
-    return 'Qr Not registered';
+    }).onError(
+      (error, _) {
+        log(_.toString());
+        Utils.showError(error);
+      },
+    ).whenComplete(
+      () => Get.back(),
+    );
   }
 }

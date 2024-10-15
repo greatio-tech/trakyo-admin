@@ -12,9 +12,12 @@ import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
 class QrDetailsWidget extends GetWidget<QrController> {
-  const QrDetailsWidget({
+  const QrDetailsWidget(
+    this.qrId, {
     super.key,
   });
+
+  final String qrId;
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +280,9 @@ class QrDetailsWidget extends GetWidget<QrController> {
                   text: 'Unlink',
                   color: AppColors.errorColor.withOpacity(.2),
                   textColor: AppColors.errorColor,
-                  onTap: () {},
+                  onTap: () {
+                    controller.unlinkQr(qrId);
+                  },
                 ),
                 // const HSpace(16),
                 // ButtonWidget(

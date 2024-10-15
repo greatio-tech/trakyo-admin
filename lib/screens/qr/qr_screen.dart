@@ -338,7 +338,9 @@ class QrScreen extends GetWidget<QrController> {
                                       controller.setQrDetails(index);
                                       SideSheet.right(
                                         width: 400.w,
-                                        body: const QrDetailsWidget(),
+                                        body: QrDetailsWidget(
+                                          controller.qrList[index].id,
+                                        ),
                                         context: context,
                                       );
                                     }
