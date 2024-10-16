@@ -90,84 +90,80 @@ class VehicleDetailsWidget extends GetWidget<QrController> {
                 borderRadius: BorderRadius.circular(8),
               ),
               width: double.infinity,
-              child:
-                  // Obx(
-                  //   () =>
-
-                  DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  isExpanded: true,
-                  hint: Text(
-                    // controller.vehicleType.value == ""
-                    //     ?
-                    'Select vehicle type',
-                    // : controller.vehicleType.value,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor,
-                    ),
-                  ),
-
-                  items: controller.vehicleTypes
-                      .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Row(
-                              children: [
-                                Text(
-                                  item,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                const Spacer(),
-                                const SvgIcon(
-                                    icon:
-                                        // item == controller.vehicleType.value
-                                        //     ?
-                                        'assets/svg/Radio_on.svg'
-                                    // : "assets/svg/Radio_off.svg",
-                                    )
-                              ],
-                            ),
-                          ))
-                      .toList(),
-                  // value: controller.vehicleType.value,
-                  onChanged: (value) {},
-                  buttonStyleData: const ButtonStyleData(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    height: 45,
-                    width: 200,
-                  ),
-                  dropdownStyleData: const DropdownStyleData(
-                    padding: EdgeInsets.all(20),
-                    offset: Offset(0, -20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
+              child: Obx(
+                () => DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: Text(
+                      controller.selectVehicleType.value == ""
+                          ? 'Select vehicle type'
+                          : controller.selectVehicleType.value,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).hintColor,
                       ),
-                      boxShadow: [],
                     ),
-                    maxHeight: 250,
-                  ),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 50,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
+                    items: controller.vehicleTypes
+                        .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  // SvgIcon(
+                                  //   icon: item ==
+                                  //           controller.selectVehicleType.value
+                                  //       ? 'assets/svg/Radio_on.svg'
+                                  //       : "assets/svg/Radio_off.svg",
+                                  // )
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                    value: controller.selectVehicleType.value,
+                    onChanged: (value) {
+                      controller.selectVehicleType.value = value!;
+                    },
+                    buttonStyleData: const ButtonStyleData(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      height: 45,
+                      width: 200,
                     ),
-                  ),
-                  iconStyleData: const IconStyleData(
-                    icon: SvgIcon(
-                      icon: 'assets/svg/arrow_down.svg',
+                    dropdownStyleData: const DropdownStyleData(
+                      padding: EdgeInsets.all(20),
+                      offset: Offset(0, -20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        boxShadow: [],
+                      ),
+                      maxHeight: 250,
                     ),
-                    openMenuIcon: SvgIcon(
-                      icon: 'assets/svg/arrow_up.svg',
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 50,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: SvgIcon(
+                        icon: 'assets/svg/arrow_down.svg',
+                      ),
+                      openMenuIcon: SvgIcon(
+                        icon: 'assets/svg/arrow_up.svg',
+                      ),
                     ),
                   ),
                 ),
               ),
-              // ),
             ),
             const VSpace(24),
             TextWidget(
@@ -221,7 +217,7 @@ class VehicleDetailsWidget extends GetWidget<QrController> {
                 ButtonWidget(
                   verticalPadding: 5.h,
                   width: 120.w,
-                  text: 'Edit',
+                  text: 'Save',
                   color: AppColors.primaryColor,
                   textColor: AppColors.textWhiteColor,
                   onTap: () {},

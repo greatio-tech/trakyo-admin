@@ -214,27 +214,27 @@ class QrDetailsWidget extends GetWidget<QrController> {
                   fontWeight: FontWeight.w500,
                   fontSize: 18.sp,
                 ),
-                const Spacer(),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        const SvgIcon(
-                          icon: 'assets/svg/Pen.svg',
-                        ),
-                        const HSpace(5),
-                        TextWidget(
-                          text: 'Edit info',
-                          fontSize: 14.sp,
-                          textColor: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // const Spacer(),
+                // MouseRegion(
+                //   cursor: SystemMouseCursors.click,
+                //   child: GestureDetector(
+                //     onTap: () {},
+                //     child: Row(
+                //       children: [
+                //         const SvgIcon(
+                //           icon: 'assets/svg/Pen.svg',
+                //         ),
+                //         const HSpace(5),
+                //         TextWidget(
+                //           text: 'Edit info',
+                //           fontSize: 14.sp,
+                //           textColor: AppColors.primaryColor,
+                //           fontWeight: FontWeight.w500,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             const VSpace(24),

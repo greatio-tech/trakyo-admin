@@ -40,6 +40,10 @@ class QrController extends GetxController {
   TextEditingController ownerNameController = TextEditingController();
   TextEditingController ownerNumberController = TextEditingController();
 
+  Rxn selectVehicleType = Rxn();
+
+  RxBool isEditVehicleLoading = false.obs;
+
   @override
   void onInit() {
     qrGet();
@@ -66,11 +70,11 @@ class QrController extends GetxController {
     numberController.text = qrList[index].owner.phoneNumber;
     if (qrList[index].emergencyContacts.isNotEmpty) {
       emergencyNo1Controller.text =
-          qrList[index].emergencyContacts[0].phoneNumber;
+          removeCountryCode(qrList[index].emergencyContacts[0].phoneNumber);
     }
     if (qrList[index].emergencyContacts.length > 1) {
       emergencyNo2Controller.text =
-          qrList[index].emergencyContacts[1].phoneNumber;
+          removeCountryCode(qrList[index].emergencyContacts[1].phoneNumber);
     }
     vehicleDetails.value = qrList[index].vehicleDetails;
 
@@ -79,7 +83,17 @@ class QrController extends GetxController {
     vehicleMakeController.text = qrList[index].vehicleDetails.make;
     vehicleModelController.text = qrList[index].vehicleDetails.model;
     ownerNameController.text = qrList[index].vehicleDetails.ownerName;
-    ownerNumberController.text = qrList[index].vehicleDetails.ownerMobileNumber;
+
+    ownerNumberController.text =
+        removeCountryCode(qrList[index].vehicleDetails.ownerMobileNumber);
+    selectVehicleType.value = qrList[index].vehicleDetails.vehicleType;
+  }
+
+  String removeCountryCode(String phoneNumber) {
+    if (phoneNumber.startsWith('+91')) {
+      return phoneNumber.substring(3);
+    }
+    return phoneNumber;
   }
 
   RxList<QrCodeModel> qrListData = <QrCodeModel>[].obs;
@@ -206,5 +220,69 @@ class QrController extends GetxController {
     ).whenComplete(
       () => Get.back(),
     );
+  }
+
+  Future<DioResponse> deleteQrService(qrId) async {
+    return ApiServices().deleteMethod(
+      ApiEndpoints.deleteQr,
+      data: {
+        "qrId": qrId,
+      },
+    );
+  }
+
+  RxBool deleteQrLoading = false.obs;
+  Future deleteQr(String qrId) async {
+    deleteQrLoading(true);
+    deleteQrService(qrId).then((value) {
+      if (value.statusCode == 201 || value.statusCode == 200) {
+        log(value.data.toString());
+        Get.back();
+        Utils.showToast("QR code deleted successfully");
+
+        qrGet();
+      } else {
+        log(ApiException(value.data['message']).toString());
+      }
+    }).onError(
+      (error, _) {
+        log(_.toString());
+        Utils.showError(error);
+      },
+    ).whenComplete(
+      () => deleteQrLoading(false),
+    );
+  }
+
+  Future getEditVehicleOtp() async {
+    isEditVehicleLoading(true);
+    ApiServices()
+        .postMethod("${ApiEndpoints.editVehicle}${vehicleDetails.value!.id}",
+            data: {
+              "ownerName": ownerNameController.text.trim(),
+              "vehicleType": selectVehicleType.value,
+              "ownerMobileNumber": "+91${ownerNumberController.text}",
+              "make": vehicleMakeController.text.trim(),
+              "model": vehicleModelController.text.trim(),
+              "year": 1,
+              "licensePlate": vehicleRegNumberController.text.trim(),
+            })
+        .then(
+          (value) {
+            if (value.statusCode == 201 || value.statusCode == 200) {
+              log(value.data.toString());
+              Utils.showSuccess("Vehicle updated successfully");
+              Get.back();
+            } else {
+              log(ApiException(value.data['message']).toString());
+            }
+          },
+        )
+        .onError(
+          (error, stackTrace) => Utils.showError(error),
+        )
+        .whenComplete(
+          () => isEditVehicleLoading(false),
+        );
   }
 }

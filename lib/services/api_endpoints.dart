@@ -14,4 +14,6 @@ class ApiEndpoints {
   static String updateProduct = 'products/edit/';
   static String unlinkQr = 'admin/unlink';
   static String editUser = 'users/';
+  static String editVehicle = '';
+  static String deleteQr = 'admin/delete-qr';
 }

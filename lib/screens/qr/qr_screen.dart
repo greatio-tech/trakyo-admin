@@ -6,6 +6,7 @@ import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
 import 'package:trakyo_admin/screens/qr/widgets/qr_details_widget.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
+import 'package:trakyo_admin/widgets/confirm_dialog.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/status_chip_widget.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
@@ -446,35 +447,76 @@ class QrScreen extends GetWidget<QrController> {
                                               : 'linked',
                                         ),
                                         const HSpace(10),
-                                        MouseRegion(
-                                          cursor: SystemMouseCursors.click,
-                                          child: GestureDetector(
-                                            onTap: () async {
-                                              await QrController.to.createPdf(
-                                                controller
-                                                    .qrList[index].qrCodeData,
-                                                controller.qrList[index].code
-                                                    .substring(controller
-                                                            .qrList[index]
-                                                            .code
-                                                            .length -
-                                                        5)
-                                                    .toUpperCase(),
-                                              );
-                                              ScaffoldMessenger.of(Get.context!)
-                                                  .showSnackBar(
-                                                const SnackBar(
-                                                  content: Text(
-                                                    "PDF Generated and Downloaded!",
+                                        Row(
+                                          children: [
+                                            Visibility(
+                                              visible: controller
+                                                      .qrList[index]
+                                                      .vehicleDetails
+                                                      .licensePlate ==
+                                                  '',
+                                              child: MouseRegion(
+                                                cursor:
+                                                    SystemMouseCursors.click,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Get.dialog(
+                                                      ConfirmDialog(
+                                                        description:
+                                                            'Are you sure you want to delete this QR?',
+                                                        title: 'Delete QR',
+                                                        onConfirm: () {
+                                                          controller.deleteQr(
+                                                            controller
+                                                                .qrList[index]
+                                                                .id,
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
                                                   ),
                                                 ),
-                                              );
-                                            },
-                                            child: const SvgIcon(
-                                              icon: 'assets/svg/print.svg',
+                                              ),
                                             ),
-                                          ),
-                                        )
+                                            const HSpace(5),
+                                            MouseRegion(
+                                              cursor: SystemMouseCursors.click,
+                                              child: GestureDetector(
+                                                onTap: () async {
+                                                  await QrController.to
+                                                      .createPdf(
+                                                    controller.qrList[index]
+                                                        .qrCodeData,
+                                                    controller
+                                                        .qrList[index].code
+                                                        .substring(controller
+                                                                .qrList[index]
+                                                                .code
+                                                                .length -
+                                                            5)
+                                                        .toUpperCase(),
+                                                  );
+                                                  ScaffoldMessenger.of(
+                                                          Get.context!)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                        "PDF Generated and Downloaded!",
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const SvgIcon(
+                                                  icon: 'assets/svg/print.svg',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ),

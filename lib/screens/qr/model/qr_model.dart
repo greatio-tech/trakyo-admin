@@ -105,6 +105,7 @@ class Owner {
 }
 
 class VehicleDetails {
+  final String id;
   final String make;
   final String model;
   final int year;
@@ -114,6 +115,7 @@ class VehicleDetails {
   final String ownerName;
 
   VehicleDetails({
+    required this.id,
     required this.make,
     required this.model,
     required this.year,
@@ -124,6 +126,7 @@ class VehicleDetails {
   });
 
   factory VehicleDetails.fromJson(Map<String, dynamic> json) => VehicleDetails(
+        id: json["_id"] ?? '',
         make: json["make"] ?? '',
         model: json["model"] ?? '',
         year: json["year"] ?? 0,
