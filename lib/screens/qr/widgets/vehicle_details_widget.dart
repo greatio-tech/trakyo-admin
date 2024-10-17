@@ -220,7 +220,9 @@ class VehicleDetailsWidget extends GetWidget<QrController> {
                   text: 'Save',
                   color: AppColors.primaryColor,
                   textColor: AppColors.textWhiteColor,
-                  onTap: () {},
+                  onTap: () {
+                    controller.getEditVehicle();
+                  },
                 ),
               ],
             ),

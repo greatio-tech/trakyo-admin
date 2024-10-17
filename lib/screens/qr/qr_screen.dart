@@ -42,19 +42,19 @@ class QrScreen extends GetWidget<QrController> {
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                           ),
-                          const Spacer(),
-                          SizedBox(
-                            width: 251.w,
-                            child: const TextFiledWidget(
-                              hintText: 'Search',
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: SvgIcon(
-                                  icon: 'assets/svg/search.svg',
-                                ),
-                              ),
-                            ),
-                          ),
+                          // const Spacer(),
+                          // SizedBox(
+                          //   width: 251.w,
+                          //   child: const TextFiledWidget(
+                          //     hintText: 'Search',
+                          //     prefixIcon: Padding(
+                          //       padding: EdgeInsets.all(10),
+                          //       child: SvgIcon(
+                          //         icon: 'assets/svg/search.svg',
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           // const HSpace(16),
                           // Container(
                           //   padding: const EdgeInsets.all(8),
@@ -334,13 +334,14 @@ class QrScreen extends GetWidget<QrController> {
                                     GestureDetector(
                                   onTap: () {
                                     if (controller.qrList[index].vehicleDetails
-                                            .licensePlate !=
-                                        '') {
+                                            .vehicleLink ==
+                                        true) {
                                       controller.setQrDetails(index);
                                       SideSheet.right(
                                         width: 400.w,
                                         body: QrDetailsWidget(
                                           controller.qrList[index].id,
+                                          controller.qrList[index].code,
                                         ),
                                         context: context,
                                       );
@@ -441,8 +442,8 @@ class QrScreen extends GetWidget<QrController> {
                                           status: controller
                                                       .qrList[index]
                                                       .vehicleDetails
-                                                      .licensePlate ==
-                                                  ''
+                                                      .vehicleLink ==
+                                                  false
                                               ? "not linked"
                                               : 'linked',
                                         ),
@@ -453,8 +454,8 @@ class QrScreen extends GetWidget<QrController> {
                                               visible: controller
                                                       .qrList[index]
                                                       .vehicleDetails
-                                                      .licensePlate ==
-                                                  '',
+                                                      .vehicleLink ==
+                                                  false,
                                               child: MouseRegion(
                                                 cursor:
                                                     SystemMouseCursors.click,

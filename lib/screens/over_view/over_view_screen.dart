@@ -43,19 +43,19 @@ class OverViewScreen extends GetWidget<OverviewController> {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                         ),
-                        const Spacer(),
-                        SizedBox(
-                          width: 251.w,
-                          child: const TextFiledWidget(
-                            hintText: 'Search',
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: SvgIcon(
-                                icon: 'assets/svg/search.svg',
-                              ),
-                            ),
-                          ),
-                        ),
+                        // const Spacer(),
+                        // SizedBox(
+                        //   width: 251.w,
+                        //   child: const TextFiledWidget(
+                        //     hintText: 'Search',
+                        //     prefixIcon: Padding(
+                        //       padding: EdgeInsets.all(10),
+                        //       child: SvgIcon(
+                        //         icon: 'assets/svg/search.svg',
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         // const HSpace(16),
                         // Container(
                         //   padding: const EdgeInsets.all(8),

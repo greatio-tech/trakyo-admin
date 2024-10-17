@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/core/theme.dart';
 import 'package:trakyo_admin/routes.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -26,13 +26,7 @@ class MyApp extends StatelessWidget {
           const Size(1440, 1024),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.primaryColor,
-            background: AppColors.backgroundColor,
-          ),
-          useMaterial3: true,
-        ),
+        theme: AppTheme.theme,
         title: 'Trakyo admin',
         getPages: AppPages.pages,
         initialRoute: Routes.login,

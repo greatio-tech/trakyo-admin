@@ -13,11 +13,13 @@ import 'package:trakyo_admin/widgets/text_widget.dart';
 
 class QrDetailsWidget extends GetWidget<QrController> {
   const QrDetailsWidget(
-    this.qrId, {
+    this.qrId,
+    this.qrCode, {
     super.key,
   });
 
   final String qrId;
+  final String qrCode;
 
   @override
   Widget build(BuildContext context) {
@@ -112,23 +114,28 @@ class QrDetailsWidget extends GetWidget<QrController> {
                   fontSize: 18.sp,
                 ),
                 const Spacer(),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        const SvgIcon(
-                          icon: 'assets/svg/Pen.svg',
-                        ),
-                        const HSpace(5),
-                        TextWidget(
-                          text: 'Edit info',
-                          fontSize: 14.sp,
-                          textColor: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ],
+                Obx(
+                  () => MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        !controller.emergencyClicked.value
+                            ? controller.emergencyClicked.value =
+                                !controller.emergencyClicked.value
+                            : controller.updateEmergencyContact(qrCode);
+                      },
+                      child: Row(
+                        children: [
+                          TextWidget(
+                            text: controller.emergencyClicked.isTrue
+                                ? 'Save'
+                                : 'Edit',
+                            fontSize: 12.sp,
+                            textColor: AppColors.primaryColor,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -154,18 +161,22 @@ class QrDetailsWidget extends GetWidget<QrController> {
                   ),
                 ),
                 const HSpace(8),
-                Expanded(
-                  child: TextFiledWidget(
-                    controller: controller.emergencyNo1Controller,
-                    keyboardType: TextInputType.number,
-                    onChanged: (p0) {
-                      if (p0.length == 10) {
-                        FocusScope.of(Get.context!).unfocus();
-                      }
-                    },
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10),
-                    ],
+                Obx(
+                  () => Expanded(
+                    child: TextFiledWidget(
+                      isEnable:
+                          controller.emergencyClicked.isTrue ? true : false,
+                      controller: controller.emergencyNo1Controller,
+                      keyboardType: TextInputType.number,
+                      onChanged: (p0) {
+                        if (p0.length == 10) {
+                          FocusScope.of(Get.context!).unfocus();
+                        }
+                      },
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -190,18 +201,22 @@ class QrDetailsWidget extends GetWidget<QrController> {
                   ),
                 ),
                 const HSpace(8),
-                Expanded(
-                  child: TextFiledWidget(
-                    controller: controller.emergencyNo2Controller,
-                    keyboardType: TextInputType.number,
-                    onChanged: (p0) {
-                      if (p0.length == 10) {
-                        FocusScope.of(Get.context!).unfocus();
-                      }
-                    },
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10),
-                    ],
+                Obx(
+                  () => Expanded(
+                    child: TextFiledWidget(
+                      isEnable:
+                          controller.emergencyClicked.isTrue ? true : false,
+                      controller: controller.emergencyNo2Controller,
+                      keyboardType: TextInputType.number,
+                      onChanged: (p0) {
+                        if (p0.length == 10) {
+                          FocusScope.of(Get.context!).unfocus();
+                        }
+                      },
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -281,7 +296,7 @@ class QrDetailsWidget extends GetWidget<QrController> {
                   color: AppColors.errorColor.withOpacity(.2),
                   textColor: AppColors.errorColor,
                   onTap: () {
-                    controller.unlinkQr(qrId);
+                    controller.unlinkQr(qrId.toString());
                   },
                 ),
                 // const HSpace(16),

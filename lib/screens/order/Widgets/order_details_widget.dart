@@ -9,7 +9,7 @@ import 'package:trakyo_admin/widgets/status_chip_widget.dart';
 import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
-class OrderDetailsWidget extends StatelessWidget {
+class OrderDetailsWidget extends GetWidget<OrderController> {
   const OrderDetailsWidget({
     super.key,
     required this.index,
@@ -129,37 +129,59 @@ class OrderDetailsWidget extends StatelessWidget {
               text: formattedAddress,
             ),
             const VSpace(32),
-            TextWidget(
-              text: "Status updation",
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
+            Obx(
+              () => Visibility(
+                visible: controller.currentOrderIndex.value == 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidget(
+                      text: "Status updation",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.sp,
+                    ),
+                    const VSpace(15),
+                    const TextFiledWidget(
+                      headingText: 'Order Tracking ID',
+                      maxLines: 5,
+                      hintText: "Enter order tracking ID",
+                    ),
+                    const VSpace(20),
+                  ],
+                ),
+              ),
             ),
-            const VSpace(24),
-            const TextFiledWidget(
-              headingText: 'Message user',
-              maxLines: 5,
-              hintText: "Enter message",
-            ),
-            const VSpace(40),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ButtonWidget(
-                  verticalPadding: 10.h,
-                  width: 120.w,
-                  text: 'Cancel Order',
-                  color: AppColors.errorColor.withOpacity(.2),
-                  textColor: AppColors.errorColor,
-                  onTap: () {},
-                ),
-                const HSpace(16),
-                ButtonWidget(
-                  verticalPadding: 10.h,
-                  width: 120.w,
-                  text: 'Mark Shipped',
-                  color: AppColors.primaryColor,
-                  onTap: () {},
-                  textColor: AppColors.textWhiteColor,
+                // ButtonWidget(
+                //   verticalPadding: 10.h,
+                //   width: 120.w,
+                //   text: 'Cancel Order',
+                //   color: AppColors.errorColor.withOpacity(.2),
+                //   textColor: AppColors.errorColor,
+                //   onTap: () {},
+                // ),
+                // const HSpace(16),
+                Obx(
+                  () => Visibility(
+                    visible: controller.currentOrderIndex.value <= 1,
+                    child: ButtonWidget(
+                      verticalPadding: 10.h,
+                      width: 125.w,
+                      text: controller.currentOrderIndex.value == 0
+                          ? 'Mark Shipped'
+                          : "Mark Delivered",
+                      color: controller.currentOrderIndex.value == 0
+                          ? AppColors.primaryColor
+                          : Colors.green,
+                      onTap: () {
+                        controller.currentOrderIndex.value++;
+                      },
+                      textColor: AppColors.textWhiteColor,
+                    ),
+                  ),
                 )
               ],
             ),

@@ -44,6 +44,10 @@ class QrController extends GetxController {
 
   RxBool isEditVehicleLoading = false.obs;
 
+  RxBool updateEmergencyLoading = false.obs;
+
+  RxBool emergencyClicked = false.obs;
+
   @override
   void onInit() {
     qrGet();
@@ -199,15 +203,17 @@ class QrController extends GetxController {
     return ApiServices().patchMethod(
       ApiEndpoints.unlinkQr,
       data: {
-        "qr_id": qrId,
+        "qrId": qrId,
       },
     );
   }
 
   Future unlinkQr(String qrId) async {
+    print(qrId);
     unlinkQrService(qrId).then((value) {
       if (value.statusCode == 201 || value.statusCode == 200) {
         log(value.data.toString());
+        Utils.showToast("QR code unlinked successfully");
         qrGet();
       } else {
         log(ApiException(value.data['message']).toString());
@@ -254,10 +260,10 @@ class QrController extends GetxController {
     );
   }
 
-  Future getEditVehicleOtp() async {
+  Future getEditVehicle() async {
     isEditVehicleLoading(true);
     ApiServices()
-        .postMethod("${ApiEndpoints.editVehicle}${vehicleDetails.value!.id}",
+        .putMethod("${ApiEndpoints.editVehicle}${vehicleDetails.value!.id}",
             data: {
               "ownerName": ownerNameController.text.trim(),
               "vehicleType": selectVehicleType.value,
@@ -271,8 +277,10 @@ class QrController extends GetxController {
           (value) {
             if (value.statusCode == 201 || value.statusCode == 200) {
               log(value.data.toString());
-              Utils.showSuccess("Vehicle updated successfully");
+              qrGet();
               Get.back();
+              Get.back();
+              Utils.showToast("Vehicle updated successfully");
             } else {
               log(ApiException(value.data['message']).toString());
             }
@@ -284,5 +292,49 @@ class QrController extends GetxController {
         .whenComplete(
           () => isEditVehicleLoading(false),
         );
+  }
+
+  Future<DioResponse> updateEmergencyContactService(String id) async {
+    return ApiServices().patchMethod(
+      "${ApiEndpoints.updateEmergencyContact}/$id",
+      data: {
+        "emergencyContacts": [
+          {
+            "phoneNumber": "+91${emergencyNo1Controller.text}",
+          },
+          {
+            "phoneNumber": "+91${emergencyNo2Controller.text}",
+          }
+        ]
+      },
+    );
+  }
+
+  Future updateEmergencyContact(String id) async {
+    updateEmergencyLoading(true);
+    await updateEmergencyContactService(id).then(
+      (value) {
+        if (value.statusCode == 201 || value.statusCode == 200) {
+          log(value.data.toString());
+
+          qrGet();
+          emergencyClicked(false);
+        } else {
+          log(ApiException(value.data['message']).toString());
+          Utils.showError(
+            'Error',
+            title: ApiException(value.data['message']).toString(),
+          );
+        }
+      },
+    ).onError(
+      (error, _) {
+        log(error.toString());
+      },
+    ).whenComplete(
+      () {
+        updateEmergencyLoading(false);
+      },
+    );
   }
 }

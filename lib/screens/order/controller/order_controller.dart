@@ -10,15 +10,17 @@ import 'package:trakyo_admin/utils/utils.dart';
 class OrderController extends GetxController {
   static OrderController get to => Get.find();
 
+  RxList<OrdersModel> orderList = <OrdersModel>[].obs;
+
+  RxBool getOrderLoading = false.obs;
+
+  RxInt currentOrderIndex = 0.obs;
+
   @override
   void onInit() {
     getOrder();
     super.onInit();
   }
-
-  RxList<OrdersModel> orderList = <OrdersModel>[].obs;
-
-  RxBool getOrderLoading = false.obs;
 
   Future<DioResponse> orderService() async {
     return ApiServices().getMethod(
