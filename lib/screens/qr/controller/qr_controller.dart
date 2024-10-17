@@ -300,10 +300,12 @@ class QrController extends GetxController {
       data: {
         "emergencyContacts": [
           {
-            "phoneNumber": "+91${emergencyNo1Controller.text}",
+            if (emergencyNo1Controller.text.isNotEmpty)
+              "phoneNumber": "+91${emergencyNo1Controller.text}",
           },
           {
-            "phoneNumber": "+91${emergencyNo2Controller.text}",
+            if (emergencyNo2Controller.text.isNotEmpty)
+              "phoneNumber": "+91${emergencyNo2Controller.text}",
           }
         ]
       },
