@@ -131,7 +131,8 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
             const VSpace(32),
             Obx(
               () => Visibility(
-                visible: controller.currentOrderIndex.value == 0,
+                visible:
+                    controller.orderList[index].deliveryStatus == 'pending',
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -141,7 +142,8 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                       fontSize: 18.sp,
                     ),
                     const VSpace(15),
-                    const TextFiledWidget(
+                    TextFiledWidget(
+                      controller: controller.trackingIdController,
                       headingText: 'Order Tracking ID',
                       maxLines: 5,
                       hintText: "Enter order tracking ID",
@@ -166,18 +168,35 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                 // const HSpace(16),
                 Obx(
                   () => Visibility(
-                    visible: controller.currentOrderIndex.value <= 1,
+                    visible: controller.orderList[index].deliveryStatus ==
+                            'pending' ||
+                        controller.orderList[index].deliveryStatus == 'shipped',
                     child: ButtonWidget(
                       verticalPadding: 10.h,
                       width: 125.w,
-                      text: controller.currentOrderIndex.value == 0
+                      text: controller.orderList[index].deliveryStatus ==
+                              'pending'
                           ? 'Mark Shipped'
                           : "Mark Delivered",
-                      color: controller.currentOrderIndex.value == 0
+                      color: controller.orderList[index].deliveryStatus ==
+                              'pending'
                           ? AppColors.primaryColor
                           : Colors.green,
                       onTap: () {
-                        controller.currentOrderIndex.value++;
+                        if (controller.orderList[index].deliveryStatus ==
+                            'pending') {
+                          controller.updateOrder(
+                            controller.orderList[index].id,
+                            'shipped',
+                          );
+                        }
+                        if (controller.orderList[index].deliveryStatus ==
+                            'shipped') {
+                          controller.updateOrder(
+                            controller.orderList[index].id,
+                            'delivered',
+                          );
+                        }
                       },
                       textColor: AppColors.textWhiteColor,
                     ),

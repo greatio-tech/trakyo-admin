@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
+import 'package:trakyo_admin/routes.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
 class StatusChipWidget extends StatelessWidget {
@@ -22,7 +24,7 @@ class StatusChipWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextWidget(
-        text: status.toUpperCase(),
+        text: status.toString().capitalizeFirst!,
         fontSize: 12.sp,
         fontWeight: FontWeight.w500,
         textColor: AppColors.textWhiteColor,
@@ -47,7 +49,7 @@ Color getStatusColor(String status) {
     case "not linked":
     case "deactivated":
       return Colors.red;
-    case "Mark Shipped":
+    case "shipped":
       return Colors.blue;
     default:
       return Colors.grey;
