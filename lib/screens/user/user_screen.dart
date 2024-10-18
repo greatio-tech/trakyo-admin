@@ -153,98 +153,102 @@ class UserScreen extends GetWidget<UsersController> {
                                 },
                                 itemCount: controller.usersList.length,
                                 shrinkWrap: true,
-                                itemBuilder: (context, index) =>
-                                    GestureDetector(
-                                  onTap: () {
-                                    controller.goToUserSlideSheet(
-                                        controller.usersList[index].id,
-                                        context);
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 24.h, horizontal: 20.w),
-                                    child: Row(
-                                      children: [
-                                        // Checkbox(
-                                        //   activeColor: AppColors.primaryColor,
-                                        //   value: true,
-                                        //   onChanged: (value) {},
-                                        // ),
-                                        // const HSpace(5),
-                                        SizedBox(
-                                          width: 120.w,
-                                          child: TextWidget(
-                                            text: controller
-                                                .usersList[index].name,
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        const HSpace(70),
-                                        SizedBox(
-                                          width: 50.w,
-                                          child: TextWidget(
-                                            text: controller.usersList[index]
-                                                .vehicles.length
-                                                .toString(),
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        const HSpace(84),
-                                        SizedBox(
-                                          width: 120.w,
-                                          child: TextWidget(
-                                            text: controller
-                                                .usersList[index].phoneNumber,
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        const HSpace(100),
-                                        SizedBox(
-                                          width: 50.w,
-                                          child: TextWidget(
-                                            text: controller
-                                                .usersList[index].qrCodes.length
-                                                .toString(),
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        const HSpace(100),
-                                        SizedBox(
-                                          width: 160.w,
-                                          child: TextWidget(
-                                            text: controller
-                                                .usersList[index].email,
-                                            fontSize: 14.sp,
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            vertical: 1.h,
-                                            horizontal: 15.w,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: AppColors.primaryColor,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: GestureDetector(
-                                            onTap: () => controller.sendMail(
-                                                email: controller
-                                                    .usersList[index].email),
+                                itemBuilder: (context, index) => MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      controller.goToUserSlideSheet(
+                                          controller.usersList[index].id,
+                                          context);
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 24.h, horizontal: 20.w),
+                                      child: Row(
+                                        children: [
+                                          // Checkbox(
+                                          //   activeColor: AppColors.primaryColor,
+                                          //   value: true,
+                                          //   onChanged: (value) {},
+                                          // ),
+                                          // const HSpace(5),
+                                          SizedBox(
+                                            width: 120.w,
                                             child: TextWidget(
-                                              text: 'Message',
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w500,
-                                              textColor: AppColors.primaryColor,
+                                              text: controller
+                                                  .usersList[index].name,
+                                              fontSize: 14.sp,
                                             ),
                                           ),
-                                        ),
-                                        const HSpace(20),
-                                      ],
+                                          const HSpace(70),
+                                          SizedBox(
+                                            width: 50.w,
+                                            child: TextWidget(
+                                              text: controller.usersList[index]
+                                                  .vehicles.length
+                                                  .toString(),
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                          const HSpace(84),
+                                          SizedBox(
+                                            width: 120.w,
+                                            child: TextWidget(
+                                              text: controller
+                                                  .usersList[index].phoneNumber,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                          const HSpace(100),
+                                          SizedBox(
+                                            width: 50.w,
+                                            child: TextWidget(
+                                              text: controller.usersList[index]
+                                                  .qrCodes.length
+                                                  .toString(),
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                          const HSpace(100),
+                                          SizedBox(
+                                            width: 160.w,
+                                            child: TextWidget(
+                                              text: controller
+                                                  .usersList[index].email,
+                                              fontSize: 14.sp,
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 1.h,
+                                              horizontal: 15.w,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: AppColors.primaryColor,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: GestureDetector(
+                                              onTap: () => controller.sendMail(
+                                                  email: controller
+                                                      .usersList[index].email),
+                                              child: TextWidget(
+                                                text: 'Message',
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                textColor:
+                                                    AppColors.primaryColor,
+                                              ),
+                                            ),
+                                          ),
+                                          const HSpace(20),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

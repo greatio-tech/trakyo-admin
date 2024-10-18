@@ -11,7 +11,9 @@ class DashboardBt extends StatelessWidget {
     super.key,
     required this.icon,
     required this.text,
-    required this.onTap, required this.fontWeight, required this.textColor,
+    required this.onTap,
+    required this.fontWeight,
+    required this.textColor,
   });
 
   final String icon;
@@ -25,6 +27,7 @@ class DashboardBt extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: onTap,
         child: Row(
           children: [
@@ -42,6 +45,7 @@ class DashboardBt extends StatelessWidget {
     );
   }
 }
+
 class DashboardButton extends StatelessWidget {
   final int index;
   final String iconActive;
@@ -62,7 +66,8 @@ class DashboardButton extends StatelessWidget {
 
     return Obx(
       () => DashboardBt(
-        icon: controller.currentIndex.value == index ? iconActive : iconInactive,
+        icon:
+            controller.currentIndex.value == index ? iconActive : iconInactive,
         text: text,
         fontWeight: controller.currentIndex.value == index
             ? FontWeight.bold

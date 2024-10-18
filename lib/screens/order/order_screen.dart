@@ -153,115 +153,121 @@ class OrderScreen extends GetWidget<OrderController> {
                                       itemBuilder: (context, index) {
                                         String formattedAddress =
                                             "${controller.orderList[index].addressId.fullName}, ${controller.orderList[index].addressId.phoneNumber}, ${controller.orderList[index].addressId.buldingNumber}, ${controller.orderList[index].addressId.city}, ${controller.orderList[index].addressId.state}, ${controller.orderList[index].addressId.pincode}";
-                                        return GestureDetector(
-                                          onTap: () {
-                                            SideSheet.right(
-                                              width: 400.w,
-                                              body: OrderDetailsWidget(
-                                                index: index,
+                                        return MouseRegion(
+                                          cursor: SystemMouseCursors.click,
+                                          child: GestureDetector(
+                                            behavior:
+                                                HitTestBehavior.translucent,
+                                            onTap: () {
+                                              SideSheet.right(
+                                                width: 400.w,
+                                                body: OrderDetailsWidget(
+                                                  index: index,
+                                                ),
+                                                context: context,
+                                              );
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 24.h,
+                                                  horizontal: 20.w),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  // Checkbox(
+                                                  //   activeColor:
+                                                  //       AppColors.primaryColor,
+                                                  //   value: true,
+                                                  //   onChanged: (value) {},
+                                                  // ),
+                                                  // const HSpace(5),
+                                                  TextWidget(
+                                                    text: controller
+                                                        .orderList[index].id
+                                                        .substring(controller
+                                                                .orderList[
+                                                                    index]
+                                                                .id
+                                                                .length -
+                                                            5)
+                                                        .toUpperCase(),
+                                                    fontSize: 14.sp,
+                                                  ),
+                                                  const HSpace(70),
+                                                  SizedBox(
+                                                    width: 100.w,
+                                                    child: TextWidget(
+                                                      text: controller
+                                                          .orderList[index]
+                                                          .user
+                                                          .name,
+                                                      fontSize: 14.sp,
+                                                    ),
+                                                  ),
+                                                  const HSpace(50),
+                                                  SizedBox(
+                                                    width: 100.w,
+                                                    child: TextWidget(
+                                                      text: controller
+                                                          .orderList[index]
+                                                          .qrCodes
+                                                          .length
+                                                          .toString(),
+                                                      fontSize: 14.sp,
+                                                    ),
+                                                  ),
+                                                  const HSpace(25),
+                                                  SizedBox(
+                                                    width: 100.w,
+                                                    child: TextWidget(
+                                                      text: controller
+                                                          .orderList[index]
+                                                          .updatedAt
+                                                          .toString(),
+                                                      fontSize: 14.sp,
+                                                    ),
+                                                  ),
+                                                  const HSpace(60),
+                                                  SizedBox(
+                                                    width: 150.w,
+                                                    child: TextWidget(
+                                                      text: formattedAddress,
+                                                      fontSize: 14.sp,
+                                                      maxLines: 2,
+                                                    ),
+                                                  ),
+                                                  const HSpace(60),
+                                                  SizedBox(
+                                                    width: 100.w,
+                                                    child: TextWidget(
+                                                      text: 'Net Banking',
+                                                      fontSize: 14.sp,
+                                                      maxLines: 2,
+                                                    ),
+                                                  ),
+                                                  const Spacer(),
+                                                  StatusChipWidget(
+                                                    status: controller
+                                                        .orderList[index]
+                                                        .deliveryStatus,
+                                                  ),
+                                                  const HSpace(10),
+                                                  // MouseRegion(
+                                                  //   cursor:
+                                                  //       SystemMouseCursors.click,
+                                                  //   child: GestureDetector(
+                                                  //     onTap: () {},
+                                                  //     child: const SvgIcon(
+                                                  //       icon:
+                                                  //           'assets/svg/print.svg',
+                                                  //     ),
+                                                  //   ),
+                                                  // )
+                                                ],
                                               ),
-                                              context: context,
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 24.h,
-                                                horizontal: 20.w),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                // Checkbox(
-                                                //   activeColor:
-                                                //       AppColors.primaryColor,
-                                                //   value: true,
-                                                //   onChanged: (value) {},
-                                                // ),
-                                                // const HSpace(5),
-                                                TextWidget(
-                                                  text: controller
-                                                      .orderList[index].id
-                                                      .substring(controller
-                                                              .orderList[index]
-                                                              .id
-                                                              .length -
-                                                          5)
-                                                      .toUpperCase(),
-                                                  fontSize: 14.sp,
-                                                ),
-                                                const HSpace(70),
-                                                SizedBox(
-                                                  width: 100.w,
-                                                  child: TextWidget(
-                                                    text: controller
-                                                        .orderList[index]
-                                                        .user
-                                                        .name,
-                                                    fontSize: 14.sp,
-                                                  ),
-                                                ),
-                                                const HSpace(50),
-                                                SizedBox(
-                                                  width: 100.w,
-                                                  child: TextWidget(
-                                                    text: controller
-                                                        .orderList[index]
-                                                        .qrCodes
-                                                        .length
-                                                        .toString(),
-                                                    fontSize: 14.sp,
-                                                  ),
-                                                ),
-                                                const HSpace(25),
-                                                SizedBox(
-                                                  width: 100.w,
-                                                  child: TextWidget(
-                                                    text: controller
-                                                        .orderList[index]
-                                                        .updatedAt
-                                                        .toString(),
-                                                    fontSize: 14.sp,
-                                                  ),
-                                                ),
-                                                const HSpace(60),
-                                                SizedBox(
-                                                  width: 150.w,
-                                                  child: TextWidget(
-                                                    text: formattedAddress,
-                                                    fontSize: 14.sp,
-                                                    maxLines: 2,
-                                                  ),
-                                                ),
-                                                const HSpace(60),
-                                                SizedBox(
-                                                  width: 100.w,
-                                                  child: TextWidget(
-                                                    text: 'Net Banking',
-                                                    fontSize: 14.sp,
-                                                    maxLines: 2,
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                StatusChipWidget(
-                                                  status: controller
-                                                      .orderList[index]
-                                                      .deliveryStatus,
-                                                ),
-                                                const HSpace(10),
-                                                // MouseRegion(
-                                                //   cursor:
-                                                //       SystemMouseCursors.click,
-                                                //   child: GestureDetector(
-                                                //     onTap: () {},
-                                                //     child: const SvgIcon(
-                                                //       icon:
-                                                //           'assets/svg/print.svg',
-                                                //     ),
-                                                //   ),
-                                                // )
-                                              ],
                                             ),
                                           ),
                                         );

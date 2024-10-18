@@ -330,195 +330,201 @@ class QrScreen extends GetWidget<QrController> {
                                 },
                                 itemCount: controller.qrList.length,
                                 shrinkWrap: true,
-                                itemBuilder: (context, index) =>
-                                    GestureDetector(
-                                  onTap: () {
-                                    if (controller.qrList[index].vehicleDetails
-                                            .vehicleLink ==
-                                        true) {
-                                      controller.setQrDetails(index);
-                                      SideSheet.right(
-                                        width: 400.w,
-                                        body: QrDetailsWidget(
-                                          controller.qrList[index].id,
-                                          controller.qrList[index].code,
-                                        ),
-                                        context: context,
-                                      );
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 24.h, horizontal: 20.w),
-                                    child: Row(
-                                      children: [
-                                        // Checkbox(
-                                        //   activeColor: AppColors.primaryColor,
-                                        //   value: true,
-                                        //   onChanged: (value) {},
-                                        // ),
-                                        // const HSpace(5),
-                                        SizedBox(
-                                          width: 50.w,
-                                          child: TextWidget(
-                                            text: controller.qrList[index].id
-                                                .substring(controller
-                                                        .qrList[index]
-                                                        .id
-                                                        .length -
-                                                    5)
-                                                .toUpperCase(),
-                                            fontSize: 14.sp,
+                                itemBuilder: (context, index) => MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      if (controller.qrList[index]
+                                              .vehicleDetails.vehicleLink ==
+                                          true) {
+                                        controller.setQrDetails(index);
+                                        SideSheet.right(
+                                          width: 400.w,
+                                          body: QrDetailsWidget(
+                                            controller.qrList[index].id,
+                                            controller.qrList[index].code,
                                           ),
-                                        ),
-                                        const HSpace(75),
-                                        SizedBox(
-                                          width: 120.w,
-                                          child: TextWidget(
-                                            text: controller
-                                                .qrList[index].owner.name,
-                                            fontSize: 14.sp,
+                                          context: context,
+                                        );
+                                      }
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 24.h, horizontal: 20.w),
+                                      child: Row(
+                                        children: [
+                                          // Checkbox(
+                                          //   activeColor: AppColors.primaryColor,
+                                          //   value: true,
+                                          //   onChanged: (value) {},
+                                          // ),
+                                          // const HSpace(5),
+                                          SizedBox(
+                                            width: 50.w,
+                                            child: TextWidget(
+                                              text: controller.qrList[index].id
+                                                  .substring(controller
+                                                          .qrList[index]
+                                                          .id
+                                                          .length -
+                                                      5)
+                                                  .toUpperCase(),
+                                              fontSize: 14.sp,
+                                            ),
                                           ),
-                                        ),
-                                        const HSpace(84),
-                                        SizedBox(
-                                          width: 100.w,
-                                          child: TextWidget(
-                                            text: controller.qrList[index]
-                                                .vehicleDetails.licensePlate,
-                                            fontSize: 14.sp,
+                                          const HSpace(75),
+                                          SizedBox(
+                                            width: 120.w,
+                                            child: TextWidget(
+                                              text: controller
+                                                  .qrList[index].owner.name,
+                                              fontSize: 14.sp,
+                                            ),
                                           ),
-                                        ),
-                                        const HSpace(70),
-                                        SizedBox(
-                                          width: 120.w,
-                                          child: TextWidget(
-                                            text: controller.qrList[index].owner
-                                                .phoneNumber,
-                                            fontSize: 14.sp,
+                                          const HSpace(84),
+                                          SizedBox(
+                                            width: 100.w,
+                                            child: TextWidget(
+                                              text: controller.qrList[index]
+                                                  .vehicleDetails.licensePlate,
+                                              fontSize: 14.sp,
+                                            ),
                                           ),
-                                        ),
-                                        // const HSpace(80),
-                                        const Spacer(),
-                                        SizedBox(
-                                          width: 120.w,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              TextWidget(
-                                                text: controller
-                                                        .qrList[index]
-                                                        .emergencyContacts
-                                                        .isNotEmpty
-                                                    ? controller
-                                                        .qrList[index]
-                                                        .emergencyContacts[0]
-                                                        .phoneNumber
-                                                    : '',
-                                                fontSize: 14.sp,
-                                                maxLines: 2,
-                                              ),
-                                              controller
+                                          const HSpace(70),
+                                          SizedBox(
+                                            width: 120.w,
+                                            child: TextWidget(
+                                              text: controller.qrList[index]
+                                                  .owner.phoneNumber,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                          // const HSpace(80),
+                                          const Spacer(),
+                                          SizedBox(
+                                            width: 120.w,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                TextWidget(
+                                                  text: controller
                                                           .qrList[index]
                                                           .emergencyContacts
-                                                          .length >
-                                                      1
-                                                  ? TextWidget(
-                                                      text: controller
+                                                          .isNotEmpty
+                                                      ? controller
                                                           .qrList[index]
-                                                          .emergencyContacts[1]
-                                                          .phoneNumber,
-                                                      fontSize: 14.sp,
-                                                      maxLines: 2,
-                                                    )
-                                                  : const SizedBox(),
-                                            ],
+                                                          .emergencyContacts[0]
+                                                          .phoneNumber
+                                                      : '',
+                                                  fontSize: 14.sp,
+                                                  maxLines: 2,
+                                                ),
+                                                controller
+                                                            .qrList[index]
+                                                            .emergencyContacts
+                                                            .length >
+                                                        1
+                                                    ? TextWidget(
+                                                        text: controller
+                                                            .qrList[index]
+                                                            .emergencyContacts[
+                                                                1]
+                                                            .phoneNumber,
+                                                        fontSize: 14.sp,
+                                                        maxLines: 2,
+                                                      )
+                                                    : const SizedBox(),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        // const Spacer(),
-                                        const HSpace(110),
-                                        StatusChipWidget(
-                                          status: controller
-                                                      .qrList[index]
-                                                      .vehicleDetails
-                                                      .vehicleLink ==
-                                                  false
-                                              ? "not linked"
-                                              : 'linked',
-                                        ),
-                                        const HSpace(10),
-                                        Row(
-                                          children: [
-                                            Visibility(
-                                              visible: controller
-                                                      .qrList[index]
-                                                      .vehicleDetails
-                                                      .vehicleLink ==
-                                                  false,
-                                              child: MouseRegion(
-                                                cursor:
-                                                    SystemMouseCursors.click,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    Get.dialog(
-                                                      ConfirmDialog(
-                                                        description:
-                                                            'Are you sure you want to delete this QR?',
-                                                        title: 'Delete QR',
-                                                        onConfirm: () {
-                                                          controller.deleteQr(
-                                                            controller
-                                                                .qrList[index]
-                                                                .id,
-                                                          );
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.delete,
-                                                    color: Colors.red,
+                                          // const Spacer(),
+                                          const HSpace(110),
+                                          StatusChipWidget(
+                                            status: controller
+                                                        .qrList[index]
+                                                        .vehicleDetails
+                                                        .vehicleLink ==
+                                                    false
+                                                ? "not linked"
+                                                : 'linked',
+                                          ),
+                                          const HSpace(10),
+                                          Row(
+                                            children: [
+                                              Visibility(
+                                                visible: controller
+                                                        .qrList[index]
+                                                        .vehicleDetails
+                                                        .vehicleLink ==
+                                                    false,
+                                                child: MouseRegion(
+                                                  cursor:
+                                                      SystemMouseCursors.click,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Get.dialog(
+                                                        ConfirmDialog(
+                                                          description:
+                                                              'Are you sure you want to delete this QR?',
+                                                          title: 'Delete QR',
+                                                          onConfirm: () {
+                                                            controller.deleteQr(
+                                                              controller
+                                                                  .qrList[index]
+                                                                  .id,
+                                                            );
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: const Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            const HSpace(5),
-                                            MouseRegion(
-                                              cursor: SystemMouseCursors.click,
-                                              child: GestureDetector(
-                                                onTap: () async {
-                                                  await QrController.to
-                                                      .createPdf(
-                                                    controller.qrList[index]
-                                                        .qrCodeData,
-                                                    controller
-                                                        .qrList[index].code
-                                                        .substring(controller
-                                                                .qrList[index]
-                                                                .code
-                                                                .length -
-                                                            5)
-                                                        .toUpperCase(),
-                                                  );
-                                                  ScaffoldMessenger.of(
-                                                          Get.context!)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                        "PDF Generated and Downloaded!",
+                                              const HSpace(5),
+                                              MouseRegion(
+                                                cursor:
+                                                    SystemMouseCursors.click,
+                                                child: GestureDetector(
+                                                  onTap: () async {
+                                                    await QrController.to
+                                                        .createPdf(
+                                                      controller.qrList[index]
+                                                          .qrCodeData,
+                                                      controller
+                                                          .qrList[index].code
+                                                          .substring(controller
+                                                                  .qrList[index]
+                                                                  .code
+                                                                  .length -
+                                                              5)
+                                                          .toUpperCase(),
+                                                    );
+                                                    ScaffoldMessenger.of(
+                                                            Get.context!)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                          "PDF Generated and Downloaded!",
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: const SvgIcon(
-                                                  icon: 'assets/svg/print.svg',
+                                                    );
+                                                  },
+                                                  child: const SvgIcon(
+                                                    icon:
+                                                        'assets/svg/print.svg',
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

@@ -138,99 +138,108 @@ class RequestScreen extends GetWidget<RequestController> {
                                 },
                                 itemCount: controller.requestList.length,
                                 shrinkWrap: true,
-                                itemBuilder: (context, index) =>
-                                    GestureDetector(
-                                  behavior: HitTestBehavior.translucent,
-                                  onTap: () {
-                                    SideSheet.right(
-                                        width: 400.w,
-                                        context: context,
-                                        body: RequestSliderSheet(
-                                          currentIndex: index,
-                                        ));
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 24.h, horizontal: 20.w),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: TextWidget(
-                                            text: controller.requestList[index]
-                                                        .user !=
-                                                    null
-                                                ? controller.requestList[index]
-                                                    .user!.name
-                                                : "null",
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: TextWidget(
-                                            text: controller
-                                                .requestList[index].topic.name,
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 4,
-                                          child: TextWidget(
-                                            text: controller
-                                                .requestList[index].description,
-                                            maxLines: 2,
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: TextWidget(
-                                            text: DateFormat('dd-MM-yyyy')
-                                                .format(controller
-                                                    .requestList[index]
-                                                    .createdAt),
-                                            fontSize: 14.sp,
-                                            maxLines: 2,
-                                          ),
-                                        ),
-                                        Flexible(
-                                          flex: 2,
-                                          child: Obx(
-                                            () => Container(
-                                              width: 80.w,
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: 1.h,
-                                                horizontal: 15.w,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: controller
-                                                            .requestList[index]
-                                                            .status
-                                                            .value !=
-                                                        "closed"
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              child: Center(
-                                                child: TextWidget(
-                                                  text: (controller
+                                itemBuilder: (context, index) => MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      SideSheet.right(
+                                          width: 400.w,
+                                          context: context,
+                                          body: RequestSliderSheet(
+                                            currentIndex: index,
+                                          ));
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 24.h, horizontal: 20.w),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 2,
+                                            child: TextWidget(
+                                              text: controller
                                                           .requestList[index]
-                                                          .status)
-                                                      .value
-                                                      .capitalizeFirst!,
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                  textColor:
-                                                      AppColors.textWhiteColor,
+                                                          .user !=
+                                                      null
+                                                  ? controller
+                                                      .requestList[index]
+                                                      .user!
+                                                      .name
+                                                  : "null",
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: TextWidget(
+                                              text: controller
+                                                  .requestList[index]
+                                                  .topic
+                                                  .name,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: TextWidget(
+                                              text: controller
+                                                  .requestList[index]
+                                                  .description,
+                                              maxLines: 2,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: TextWidget(
+                                              text: DateFormat('dd-MM-yyyy')
+                                                  .format(controller
+                                                      .requestList[index]
+                                                      .createdAt),
+                                              fontSize: 14.sp,
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                          Flexible(
+                                            flex: 2,
+                                            child: Obx(
+                                              () => Container(
+                                                width: 80.w,
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 1.h,
+                                                  horizontal: 15.w,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: controller
+                                                              .requestList[
+                                                                  index]
+                                                              .status
+                                                              .value !=
+                                                          "closed"
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: Center(
+                                                  child: TextWidget(
+                                                    text: (controller
+                                                            .requestList[index]
+                                                            .status)
+                                                        .value
+                                                        .capitalizeFirst!,
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                    textColor: AppColors
+                                                        .textWhiteColor,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

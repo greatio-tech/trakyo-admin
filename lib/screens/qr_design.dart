@@ -132,7 +132,7 @@ Future<Page> pdfPage(url, id) async {
                         'Scan this to contact owner',
                         style: TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                           color: PdfColor.fromHex('FFFFFF'),
                         ),
                       ),

@@ -120,9 +120,9 @@ class RequestSliderSheet extends GetWidget<RequestController> {
             ),
             const VSpace(8),
             TextFiledWidget(
+              isEnable: false,
               controller: TextEditingController(
                   text: controller.requestList[currentIndex].topic.name),
-              readOnly: true,
             ),
             const VSpace(16),
             TextWidget(
@@ -134,7 +134,7 @@ class RequestSliderSheet extends GetWidget<RequestController> {
             TextFiledWidget(
               controller: TextEditingController(
                   text: controller.requestList[currentIndex].description),
-              readOnly: true,
+              isEnable: false,
               disableHeight: true,
               maxLines: 10,
             ),
