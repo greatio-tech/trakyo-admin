@@ -52,7 +52,7 @@ class LoginController extends GetxController {
         LocalStorage().setLogin();
         final String token = value.data['token'];
         LocalStorage().saveToken(token);
-        Get.offAllNamed(Routes.dashboard);
+        Get.toNamed(Routes.dashboard);
       } else {
         log(ApiException(value.data['message']).toString());
       }
