@@ -4,8 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:get/get.dart' as get_x;
-import 'package:trakyo_admin/routes.dart';
+import 'package:trakyo_admin/screens/login/controller/login_controller.dart';
 import 'package:trakyo_admin/services/api_endpoints.dart';
 import 'package:trakyo_admin/services/local_storage_service.dart';
 import 'api_exception.dart';
@@ -231,7 +230,7 @@ class ApiServices {
             }
           }).onError((error, stackTrace) {
             log('error on RefreshToken $error');
-            get_x.Get.offNamed(Routes.login);
+            LoginController.to.logout();
           });
         } else {
           handler.next(e);

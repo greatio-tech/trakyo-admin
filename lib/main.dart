@@ -3,11 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/theme.dart';
 import 'package:trakyo_admin/routes.dart';
+import 'package:trakyo_admin/screens/login/controller/login_controller.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Get.put(LoginController());
+
+  Get.put(LoginController());
   setPathUrlStrategy();
   runApp(const MyApp());
 }
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.theme,
         title: 'Trakyo admin',
         getPages: AppPages.pages,
-        initialRoute: Routes.login,
+        initialRoute: Routes.dashboard,
       ),
     );
   }

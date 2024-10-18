@@ -1,13 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/screens/_bindings/dashboard_binding.dart';
 import 'package:trakyo_admin/screens/_bindings/login_binding.dart';
 import 'package:trakyo_admin/screens/dashboard/dashboard_screen.dart';
+import 'package:trakyo_admin/screens/login/controller/login_controller.dart';
 import 'package:trakyo_admin/screens/login/login_screen.dart';
 
 class Routes {
   Routes._();
-  static const login = '/';
-  static const dashboard = '/dashboard';
+  static const login = '/login';
+  static const dashboard = '/';
 }
 
 class AppPages {
@@ -21,11 +23,23 @@ class AppPages {
       name: Routes.dashboard,
       page: () => const DashboardScreen(),
       binding: DashboardBindings(),
-      // middlewares: [
-      //   RouteMiddleware(),
-      // ],
+      middlewares: [
+        AuthMiddleware(),
+      ],
     ),
   ];
+}
+
+class AuthMiddleware extends GetMiddleware {
+  @override
+  RouteSettings? redirect(String? route) {
+    print("route -- $route - ${LoginController.to.isAuthenticated.value}");
+
+    if (!LoginController.to.isAuthenticated.value && route != Routes.login) {
+      return const RouteSettings(name: Routes.login);
+    }
+    return null;
+  }
 }
 
 // class RouteMiddleware extends GetMiddleware {

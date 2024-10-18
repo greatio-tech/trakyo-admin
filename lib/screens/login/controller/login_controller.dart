@@ -17,23 +17,22 @@ class LoginController extends GetxController {
   RxBool loginLoading = false.obs;
   RxBool isAuthenticated = false.obs;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   // checkLoginStatus();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    checkLoginStatus();
+  }
 
-  // checkLoginStatus() async {
-  //   bool isLogin = await LocalStorage().isLogin();
-  //   print("LoginCheck:-------- $isLogin");
+  Future checkLoginStatus() async {
+    bool isLogin = await LocalStorage().isLogin();
+    print("LoginCheck:-------- $isLogin");
 
-  //   if (isLogin) {
-  //     isAuthenticated(true);
-  //     Get.offAllNamed(Routes.dashboard);
-  //   } else {
-  //     isAuthenticated(false);
-  //   }
-  // }
+    if (isLogin) {
+      isAuthenticated(true);
+    } else {
+      isAuthenticated(false);
+    }
+  }
 
   Future<DioResponse> loginService() async {
     return ApiServices().postMethod(
@@ -47,11 +46,12 @@ class LoginController extends GetxController {
 
   Future userRegistration() async {
     loginLoading(true);
-    loginService().then((value) {
+    loginService().then((value) async {
       if (value.statusCode == 201 || value.statusCode == 200) {
         LocalStorage().setLogin();
         final String token = value.data['token'];
         LocalStorage().saveToken(token);
+        await checkLoginStatus();
         Get.toNamed(Routes.dashboard);
       } else {
         log(ApiException(value.data['message']).toString());
@@ -64,5 +64,15 @@ class LoginController extends GetxController {
     ).whenComplete(
       () => loginLoading(false),
     );
+  }
+
+  Future logout() async {
+    clearToken();
+    Get.offAllNamed(Routes.login);
+  }
+
+  clearToken() async {
+    ApiServices.token = null;
+    await LocalStorage().setSignOut();
   }
 }
