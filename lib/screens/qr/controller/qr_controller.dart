@@ -26,6 +26,9 @@ class QrController extends GetxController {
   RxBool vehicleTypeInvalid = false.obs;
 
   RxList<QrModel> qrList = <QrModel>[].obs;
+  RxList<QrModel> qrListLinked = <QrModel>[].obs;
+  RxList<QrModel> qrListNotLinked = <QrModel>[].obs;
+
   Rxn<VehicleDetails> vehicleDetails = Rxn();
 
   TextEditingController qrIdController = TextEditingController();
@@ -47,6 +50,8 @@ class QrController extends GetxController {
   RxBool updateEmergencyLoading = false.obs;
 
   RxBool emergencyClicked = false.obs;
+
+  RxInt currentIndex = 0.obs;
 
   @override
   void onInit() {
@@ -184,6 +189,16 @@ class QrController extends GetxController {
       if (value.statusCode == 201 || value.statusCode == 200) {
         log(value.data.toString());
         qrList(qrModelFromJson(value.data).toList());
+        List<QrModel> unlinkedItems = qrList
+            .where((item) => item.vehicleDetails.vehicleLink == false)
+            .toList();
+        qrListNotLinked(unlinkedItems);
+
+        List<QrModel> LinkedItems = qrList
+            .where((item) => item.vehicleDetails.vehicleLink == true)
+            .toList();
+
+        qrListLinked(LinkedItems);
 
         // Get.offAllNamed('/dashboard');
       } else {
