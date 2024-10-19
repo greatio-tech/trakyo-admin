@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/order/Widgets/order_details_widget.dart';
@@ -147,13 +148,13 @@ class OrderScreen extends GetWidget<OrderController> {
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w700,
                                           ),
-                                          const HSpace(90),
+                                          const HSpace(85),
                                           TextWidget(
-                                            text: 'Delivery Due Date',
+                                            text: 'Ordered Date',
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w700,
                                           ),
-                                          const HSpace(45),
+                                          const HSpace(80),
                                           TextWidget(
                                             text: 'Delivery Address',
                                             fontSize: 14.sp,
@@ -293,7 +294,9 @@ class OrderList extends StatelessWidget {
                     SizedBox(
                       width: 100.w,
                       child: TextWidget(
-                        text: orderList[index].updatedAt.toString(),
+                        text: DateFormat('dd-MM-yyyy').format(
+                          orderList[index].createdAt,
+                        ),
                         fontSize: 14.sp,
                       ),
                     ),
