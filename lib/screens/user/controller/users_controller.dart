@@ -70,6 +70,9 @@ class UsersController extends GetxController {
         userData(UsersModel.fromJson(value.data));
         fullNameController.text = userData.value!.name;
         emailController.text = userData.value!.email;
+        if (restrictLoading == true) {
+          updateUserFromApiResp(value.data);
+        }
       },
     ).onError(
       (error, stackTrace) {
@@ -114,7 +117,6 @@ class UsersController extends GetxController {
         .then(
       (value) {
         Utils.showSuccess("User name updated successfully");
-        getUserByUserId(userData.value!.id, restrictLoading: true);
         isUserNameEditable(false);
       },
     ).onError((error, stackTrace) {
@@ -139,8 +141,7 @@ class UsersController extends GetxController {
         .then(
       (value) {
         Utils.showSuccess("Email updated successfully");
-        getUserByUserId(userData.value!.id, restrictLoading: true);
-        isUserNameEditable(false);
+        isEmailEditable(false);
       },
     ).onError((error, stackTrace) {
       log(error.toString());
@@ -156,7 +157,6 @@ class UsersController extends GetxController {
     await editUserInfo(userId: userData.value!.id, dob: dob).then(
       (value) {
         Utils.showSuccess("DOB updated successfully");
-        getUserByUserId(userData.value!.id, restrictLoading: true);
         isDobEditable(false);
       },
     ).onError((error, stackTrace) {
@@ -177,11 +177,26 @@ class UsersController extends GetxController {
         "name": name ?? userData.value!.name,
         "email": email ?? userData.value!.email,
         "dob": dob != null ? dob.toString() : userData.value!.dob.toString(),
-        // "dob": dob.toString().trim().isNotEmpty
-        //     ? dob.toString()
-        //     : userData.value!.dob.toString(),
+      },
+    ).then(
+      (value) {
+        getUserByUserId(userData.value!.id, restrictLoading: true);
       },
     );
+  }
+
+  void updateUserFromApiResp(Map<String, dynamic> apiResponse) {
+    UsersModel updatedUser = UsersModel.fromJson(apiResponse);
+
+    updateUserInLocalList(updatedUser);
+  }
+
+  void updateUserInLocalList(UsersModel updatedUser) {
+    int index = usersList.indexWhere((user) => user.id == updatedUser.id);
+
+    if (index != -1) {
+      usersList[index] = updatedUser;
+    }
   }
 
   void sendMail({required String email}) {
