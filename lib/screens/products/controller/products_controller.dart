@@ -97,10 +97,8 @@ class ProductsController extends GetxController {
   }
 
   Future<DioResponse> updateProductsService(String id) async {
-    // Create FormData object
     dio.FormData formData = dio.FormData();
 
-    // Add text fields to formData
     formData.fields.addAll([
       MapEntry("name", nameController.text),
       MapEntry("description", descriptionController.text),
@@ -126,7 +124,6 @@ class ProductsController extends GetxController {
       }
     }
 
-    // Call the API to update the product
     try {
       final response = await ApiServices().putMultipartFile(
         "${ApiEndpoints.updateProduct}$id",

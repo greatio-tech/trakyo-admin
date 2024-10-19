@@ -8,7 +8,6 @@ import 'package:trakyo_admin/screens/order/controller/order_controller.dart';
 import 'package:trakyo_admin/widgets/filter_chip_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/status_chip_widget.dart';
-import 'package:trakyo_admin/widgets/text_field_widget.dart';
 import 'package:trakyo_admin/widgets/text_widget.dart';
 
 class OrderScreen extends GetWidget<OrderController> {
@@ -69,7 +68,7 @@ class OrderScreen extends GetWidget<OrderController> {
                                 // ),
                               ],
                             ),
-                            VSpace(24),
+                            const VSpace(24),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [

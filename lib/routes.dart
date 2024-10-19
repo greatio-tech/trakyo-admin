@@ -33,7 +33,6 @@ class AppPages {
 class AuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    print("route -- $route - ${LoginController.to.isAuthenticated.value}");
 
     if (!LoginController.to.isAuthenticated.value && route != Routes.login) {
       return const RouteSettings(name: Routes.login);

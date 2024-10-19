@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:pdf/widgets.dart';
 import 'package:trakyo_admin/screens/qr/model/qr_model.dart';
 import 'package:trakyo_admin/screens/qr_design.dart';
-import 'package:trakyo_admin/screens/user/controller/users_controller.dart';
 import 'package:trakyo_admin/services/api_endpoints.dart';
 import 'package:trakyo_admin/services/api_exception.dart';
 import 'package:trakyo_admin/services/api_service.dart';

@@ -17,7 +17,7 @@ class ProductsScreen extends GetWidget<ProductsController> {
     return Expanded(
       child: Obx(
         () => ListView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           children: [
             ListView.separated(
               separatorBuilder: (BuildContext context, int index) {
@@ -36,7 +36,7 @@ class ProductsScreen extends GetWidget<ProductsController> {
                     SideSheet.right(
                       width: 400.w,
                       body: SingleChildScrollView(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -84,7 +84,7 @@ class ProductsScreen extends GetWidget<ProductsController> {
                                   color: Colors.grey.shade200,
                                   borderRadius: BorderRadius.circular(6),
                                 ),
-                                padding: EdgeInsets.all(20),
+                                padding: const EdgeInsets.all(20),
                                 child: Column(
                                   children: [
                                     Icon(
@@ -92,7 +92,7 @@ class ProductsScreen extends GetWidget<ProductsController> {
                                       color: AppColors.primaryColor,
                                       size: 40.h,
                                     ),
-                                    VSpace(5),
+                                    const VSpace(5),
                                     TextWidget(
                                       text: "Add Images",
                                       fontSize: 12.sp,
@@ -102,7 +102,7 @@ class ProductsScreen extends GetWidget<ProductsController> {
                                 ),
                               ),
                             ),
-                            VSpace(24),
+                            const VSpace(24),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
