@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:side_sheet/side_sheet.dart';
@@ -172,36 +173,80 @@ class QrScreen extends GetWidget<QrController> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          if (controller.qrCount
-                                                                  .value >
-                                                              1) {
-                                                            controller.qrCount
-                                                                .value--;
-                                                          }
-                                                        },
-                                                        child: const SvgIcon(
-                                                          icon:
-                                                              'assets/svg/Minus Square.svg',
-                                                        ),
-                                                      ),
-                                                      TextWidget(
-                                                        text: controller
-                                                            .qrCount.value
-                                                            .toString(),
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 14.sp,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          controller
-                                                              .qrCount.value++;
-                                                        },
-                                                        child: const SvgIcon(
-                                                          icon:
-                                                              'assets/svg/plus square.svg',
+                                                      Expanded(
+                                                        child: TextFormField(
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter
+                                                                .digitsOnly
+                                                          ],
+                                                          cursorHeight: 15.sp,
+                                                          style: TextStyle(
+                                                              fontSize: 14.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            prefixIcon:
+                                                                GestureDetector(
+                                                              onTap: () {
+                                                                if (controller
+                                                                        .qrCount
+                                                                        .value >
+                                                                    1) {
+                                                                  controller
+                                                                      .qrCount
+                                                                      .value--;
+                                                                  controller
+                                                                          .qrCountController
+                                                                          .text =
+                                                                      controller
+                                                                          .qrCount
+                                                                          .value
+                                                                          .toString();
+                                                                }
+                                                              },
+                                                              child:
+                                                                  const SvgIcon(
+                                                                icon:
+                                                                    'assets/svg/Minus Square.svg',
+                                                              ),
+                                                            ),
+                                                            suffixIcon:
+                                                                GestureDetector(
+                                                              onTap: () {
+                                                                controller
+                                                                    .qrCount
+                                                                    .value++;
+
+                                                                controller
+                                                                        .qrCountController
+                                                                        .text =
+                                                                    controller
+                                                                        .qrCount
+                                                                        .value
+                                                                        .toString();
+                                                              },
+                                                              child:
+                                                                  const SvgIcon(
+                                                                icon:
+                                                                    'assets/svg/plus square.svg',
+                                                              ),
+                                                            ),
+                                                            border: InputBorder
+                                                                .none,
+                                                          ),
+                                                          controller: controller
+                                                              .qrCountController,
+                                                          onChanged: (value) {
+                                                            controller.qrCount(
+                                                              int.parse(
+                                                                value,
+                                                              ),
+                                                            );
+                                                          },
                                                         ),
                                                       ),
                                                     ],

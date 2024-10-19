@@ -62,6 +62,7 @@ class QrController extends GetxController {
   RxBool getQrLoading = false.obs;
   RxBool generateQrLoading = false.obs;
   RxInt qrCount = 1.obs;
+  TextEditingController qrCountController = TextEditingController(text: '1');
 
   setQrDetails(index) {
     qrIdController.clear();
