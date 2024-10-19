@@ -28,7 +28,8 @@ class OrderController extends GetxController {
     super.onInit();
   }
 
-  Future<DioResponse> updateOrderService(String orderId, String status) async {
+  Future<DioResponse> updateOrderService(
+      String orderId, String status, String trackingId) async {
     return ApiServices().postMethod(
       ApiEndpoints.updateOrder,
       data: {
@@ -39,9 +40,9 @@ class OrderController extends GetxController {
     );
   }
 
-  Future updateOrder(String orderId, String status) async {
+  Future updateOrder(String orderId, String status, String trackingId) async {
     getOrderLoading(true);
-    updateOrderService(orderId, status).then((value) {
+    updateOrderService(orderId, status, trackingId).then((value) {
       if (value.statusCode == 201 || value.statusCode == 200) {
         log(value.data.toString());
         Utils.showToast("Order updated successfully");

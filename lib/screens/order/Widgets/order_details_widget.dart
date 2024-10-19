@@ -188,6 +188,7 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                           controller.updateOrder(
                             controller.orderList[index].id,
                             'shipped',
+                            controller.trackingIdController.text,
                           );
                         }
                         if (controller.orderList[index].deliveryStatus ==
@@ -195,6 +196,7 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                           controller.updateOrder(
                             controller.orderList[index].id,
                             'delivered',
+                            controller.orderList[index].trackingId,
                           );
                         }
                       },

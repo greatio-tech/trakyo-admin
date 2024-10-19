@@ -179,6 +179,7 @@ class OrderScreen extends GetWidget<OrderController> {
                                       ),
                                     ),
                                     OrderList(
+                                      controller: controller,
                                       orderList: controller
                                                   .currentIndex.value ==
                                               0
@@ -222,9 +223,11 @@ class OrderList extends StatelessWidget {
   const OrderList({
     super.key,
     required this.orderList,
+    required this.controller,
   });
 
   final List orderList;
+  final OrderController controller;
 
   @override
   Widget build(BuildContext context) {
