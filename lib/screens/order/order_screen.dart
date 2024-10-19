@@ -16,6 +16,9 @@ class OrderScreen extends GetWidget<OrderController> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => controller.getOrder(),
+    );
     return Obx(
       () => Expanded(
         child: controller.getOrderLoading.isTrue

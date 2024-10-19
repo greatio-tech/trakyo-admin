@@ -18,6 +18,7 @@ class QrScreen extends GetWidget<QrController> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => controller.qrGet());
     return Obx(
       () => Expanded(
         child: ListView(

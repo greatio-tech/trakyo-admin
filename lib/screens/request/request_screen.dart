@@ -15,6 +15,8 @@ class RequestScreen extends GetWidget<RequestController> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => controller.getRequests());
     return Obx(
       () => Expanded(
         child: ListView(
