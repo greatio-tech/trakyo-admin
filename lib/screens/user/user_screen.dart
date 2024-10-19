@@ -11,6 +11,7 @@ class UserScreen extends GetWidget<UsersController> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => controller.userGet());
     return Obx(
       () => Expanded(
         child: ListView(
