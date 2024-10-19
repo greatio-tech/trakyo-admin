@@ -13,14 +13,16 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
   const OrderDetailsWidget({
     super.key,
     required this.index,
+    required this.orderList,
   });
 
   final int index;
+  final RxList orderList;
 
   @override
   Widget build(BuildContext context) {
     String formattedAddress =
-        "${OrderController.to.orderList[index].addressId.fullName}, ${OrderController.to.orderList[index].addressId.phoneNumber}, ${OrderController.to.orderList[index].addressId.buldingNumber}, ${OrderController.to.orderList[index].addressId.city}, ${OrderController.to.orderList[index].addressId.state}, ${OrderController.to.orderList[index].addressId.pincode}";
+        "${orderList[index].addressId.fullName}, ${orderList[index].addressId.phoneNumber}, ${orderList[index].addressId.buldingNumber}, ${orderList[index].addressId.city}, ${orderList[index].addressId.state}, ${orderList[index].addressId.pincode}";
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(32),
@@ -49,15 +51,15 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
             const VSpace(24),
             TitleAndSubTitle(
               title: 'Order ID',
-              text: OrderController.to.orderList[index].id
-                  .substring(OrderController.to.orderList[index].id.length - 5)
+              text: orderList[index]
+                  .id
+                  .substring(orderList[index].id.length - 5)
                   .toUpperCase(),
             ),
             const VSpace(24),
             TitleAndSubTitle(
               title: 'Quantity',
-              text:
-                  OrderController.to.orderList[index].qrCodes.length.toString(),
+              text: orderList[index].qrCodes.length.toString(),
             ),
             const VSpace(24),
             Column(
@@ -78,11 +80,11 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                     ),
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount:
-                        OrderController.to.orderList[index].qrCodes.length,
+                    itemCount: orderList[index].qrCodes.length,
                     itemBuilder: (context, idx) {
                       return TextWidget(
-                        text: OrderController.to.orderList[index].qrCodes[idx]
+                        text: orderList[index]
+                            .qrCodes[idx]
                             .substring(OrderController
                                     .to.orderList[index].qrCodes[idx].length -
                                 5)
@@ -101,13 +103,11 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
             //   text: '#123456, #123456',
             // ),
             const VSpace(24),
-            TitleAndSubTitle(
-                title: 'User',
-                text: OrderController.to.orderList[index].user.name),
+            TitleAndSubTitle(title: 'User', text: orderList[index].user.name),
             const VSpace(24),
             TitleAndSubTitle(
               title: 'Mobile Number',
-              text: OrderController.to.orderList[index].user.phoneNumber,
+              text: orderList[index].user.phoneNumber,
             ),
             const VSpace(24),
             const TitleAndSubTitle(
@@ -121,7 +121,7 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
             ),
             const VSpace(8),
             StatusChipWidget(
-              status: OrderController.to.orderList[index].deliveryStatus,
+              status: orderList[index].deliveryStatus,
             ),
             const VSpace(24),
             TitleAndSubTitle(
@@ -131,8 +131,7 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
             const VSpace(32),
             Obx(
               () => Visibility(
-                visible:
-                    controller.orderList[index].deliveryStatus == 'pending',
+                visible: orderList[index].deliveryStatus == 'pending',
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -168,35 +167,30 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                 // const HSpace(16),
                 Obx(
                   () => Visibility(
-                    visible: controller.orderList[index].deliveryStatus ==
-                            'pending' ||
-                        controller.orderList[index].deliveryStatus == 'shipped',
+                    visible: orderList[index].deliveryStatus == 'pending' ||
+                        orderList[index].deliveryStatus == 'shipped',
                     child: ButtonWidget(
                       verticalPadding: 10.h,
                       width: 125.w,
-                      text: controller.orderList[index].deliveryStatus ==
-                              'pending'
+                      text: orderList[index].deliveryStatus == 'pending'
                           ? 'Mark Shipped'
                           : "Mark Delivered",
-                      color: controller.orderList[index].deliveryStatus ==
-                              'pending'
+                      color: orderList[index].deliveryStatus == 'pending'
                           ? AppColors.primaryColor
                           : Colors.green,
                       onTap: () {
-                        if (controller.orderList[index].deliveryStatus ==
-                            'pending') {
+                        if (orderList[index].deliveryStatus == 'pending') {
                           controller.updateOrder(
-                            controller.orderList[index].id,
+                            orderList[index].id,
                             'shipped',
                             controller.trackingIdController.text,
                           );
                         }
-                        if (controller.orderList[index].deliveryStatus ==
-                            'shipped') {
+                        if (orderList[index].deliveryStatus == 'shipped') {
                           controller.updateOrder(
-                            controller.orderList[index].id,
+                            orderList[index].id,
                             'delivered',
-                            controller.orderList[index].trackingId,
+                            orderList[index].trackingId,
                           );
                         }
                       },
