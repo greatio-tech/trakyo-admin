@@ -255,6 +255,7 @@ class OrderList extends StatelessWidget {
                 SideSheet.right(
                   width: 400.w,
                   body: OrderDetailsWidget(
+                    orderList: RxList(orderList),
                     index: index,
                   ),
                   context: context,
