@@ -264,11 +264,16 @@ class QrScreen extends GetWidget<QrController> {
                                 FilterChip1(
                                   controller: controller,
                                   position: 0,
-                                  text: "Linked",
+                                  text: "All",
                                 ),
                                 FilterChip1(
                                   controller: controller,
                                   position: 1,
+                                  text: "Linked",
+                                ),
+                                FilterChip1(
+                                  controller: controller,
+                                  position: 2,
                                   text: 'Not Linked',
                                 ),
                               ],
@@ -348,8 +353,10 @@ class QrScreen extends GetWidget<QrController> {
                               QrList(
                                 controller: controller,
                                 qrList: controller.currentIndex.value == 0
-                                    ? controller.qrListLinked
-                                    : controller.qrListNotLinked,
+                                    ? controller.qrList
+                                    : controller.currentIndex.value == 1
+                                        ? controller.qrListLinked
+                                        : controller.qrListNotLinked,
                               ),
                             ],
                           ),

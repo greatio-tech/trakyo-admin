@@ -12,10 +12,15 @@ class OrderController extends GetxController {
   static OrderController get to => Get.find();
 
   RxList<OrdersModel> orderList = <OrdersModel>[].obs;
+  RxList<OrdersModel> orderPendingList = <OrdersModel>[].obs;
+  RxList<OrdersModel> orderShippedList = <OrdersModel>[].obs;
+  RxList<OrdersModel> orderDeliveredList = <OrdersModel>[].obs;
 
   TextEditingController trackingIdController = TextEditingController();
 
   RxBool getOrderLoading = false.obs;
+
+  RxInt currentIndex = 0.obs;
 
   @override
   void onInit() {
@@ -65,7 +70,18 @@ class OrderController extends GetxController {
     orderService().then((value) {
       if (value.statusCode == 201 || value.statusCode == 200) {
         orderList(orderModelFromJson(value.data).toList());
-        
+        List<OrdersModel> pendingList = orderList
+            .where((item) => item.deliveryStatus == 'pending')
+            .toList();
+        orderPendingList(pendingList);
+        List<OrdersModel> shippedList = orderList
+            .where((item) => item.deliveryStatus == 'shipped')
+            .toList();
+        orderShippedList(shippedList);
+        List<OrdersModel> deliveredList = orderList
+            .where((item) => item.deliveryStatus == 'delivered')
+            .toList();
+        orderDeliveredList(deliveredList);
       } else {
         log(ApiException(value.data['message']).toString());
       }

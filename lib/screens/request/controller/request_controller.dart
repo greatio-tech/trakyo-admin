@@ -15,14 +15,24 @@ class RequestController extends GetxController {
   }
 
   RxList<RequestModel> requestList = <RequestModel>[].obs;
+  RxList<RequestModel> requestClosedList = <RequestModel>[].obs;
+  RxList<RequestModel> requestOpenList = <RequestModel>[].obs;
+
   RxBool isGetRequestsLoading = false.obs;
   RxBool closeRequestLoading = false.obs;
+  RxInt currentIndex = 0.obs;
 
   Future getRequests() async {
     isGetRequestsLoading(true);
     return ApiServices().getMethod(ApiEndpoints.getRequests).then(
       (value) {
         requestList(requestModelFromJson(value.data));
+        List<RequestModel> closedList =
+            requestList.where((item) => item.status.value == "closed").toList();
+        requestClosedList(closedList);
+        List<RequestModel> openList =
+            requestList.where((item) => item.status.value == "open").toList();
+        requestOpenList(openList);
       },
     ).onError(
       (error, _) {
