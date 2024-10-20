@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/order/controller/order_controller.dart';
+import 'package:trakyo_admin/screens/order/model/order_model.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/status_chip_widget.dart';
@@ -17,7 +18,7 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
   });
 
   final int index;
-  final RxList orderList;
+  final List<OrdersModel> orderList;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +74,7 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                 SizedBox(
                   height: 20,
                   child: ListView.separated(
-                    separatorBuilder: (context, index) => TextWidget(
+                    separatorBuilder: (context, idx) => TextWidget(
                       text: ',  ',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
@@ -85,9 +86,7 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                       return TextWidget(
                         text: orderList[index]
                             .qrCodes[idx]
-                            .substring(OrderController
-                                    .to.orderList[index].qrCodes[idx].length -
-                                5)
+                            .substring(orderList[index].qrCodes[idx].length - 5)
                             .toUpperCase(),
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
@@ -165,39 +164,39 @@ class OrderDetailsWidget extends GetWidget<OrderController> {
                 //   onTap: () {},
                 // ),
                 // const HSpace(16),
-                Obx(
-                  () => Visibility(
-                    visible: orderList[index].deliveryStatus == 'pending' ||
-                        orderList[index].deliveryStatus == 'shipped',
-                    child: ButtonWidget(
-                      verticalPadding: 10.h,
-                      width: 125.w,
-                      text: orderList[index].deliveryStatus == 'pending'
-                          ? 'Mark Shipped'
-                          : "Mark Delivered",
-                      color: orderList[index].deliveryStatus == 'pending'
-                          ? AppColors.primaryColor
-                          : Colors.green,
-                      onTap: () {
-                        if (orderList[index].deliveryStatus == 'pending') {
-                          controller.updateOrder(
-                            orderList[index].id,
-                            'shipped',
-                            controller.trackingIdController.text,
-                          );
-                        }
-                        if (orderList[index].deliveryStatus == 'shipped') {
-                          controller.updateOrder(
-                            orderList[index].id,
-                            'delivered',
-                            orderList[index].trackingId,
-                          );
-                        }
-                      },
-                      textColor: AppColors.textWhiteColor,
-                    ),
-                  ),
-                )
+                Visibility(
+                  visible: orderList[index].deliveryStatus == 'pending' ||
+                      orderList[index].deliveryStatus == 'shipped',
+                  child: controller.getOrderLoading.isTrue
+                      ? const LoadingIndicator()
+                      : ButtonWidget(
+                          verticalPadding: 10.h,
+                          width: 125.w,
+                          text: orderList[index].deliveryStatus == 'pending'
+                              ? 'Mark Shipped'
+                              : "Mark Delivered",
+                          color: orderList[index].deliveryStatus == 'pending'
+                              ? AppColors.primaryColor
+                              : Colors.green,
+                          onTap: () {
+                            if (orderList[index].deliveryStatus == 'pending') {
+                              controller.updateOrder(
+                                orderList[index].id,
+                                'shipped',
+                                controller.trackingIdController.text,
+                              );
+                            }
+                            if (orderList[index].deliveryStatus == 'shipped') {
+                              controller.updateOrder(
+                                orderList[index].id,
+                                'delivered',
+                                orderList[index].trackingId,
+                              );
+                            }
+                          },
+                          textColor: AppColors.textWhiteColor,
+                        ),
+                ),
               ],
             ),
           ],

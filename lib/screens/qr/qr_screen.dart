@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/qr/controller/qr_controller.dart';
+import 'package:trakyo_admin/screens/qr/model/qr_model.dart';
 import 'package:trakyo_admin/screens/qr/widgets/qr_details_widget.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
 import 'package:trakyo_admin/widgets/confirm_dialog.dart';
@@ -439,7 +440,7 @@ class QrList extends StatelessWidget {
   });
 
   final QrController controller;
-  final List qrList;
+  final List<QrModel> qrList;
 
   @override
   Widget build(BuildContext context) {

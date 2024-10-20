@@ -45,6 +45,7 @@ class OrderController extends GetxController {
     updateOrderService(orderId, status, trackingId).then((value) {
       if (value.statusCode == 201 || value.statusCode == 200) {
         log(value.data.toString());
+        Get.back();
         Utils.showToast("Order updated successfully");
         getOrder();
       } else {
@@ -56,7 +57,10 @@ class OrderController extends GetxController {
         Utils.showError(error);
       },
     ).whenComplete(
-      () => getOrderLoading(false),
+      () {
+        trackingIdController.clear();
+        getOrderLoading(false);
+      },
     );
   }
 

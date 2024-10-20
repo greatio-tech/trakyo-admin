@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/request/controller/request_controller.dart';
+import 'package:trakyo_admin/screens/request/model/request_model.dart';
 import 'package:trakyo_admin/screens/request/widgets/request_slider_sheet.dart';
 import 'package:trakyo_admin/widgets/filter_chip_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
@@ -192,7 +193,7 @@ class RequestList extends StatelessWidget {
     required this.requestList,
   });
 
-  final List requestList;
+  final List<RequestModel> requestList;
 
   @override
   Widget build(BuildContext context) {
@@ -212,11 +213,13 @@ class RequestList extends StatelessWidget {
             behavior: HitTestBehavior.translucent,
             onTap: () {
               SideSheet.right(
-                  width: 400.w,
-                  context: context,
-                  body: RequestSliderSheet(
-                    currentIndex: index,
-                  ));
+                width: 400.w,
+                context: context,
+                body: RequestSliderSheet(
+                  currentIndex: index,
+                  requestList: requestList,
+                ),
+              );
             },
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),

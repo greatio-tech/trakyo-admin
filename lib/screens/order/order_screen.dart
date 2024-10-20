@@ -6,6 +6,7 @@ import 'package:side_sheet/side_sheet.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/order/Widgets/order_details_widget.dart';
 import 'package:trakyo_admin/screens/order/controller/order_controller.dart';
+import 'package:trakyo_admin/screens/order/model/order_model.dart';
 import 'package:trakyo_admin/widgets/filter_chip_widget.dart';
 import 'package:trakyo_admin/widgets/reusable_widgets.dart';
 import 'package:trakyo_admin/widgets/status_chip_widget.dart';
@@ -229,7 +230,7 @@ class OrderList extends StatelessWidget {
     required this.controller,
   });
 
-  final List orderList;
+  final List<OrdersModel> orderList;
   final OrderController controller;
 
   @override
@@ -255,7 +256,7 @@ class OrderList extends StatelessWidget {
                 SideSheet.right(
                   width: 400.w,
                   body: OrderDetailsWidget(
-                    orderList: RxList(orderList),
+                    orderList: orderList,
                     index: index,
                   ),
                   context: context,

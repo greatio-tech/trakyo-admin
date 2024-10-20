@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:trakyo_admin/screens/request/model/request_model.dart';
 import 'package:trakyo_admin/services/api_endpoints.dart';
 import 'package:trakyo_admin/services/api_service.dart';
+import 'package:trakyo_admin/utils/utils.dart';
 
 class RequestController extends GetxController {
   static RequestController get to => Get.find();
@@ -51,7 +52,10 @@ class RequestController extends GetxController {
         .putMethod("${ApiEndpoints.closeRequest}/$requestId")
         .then(
       (value) {
+        getRequests();
+        Get.back();
         closeRequestLocally(requestId);
+        Utils.showToast("Request closed successfully");
       },
     ).onError(
       (error, _) {

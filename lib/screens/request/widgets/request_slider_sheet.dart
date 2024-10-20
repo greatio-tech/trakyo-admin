@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trakyo_admin/core/constant.dart';
 import 'package:trakyo_admin/screens/request/controller/request_controller.dart';
+import 'package:trakyo_admin/screens/request/model/request_model.dart';
 import 'package:trakyo_admin/screens/user/controller/users_controller.dart';
 import 'package:trakyo_admin/utils/common_functions.dart';
 import 'package:trakyo_admin/widgets/button_widget.dart';
@@ -15,7 +16,10 @@ class RequestSliderSheet extends GetWidget<RequestController> {
   const RequestSliderSheet({
     super.key,
     required this.currentIndex,
+    required this.requestList,
   });
+
+  final List<RequestModel> requestList;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +60,7 @@ class RequestSliderSheet extends GetWidget<RequestController> {
               child: GestureDetector(
                 onTap: () {
                   UsersController.to.goToUserSlideSheet(
-                      controller.requestList[currentIndex].user!.id, context);
+                      requestList[currentIndex].user!.id, context);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -82,20 +86,16 @@ class RequestSliderSheet extends GetWidget<RequestController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextWidget(
-                            text: controller.requestList[currentIndex].user !=
-                                    null
-                                ? controller
-                                    .requestList[currentIndex].user!.name
+                            text: requestList[currentIndex].user != null
+                                ? requestList[currentIndex].user!.name
                                 : "null",
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.textBlackColor,
                           ),
                           TextWidget(
-                            text: controller.requestList[currentIndex].user !=
-                                    null
-                                ? controller
-                                    .requestList[currentIndex].user!.phoneNumber
+                            text: requestList[currentIndex].user != null
+                                ? requestList[currentIndex].user!.phoneNumber
                                 : "null",
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
@@ -122,7 +122,7 @@ class RequestSliderSheet extends GetWidget<RequestController> {
             TextFiledWidget(
               isEnable: false,
               controller: TextEditingController(
-                  text: controller.requestList[currentIndex].topic.name),
+                  text: requestList[currentIndex].topic.name),
             ),
             const VSpace(16),
             TextWidget(
@@ -133,7 +133,7 @@ class RequestSliderSheet extends GetWidget<RequestController> {
             const VSpace(8),
             TextFiledWidget(
               controller: TextEditingController(
-                  text: controller.requestList[currentIndex].description),
+                  text: requestList[currentIndex].description),
               isEnable: false,
               disableHeight: true,
               maxLines: 10,
@@ -152,8 +152,8 @@ class RequestSliderSheet extends GetWidget<RequestController> {
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () {
-                        CommonFunctions.launchUrl(controller
-                            .requestList[currentIndex].attachments[index]);
+                        CommonFunctions.launchUrl(
+                            requestList[currentIndex].attachments[index]);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -175,7 +175,7 @@ class RequestSliderSheet extends GetWidget<RequestController> {
                             const HSpace(8),
                             Flexible(
                               child: TextWidget(
-                                text: controller.requestList[currentIndex]
+                                text: requestList[currentIndex]
                                     .attachments[index]
                                     .split("/")
                                     .last,
@@ -189,8 +189,7 @@ class RequestSliderSheet extends GetWidget<RequestController> {
                   );
                 },
                 separatorBuilder: (context, index) => const VSpace(16),
-                itemCount:
-                    controller.requestList[currentIndex].attachments.length),
+                itemCount: requestList[currentIndex].attachments.length),
             const VSpace(40),
             Obx(
               () => Row(
@@ -206,26 +205,25 @@ class RequestSliderSheet extends GetWidget<RequestController> {
                     textColor: AppColors.primaryColor,
                     onTap: () {
                       UsersController.to.sendMail(
-                          email:
-                              controller.requestList[currentIndex].user!.email);
+                          email: requestList[currentIndex].user!.email);
                     },
                   ),
                   const HSpace(16),
-                  if (controller.requestList[currentIndex].status.value ==
-                      "open")
-                    ButtonWidget(
-                      text: "Resolved",
-                      height: 40.h,
-                      width: 152.w,
-                      color: AppColors.primaryColor,
-                      textColor: AppColors.textWhiteColor,
-                      horizontalPadding: 0,
-                      verticalPadding: 3,
-                      isLoading: controller.closeRequestLoading.value,
-                      onTap: () {
-                        controller.closeRequest(
-                            controller.requestList[currentIndex].id);
-                      },
+                  if (requestList[currentIndex].status.value == "open")
+                    Obx(
+                      () => ButtonWidget(
+                        text: "Resolved",
+                        height: 40.h,
+                        width: 152.w,
+                        color: AppColors.primaryColor,
+                        textColor: AppColors.textWhiteColor,
+                        horizontalPadding: 0,
+                        verticalPadding: 3,
+                        isLoading: controller.closeRequestLoading.value,
+                        onTap: () {
+                          controller.closeRequest(requestList[currentIndex].id);
+                        },
+                      ),
                     ),
                 ],
               ),
